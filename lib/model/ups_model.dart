@@ -1,10 +1,16 @@
 import 'basic_prop_register.dart';
 
+import 'package:uuid/uuid.dart';
+
 class Ups extends BasicPropRegister {
   String _idUps;
 
+  Uuid _randomId = Uuid();
+
   Ups(String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle);
+      : super(numInv, marca, modelo, tipo, detalle){
+    this._idUps = _randomId.v1().toString().substring(24, 36);
+  }
 
   String get idUps => _idUps;
 

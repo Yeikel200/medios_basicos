@@ -1,10 +1,15 @@
+import 'package:uuid/uuid.dart';
+
 import 'basic_prop_register.dart';
 
 class Ram extends BasicPropRegister {
   String _idRam;
+  Uuid _randomId = Uuid();
 
-  Ram(this._idRam, String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle);
+  Ram( String numInv, String marca, String modelo, String tipo, String detalle)
+      : super(numInv, marca, modelo, tipo, detalle){
+    this._idRam = _randomId.v1().toString().substring(24, 36);
+  }
 
   String get idRam => _idRam;
 

@@ -1,10 +1,15 @@
 import 'basic_prop_register.dart';
+import 'package:uuid/uuid.dart';
 
 class Monitor extends BasicPropRegister {
   String _idMonitor;
 
-  Monitor(this._idMonitor, String numInv, String marca, String modelo, String tipo, String detalle) :
-        super(numInv, marca, modelo, tipo, detalle);
+  Uuid _randomId = new Uuid();
+
+  Monitor (String numInv, String marca, String modelo, String tipo, String detalle)
+      :  super(numInv, marca, modelo, tipo, detalle){
+    this._idMonitor = _randomId.v1().toString().substring(24, 36);
+  }
 
   String get idMonitor => _idMonitor;
 

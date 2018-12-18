@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import 'monitor_model.dart';
 import 'teclado_model.dart';
 import 'bocina_model.dart';
@@ -9,6 +11,8 @@ import 'unidad_central_model.dart';
 
 class Estacion {
   String _idEstacion;
+  Uuid _randomId = Uuid();
+
   UnidadCentral _unidadCentral;
   Monitor _monitor;
   Teclado _teclado;
@@ -18,27 +22,47 @@ class Estacion {
   Scanner _scanner;
   Impresora _impresora;
 
-  Estacion(this._idEstacion, this._unidadCentral, this._monitor, this._teclado,
-      this._bocina, this._mouse);
+  Estacion(this._unidadCentral, this._monitor, this._teclado, this._bocina,
+      this._mouse) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
 
   Estacion.Ups(this._idEstacion, this._unidadCentral, this._monitor,
-      this._teclado, this._bocina, this._mouse, this._ups);
+      this._teclado, this._bocina, this._mouse, this._ups) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
 
-  Estacion.Impresora(this._idEstacion, this._unidadCentral, this._monitor,
-      this._teclado, this._bocina, this._mouse, this._impresora);
+  Estacion.Impresora(this._unidadCentral, this._monitor, this._teclado,
+      this._bocina, this._mouse, this._impresora) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
 
-  Estacion.Scanner(this._idEstacion, this._unidadCentral, this._monitor,
-      this._teclado, this._bocina, this._mouse, this._scanner);
+  Estacion.Scanner(this._unidadCentral, this._monitor, this._teclado,
+      this._bocina, this._mouse, this._scanner) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
 
-  Estacion.UpsImpresora(this._idEstacion, this._unidadCentral, this._monitor,
-      this._teclado, this._bocina, this._mouse, this._ups, this._impresora);
+  Estacion.UpsImpresora(this._unidadCentral, this._monitor, this._teclado,
+      this._bocina, this._mouse, this._ups, this._impresora) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
 
-  Estacion.ImpresoraScanner(this._idEstacion, this._unidadCentral,this._monitor,
-      this._teclado, this._bocina, this._mouse, this._scanner, this._impresora);
+  Estacion.ImpresoraScanner(this._unidadCentral, this._monitor, this._teclado,
+      this._bocina, this._mouse, this._scanner, this._impresora) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
 
-  Estacion.UpsImpresoraScanner(this._idEstacion, this._unidadCentral,
-      this._monitor, this._teclado, this._bocina, this._mouse, this._ups,
-      this._scanner, this._impresora);
+  Estacion.UpsImpresoraScanner(
+      this._unidadCentral,
+      this._monitor,
+      this._teclado,
+      this._bocina,
+      this._mouse,
+      this._ups,
+      this._scanner,
+      this._impresora) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
 
   Impresora get impresora => _impresora;
 
@@ -108,6 +132,4 @@ class Estacion {
          _impresora: $_impresora
      }''';
   }
-
-
 }

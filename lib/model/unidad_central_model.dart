@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import 'motherboard_model.dart';
 import 'hdd_model.dart';
 import 'ram_model.dart';
@@ -7,6 +9,8 @@ import 'dvd_rw_model.dart';
 
 class UnidadCentral  {
   String _idUCentral;
+  Uuid _randomId = Uuid();
+
   String _numInv;
   String _sello;
   String _area;
@@ -17,13 +21,17 @@ class UnidadCentral  {
   Hdd _hdd;
   DvdRw _dvdRw;
 
+  UnidadCentral( this._numInv, this._sello, this._area,
+      this._encargado, this._motherboard, this._ram, this._hdd, this._dvdRw){
+    this._idUCentral = _randomId.v1().toString().substring(24, 36);
 
+  }
 
-  UnidadCentral(this._idUCentral, this._numInv, this._sello, this._area,
-      this._encargado, this._motherboard, this._ram, this._hdd, this._dvdRw);
+  UnidadCentral.cliente(this._numInv, this._sello, this._area,
+      this._encargado, this._motherboard, this._ram, this._hdd){
+    this._idUCentral = _randomId.v1().toString().substring(24, 36);
 
-  UnidadCentral.cliente(this._idUCentral, this._numInv, this._sello, this._area,
-      this._encargado, this._motherboard, this._ram, this._hdd);
+  }
 
   DvdRw get dvdRw => _dvdRw;
 

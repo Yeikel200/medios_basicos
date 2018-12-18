@@ -1,10 +1,16 @@
+import 'package:uuid/uuid.dart';
+
 import 'basic_prop_register.dart';
 
 class Bocina extends BasicPropRegister {
   String _idBocina;
+  Uuid _randomId = Uuid();
 
-  Bocina(this._idBocina, String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle);
+  Bocina( String numInv, String marca, String modelo, String tipo, String detalle)
+      : super(numInv, marca, modelo, tipo, detalle){
+    this._idBocina = _randomId.v1().toString().substring(24, 36);
+
+  }
 
   String get idBocina => _idBocina;
 

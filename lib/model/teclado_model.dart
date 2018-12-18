@@ -1,10 +1,16 @@
+import 'package:uuid/uuid.dart';
+
 import 'basic_prop_register.dart';
 
 class Teclado extends BasicPropRegister {
   String _idTeclado;
+  Uuid _randomId = new Uuid();
 
-  Teclado(this._idTeclado, String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle);
+  Teclado( String numInv, String marca, String modelo, String tipo, String detalle)
+      : super(numInv, marca, modelo, tipo, detalle){
+
+    this._idTeclado = _randomId.v1().toString().substring(24, 36);
+  }
 
   String get idTeclado => _idTeclado;
 

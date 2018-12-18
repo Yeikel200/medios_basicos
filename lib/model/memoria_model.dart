@@ -1,10 +1,16 @@
+import 'package:uuid/uuid.dart';
+
 import 'basic_prop_register.dart';
 
 class Memoria extends BasicPropRegister {
   String _idMemoria, _encargadoMemoria;
+  Uuid _randomId = Uuid();
 
-  Memoria(this._idMemoria, String numInv, String marca, String modelo, String tipo, String detalle, this._encargadoMemoria)
-      : super(numInv, marca, modelo, tipo, detalle);
+  Memoria( String numInv, String marca, String modelo, String tipo, String detalle, this._encargadoMemoria)
+      : super(numInv, marca, modelo, tipo, detalle){
+    this._idMemoria = _randomId.v1().toString().substring(24, 36);
+
+  }
 
   get encargadoMemoria => _encargadoMemoria;
 

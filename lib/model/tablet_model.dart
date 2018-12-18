@@ -1,10 +1,15 @@
+import 'package:uuid/uuid.dart';
+
 import 'basic_prop_register.dart';
 
 class Tablet extends BasicPropRegister {
   String _idTablet, _encargado;
+  Uuid _randomId = new Uuid();
 
-  Tablet(this._idTablet, String numInv, String marca, String modelo, String tipo, String detalle, this._encargado)
-      : super(numInv, marca, modelo, tipo, detalle);
+  Tablet(String numInv, String marca, String modelo, String tipo, String detalle, this._encargado)
+      : super(numInv, marca, modelo, tipo, detalle){
+    this._idTablet = _randomId.v1().toString().substring(24, 36);
+  }
 
   get encargado => _encargado;
 

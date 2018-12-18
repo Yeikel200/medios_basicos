@@ -3,11 +3,13 @@ import 'package:uuid/uuid.dart';
 
 class Hdd extends BasicPropRegister {
   String _idHdd;
-  Uuid random;
+  Uuid _randomId = Uuid();
 
+  Hdd( String numInv, String marca, String modelo, String tipo, String detalle)
+      : super(numInv, marca, modelo, tipo, detalle){
+    this._idHdd = _randomId.v1().toString().substring(24, 36);
 
-  Hdd(this._idHdd, String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle);
+  }
 
   String get idHdd => _idHdd;
 
