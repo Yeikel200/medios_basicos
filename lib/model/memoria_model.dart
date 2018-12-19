@@ -6,8 +6,8 @@ class Memoria extends BasicPropRegister {
   String _idMemoria, _encargadoMemoria;
   Uuid _randomId = Uuid();
 
-  Memoria( String numInv, String marca, String modelo, String tipo, String detalle, this._encargadoMemoria)
-      : super(numInv, marca, modelo, tipo, detalle){
+  Memoria( String numInv, String marca, String modelo, String tipo, String detalle, this._encargadoMemoria, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, fecha){
     this._idMemoria = _randomId.v1().toString().substring(24, 36);
 
   }
@@ -26,7 +26,7 @@ class Memoria extends BasicPropRegister {
 
   @override
   String toString() {
-    return 'Memoria{_idMemoria: $_idMemoria, _encargadoMemoria: $_encargadoMemoria, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle}';
+    return 'Memoria{_idMemoria: $_idMemoria, _encargadoMemoria: $_encargadoMemoria, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
   }
 
 

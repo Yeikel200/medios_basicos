@@ -1,7 +1,10 @@
+ const String CONST_ESTACION = "Estación";
  const String CONST_UNIDAD_CENTRAL = "Unidad Central";
  const String CONST_MOTHERBOARD = "Motherboar";
+ const String CONST_CPU = "CPU";
  const String CONST_RAM = "RAM";
  const String CONST_HDD = "HDD";
+ const String CONST_DVD_RW = "DVD-RW";
  const String CONST_MONITOR = "Monitor";
  const String CONST_TECLADO = "Teclado";
  const String CONST_BOCINA = "Bocinas";

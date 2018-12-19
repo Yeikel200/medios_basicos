@@ -149,7 +149,8 @@ class _HomeState extends State<Home> {
                                               'Satellite',
                                               'Moderna',
                                               '17 pulgadas',
-                                              'Yeikel Uriarte')
+                                              'Yeikel Uriarte',
+                                              "fecha")
                                       ),
                                     )));
                       },

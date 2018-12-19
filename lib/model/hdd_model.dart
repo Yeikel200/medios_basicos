@@ -5,8 +5,8 @@ class Hdd extends BasicPropRegister {
   String _idHdd;
   Uuid _randomId = Uuid();
 
-  Hdd( String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle){
+  Hdd( String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, fecha){
     this._idHdd = _randomId.v1().toString().substring(24, 36);
 
   }
@@ -19,7 +19,7 @@ class Hdd extends BasicPropRegister {
 
   @override
   String toString() {
-    return 'Hdd{_idHdd: $_idHdd,_numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle}';
+    return 'Hdd{_idHdd: $_idHdd,_numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
   }
 
 

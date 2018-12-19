@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:medios_basicos/constants.dart';
+import 'package:medios_basicos/model/cpu_model.dart';
 
 import 'package:medios_basicos/model/estacion_model.dart';
+import 'package:medios_basicos/model/laptop_model.dart';
+import 'package:medios_basicos/model/memoria_model.dart';
 import 'package:medios_basicos/model/monitor_model.dart';
+import 'package:medios_basicos/model/tablet_model.dart';
 import 'package:medios_basicos/model/teclado_model.dart';
 import 'package:medios_basicos/model/bocina_model.dart';
 import 'package:medios_basicos/model/mouse_model.dart';
@@ -39,27 +43,31 @@ class _StepperFormState extends State<StepperForm> {
 
   List<Step> listSteps = List();
 
+  /// Foromulario  ESTACION
+  final formKeyEstacion = new GlobalKey<FormState>();
+  String _nombreUnidadCentral;
+
+  final TextEditingController controllerNombreEstacion =
+  new TextEditingController();
+
   /// Foromulario  UNIDAD CENTRAL
   final formKeyUnidadCentral = new GlobalKey<FormState>();
-  String _nombreUnidadCentral,
-      _numInvUnidadCentral,
-      _numSelloUnidadCentral,
+  String _numInvUnidadCentral,
+      _selloUnidadCentral,
       _areaUnidadCentral,
       _encargadoUnidadCentral,
       _fechaUnidadCentral;
 
-  final TextEditingController controllerNombreUnidadCentral =
-      new TextEditingController();
   final TextEditingController controllerNumInventarioUnidadCentral =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerSelloUnidadCentral =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerAreaUnidadCentral =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerEncargadoUnidadCentral =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaUnidadCentral =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  MOTHERBOARD
   final formKeyMotherboard = new GlobalKey<FormState>();
@@ -68,35 +76,47 @@ class _StepperFormState extends State<StepperForm> {
       _modeloMotherboard,
       _tipoMotherboard,
       _detallesMotherboard,
-      _encargadoMotherboard,
       _fechaMotherboard;
 
   final TextEditingController controllerNumInventarioMotherboard =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaMotherboard =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloMotherboard =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoMotherboard =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesMotherboard =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerEncargadoMotherboard =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaMotherboard =
-      new TextEditingController();
+  new TextEditingController();
+
+  /// Foromulario  CPU
+  final formKeyCpu = new GlobalKey<FormState>();
+  String _numInvCpu, _marcaCpu, _modeloCpu, _tipoCpu, _detallesCpu, _fechaCpu;
+
+  final TextEditingController controllerNumInventarioCpu =
+  new TextEditingController();
+  final TextEditingController controllerMarcaCpu = new TextEditingController();
+  final TextEditingController controllerModeloCpu = new TextEditingController();
+  final TextEditingController controllerTipoCpu = new TextEditingController();
+  final TextEditingController controllerDetallesCpu =
+  new TextEditingController();
+  final TextEditingController controllerFechaCpu = new TextEditingController();
 
   /// Foromulario  RAM
   final formKeyRam = new GlobalKey<FormState>();
   String _numInvRam, _marcaRam, _modeloRam, _tipoRam, _detallesRam, _fechaRam;
 
   final TextEditingController controllerNumInventarioRam =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaRam = new TextEditingController();
   final TextEditingController controllerModeloRam = new TextEditingController();
   final TextEditingController controllerTipoRam = new TextEditingController();
   final TextEditingController controllerDetallesRam =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaRam = new TextEditingController();
 
   /// Foromulario  HDD
@@ -104,13 +124,34 @@ class _StepperFormState extends State<StepperForm> {
   String _numInvHdd, _marcaHdd, _modeloHdd, _tipoHdd, _detallesHdd, _fechaHdd;
 
   final TextEditingController controllerNumInventarioHdd =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaHdd = new TextEditingController();
   final TextEditingController controllerModeloHdd = new TextEditingController();
   final TextEditingController controllerTipoHdd = new TextEditingController();
   final TextEditingController controllerDetallesHdd =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaHdd = new TextEditingController();
+
+  /// Foromulario  DVD-RW
+  final formKeyDvdRw = new GlobalKey<FormState>();
+  String _numInvDvdRw,
+      _marcaDvdRw,
+      _modeloDvdRw,
+      _tipoDvdRw,
+      _detallesDvdRw,
+      _fechaDvdRw;
+
+  final TextEditingController controllerNumInventarioDvdRw =
+  new TextEditingController();
+  final TextEditingController controllerMarcaDvdRw =
+  new TextEditingController();
+  final TextEditingController controllerModeloDvdRw =
+  new TextEditingController();
+  final TextEditingController controllerTipoDvdRw = new TextEditingController();
+  final TextEditingController controllerDetallesDvdRw =
+  new TextEditingController();
+  final TextEditingController controllerFechaDvdRw =
+  new TextEditingController();
 
   /// Foromulario  MONITOR
   final formKeyMonitor = new GlobalKey<FormState>();
@@ -122,17 +163,17 @@ class _StepperFormState extends State<StepperForm> {
       _fechaMonitor;
 
   final TextEditingController controllerNumInventarioMonitor =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaMonitor =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloMonitor =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoMonitor =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesMonitor =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaMonitor =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  TECLADO
   final formKeyTeclado = new GlobalKey<FormState>();
@@ -144,17 +185,17 @@ class _StepperFormState extends State<StepperForm> {
       _fechaTeclado;
 
   final TextEditingController controllerNumInventarioTeclado =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaTeclado =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloTeclado =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoTeclado =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesTeclado =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaTeclado =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  BOCINA
   final formKeyBocina = new GlobalKey<FormState>();
@@ -166,17 +207,17 @@ class _StepperFormState extends State<StepperForm> {
       _fechaBocina;
 
   final TextEditingController controllerNumInventarioBocina =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaBocina =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloBocina =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoBocina =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesBocina =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaBocina =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  MOUSE
   final formKeyMouse = new GlobalKey<FormState>();
@@ -188,28 +229,28 @@ class _StepperFormState extends State<StepperForm> {
       _fechaMouse;
 
   final TextEditingController controllerNumInventarioMouse =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaMouse =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloMouse =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoMouse = new TextEditingController();
   final TextEditingController controllerDetallesMouse =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaMouse =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  UPS
   final formKeyUps = new GlobalKey<FormState>();
   String _numInvUps, _marcaUps, _modeloUps, _tipoUps, _detallesUps, _fechaUps;
 
   final TextEditingController controllerNumInventarioUps =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaUps = new TextEditingController();
   final TextEditingController controllerModeloUps = new TextEditingController();
   final TextEditingController controllerTipoUps = new TextEditingController();
   final TextEditingController controllerDetallesUps =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaUps = new TextEditingController();
 
   /// Foromulario  SCANNER
@@ -222,17 +263,17 @@ class _StepperFormState extends State<StepperForm> {
       _fechaScanner;
 
   final TextEditingController controllerNumInventarioScanner =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaScanner =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloScanner =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoScanner =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesScanner =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaScanner =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  IMPRESORA
   final formKeyImpresora = new GlobalKey<FormState>();
@@ -244,17 +285,17 @@ class _StepperFormState extends State<StepperForm> {
       _fechaImpresora;
 
   final TextEditingController controllerNumInventarioImpresora =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaImpresora =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloImpresora =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoImpresora =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesImpresora =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaImpresora =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  TABLET
   final formKeyTablet = new GlobalKey<FormState>();
@@ -267,19 +308,19 @@ class _StepperFormState extends State<StepperForm> {
       _fechaTablet;
 
   final TextEditingController controllerNumInventarioTablet =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaTablet =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloTablet =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoTablet =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesTablet =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerEncargadoTablet =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaTablet =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  LAPTOP
   final formKeyLaptop = new GlobalKey<FormState>();
@@ -292,19 +333,19 @@ class _StepperFormState extends State<StepperForm> {
       _fechaLaptop;
 
   final TextEditingController controllerNumInventarioLaptop =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaLaptop =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloLaptop =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoLaptop =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesLaptop =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerEncargadoLaptop =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaLaptop =
-      new TextEditingController();
+  new TextEditingController();
 
   /// Foromulario  MEMORIA
   final formKeyMemoria = new GlobalKey<FormState>();
@@ -317,25 +358,27 @@ class _StepperFormState extends State<StepperForm> {
       _fechaMemoria;
 
   final TextEditingController controllerNumInventarioMemoria =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerMarcaMemoria =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerModeloMemoria =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerTipoMemoria =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerDetallesMemoria =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerEncargadoMemoria =
-      new TextEditingController();
+  new TextEditingController();
   final TextEditingController controllerFechaMemoria =
-      new TextEditingController();
+  new TextEditingController();
 
   Estacion _estacion;
   UnidadCentral _unidadCentral;
   Motherboard _motherboard;
+  Cpu _cpu;
   Ram _ram;
   Hdd _hdd;
+  DvdRw _dvdRw;
 
   Monitor _monitor;
   Teclado _teclado;
@@ -345,6 +388,28 @@ class _StepperFormState extends State<StepperForm> {
   Scanner _scanner;
   Impresora _impresora;
 
+  Tablet _tablet;
+  Laptop _laptop;
+  Memoria _memoria;
+
+  bool createUc = false;
+  bool createEstacion = false;
+  bool createMotherboard = false;
+  bool createCpu = false;
+  bool createRam = false;
+  bool createHdd = false;
+  bool createDvdRw = false;
+  bool createMonitor = false;
+  bool createTeclado = false;
+  bool createBocina = false;
+  bool createMouse = false;
+  bool createUps = false;
+  bool createScanner = false;
+  bool createImpresora = false;
+  bool createTablet = false;
+  bool createLaptop = false;
+  bool createMemoria = false;
+
   @override
   void initState() {
     super.initState();
@@ -353,6 +418,7 @@ class _StepperFormState extends State<StepperForm> {
 
     _fechaUnidadCentral = _dateFormat.format(_dateTime);
     _fechaMotherboard = _dateFormat.format(_dateTime);
+    _fechaCpu = _dateFormat.format(_dateTime);
     _fechaRam = _dateFormat.format(_dateTime);
     _fechaHdd = _dateFormat.format(_dateTime);
     _fechaMonitor = _dateFormat.format(_dateTime);
@@ -363,7 +429,6 @@ class _StepperFormState extends State<StepperForm> {
     _fechaImpresora = _dateFormat.format(_dateTime);
     _fechaTablet = _dateFormat.format(_dateTime);
     _fechaLaptop = _dateFormat.format(_dateTime);
-
   }
 
   @override
@@ -387,9 +452,96 @@ class _StepperFormState extends State<StepperForm> {
                 //Aqui implementamos la accion de guardar los datos recogidos en los formularios
                 print('Fin del la lista. Este es el ultimo elemento');
 
-                buildListSteps.forEach((value) {
-                 // _buildObjectForDB(value);
-                });
+                /// Reglas para guardar los formularios en DB
+
+                //Creando Tablet Laptop Memoria
+                if (createTablet) {
+                  _tablet = Tablet(
+                      _numInvTablet,
+                      _marcaTablet,
+                      _modeloTablet,
+                      _tipoTablet,
+                      _detallesTablet,
+                      _encargadoTablet,
+                      _fechaTablet);
+                  // Guardar en la base de datos
+                  print(_tablet);
+
+                }
+                if (createLaptop) {
+                  _laptop = Laptop(
+                      _numInvLaptop,
+                      _marcaLaptop,
+                      _modeloLaptop,
+                      _tipoLaptop,
+                      _detallesLaptop,
+                      _encargadoLaptop,
+                      _fechaLaptop);
+                  // Guardar en la base de datos
+                  print(_laptop);
+
+                }
+                if (createMemoria) {
+                  _memoria = Memoria(
+                      _numInvMemoria,
+                      _marcaMemoria,
+                      _modeloMemoria,
+                      _tipoMemoria,
+                      _detallesMemoria,
+                      _encargadoMemoria,
+                      _fechaMemoria);
+                  // Guardar en la base de datos
+                  print(_memoria);
+                }
+
+                // Creando la Unidad Central:
+                if (createUc && createMotherboard && createCpu && createRam &&
+                    createHdd) {
+                  buildMotherboardCpuRam();
+
+                  buildHdd();
+
+                  buildDvdRw();
+
+                  _unidadCentral = createDvdRw
+                      ? UnidadCentral(
+                      _numInvUnidadCentral,
+                      _selloUnidadCentral,
+                      _areaUnidadCentral,
+                      _encargadoUnidadCentral,
+                      _motherboard.idMotherboard,
+                      _cpu.idCpu,
+                      _ram.idRam,
+                      _hdd.idHdd,
+                      _dvdRw.idDvdRw,
+                      _fechaUnidadCentral)
+                      : UnidadCentral.ClienteLigero(
+                      _numInvUnidadCentral,
+                      _selloUnidadCentral,
+                      _areaUnidadCentral,
+                      _encargadoUnidadCentral,
+                      _motherboard.idMotherboard,
+                      _cpu.idCpu,
+                      _ram.idRam,
+                      _hdd.idHdd,
+                      _fechaUnidadCentral);
+                }
+
+                buildMonitor();
+
+                buildTeclado();
+
+                buildBocina();
+
+                buildMouse();
+
+                buildUps();
+
+                buildScanner();
+
+                buildImpresora();
+
+
               }
             });
           },
@@ -405,13 +557,94 @@ class _StepperFormState extends State<StepperForm> {
     );
   }
 
+  void buildDvdRw() {
+    _dvdRw = DvdRw(_numInvDvdRw, _marcaDvdRw, _modeloDvdRw,
+        _tipoDvdRw, _detallesDvdRw, _fechaDvdRw);
+  }
 
+  void buildHdd() {
+    _hdd = Hdd(_numInvHdd, _marcaHdd, _modeloHdd, _tipoHdd,
+        _detallesHdd, _fechaHdd);
+  }
+
+  void buildMotherboardCpuRam() {
+    _motherboard = Motherboard(
+        _numInvMotherboard,
+        _marcaMotherboard,
+        _modeloMotherboard,
+        _tipoMotherboard,
+        _detallesMotherboard,
+        _fechaMotherboard);
+
+    _cpu = Cpu(
+        _numInvCpu, _marcaCpu, _modeloCpu, _tipoCpu, _detallesCpu, _fechaCpu);
+
+    _ram = Ram(_numInvRam, _marcaRam, _modeloRam, _tipoRam,
+        _detallesRam, _fechaRam);
+  }
+
+  void buildImpresora() {
+    if (createImpresora) {
+      _impresora = Impresora(
+          _numInvImpresora, _marcaImpresora, _modeloImpresora, _tipoImpresora,
+          _detallesImpresora, _fechaImpresora);
+    }
+  }
+
+  void buildScanner() {
+    if (createScanner) {
+      _scanner = Scanner(
+          _numInvScanner, _marcaScanner, _modeloScanner, _tipoScanner,
+          _detallesScanner, _fechaScanner);
+    }
+  }
+
+  void buildUps() {
+    if (createUps) {
+      _ups = Ups(
+          _numInvUps, _marcaUps, _modeloUps, _tipoUps, _detallesUps, _fechaUps);
+    }
+  }
+
+  void buildMouse() {
+    if (createMouse) {
+      _mouse = Mouse(
+          _numInvMouse, _marcaMouse, _modeloMouse, _tipoMouse, _detallesMouse,
+          _fechaMouse);
+    }
+  }
+
+  void buildBocina() {
+    if (createBocina) {
+      _bocina = Bocina(_numInvBocina, _marcaBocina, _modeloBocina, _tipoBocina,
+          _detallesBocina, _fechaBocina);
+    }
+  }
+
+  void buildTeclado() {
+    if (createTeclado) {
+      _teclado = Teclado(
+          _numInvTeclado, _marcaTeclado, _modeloTeclado, _tipoTeclado,
+          _detallesTeclado, _fechaTeclado);
+    }
+  }
+
+  void buildMonitor() {
+    if (createMonitor) {
+      _monitor = Monitor(
+          _numInvMonitor, _marcaMonitor, _modeloMonitor, _tipoMonitor,
+          _detallesMonitor, _fechaMonitor);
+    }
+  }
 
   void _debugValidatorFrom(String caseValite) {
+    var formEstacion = formKeyEstacion.currentState;
     var formUc = formKeyUnidadCentral.currentState;
     var formMotherboard = formKeyMotherboard.currentState;
+    var formCpu = formKeyRam.currentState;
     var formRam = formKeyRam.currentState;
     var formHdd = formKeyHdd.currentState;
+    var formDvdRw = formKeyDvdRw.currentState;
     var formMonitor = formKeyMonitor.currentState;
     var formTeclado = formKeyTeclado.currentState;
     var formBocina = formKeyBocina.currentState;
@@ -428,252 +661,125 @@ class _StepperFormState extends State<StepperForm> {
     int size = buildListSteps.length;
 
     switch (caseValite) {
+      case CONST_ESTACION:
+        if (formEstacion.validate()) {
+          formEstacion.save();
+          createEstacion = true;
+          _currentStep = _currentStep + 1;
+        }
+        break;
       case CONST_UNIDAD_CENTRAL:
         if (formUc.validate()) {
           formUc.save();
-
-          //_unidadCentral = UnidadCentral.cliente(_idUCentral, _numInv, _sello, _area, _responsable, _motherboard, _ram, _hdd)
+          createUc = true;
           _currentStep = _currentStep + 1;
         }
         break;
       case CONST_MOTHERBOARD:
         if (formMotherboard.validate()) {
-          formMotherboard.save();
-          printForm(
-              _numInvMotherboard,
-              _marcaMotherboard,
-              _modeloMotherboard,
-              _tipoMotherboard,
-              _detallesMotherboard,
-              "encargado",
-              _fechaMotherboard);
+          createMotherboard = true;
+          _currentStep = _currentStep + 1;
+        }
+        break;
+      case CONST_CPU:
+        if (formCpu.validate()) {
+          formCpu.save();
+          createRam = true;
           _currentStep = _currentStep + 1;
         }
         break;
       case CONST_RAM:
         if (formRam.validate()) {
           formRam.save();
-
+          createRam = true;
           _currentStep = _currentStep + 1;
         }
         break;
       case CONST_HDD:
         if (formHdd.validate()) {
           formHdd.save();
-          printForm(
-              _numInvHdd,
-              _marcaHdd,
-              _modeloHdd,
-              _tipoHdd,
-              _detallesHdd,
-              "encargado",
-              _fechaHdd);
+          createHdd = true;
+          _currentStep = _currentStep + 1;
+        }
+        break;
+      case CONST_DVD_RW:
+        if (formDvdRw.validate()) {
+          formDvdRw.save();
+          createDvdRw = true;
           _currentStep = _currentStep + 1;
         }
         break;
       case CONST_MONITOR:
         if (formMonitor.validate()) {
           formMonitor.save();
-          printForm(
-              _numInvMonitor,
-              _marcaMonitor,
-              _modeloMonitor,
-              _tipoMonitor,
-              _detallesMonitor,
-              "encargado",
-              _fechaMonitor);
+          createMonitor = true;
           _currentStep = _currentStep + 1;
         }
         break;
       case CONST_TECLADO:
         if (formTeclado.validate()) {
           formTeclado.save();
-          printForm(
-              _numInvTeclado,
-              _marcaTeclado,
-              _modeloTeclado,
-              _tipoTeclado,
-              _detallesTeclado,
-              "encargado",
-              _fechaTeclado);
+          createTeclado = true;
           _currentStep = _currentStep + 1;
         }
         break;
       case CONST_BOCINA:
         if (formBocina.validate()) {
           formBocina.save();
-          printForm(
-              _numInvBocina,
-              _marcaBocina,
-              _modeloBocina,
-              _tipoBocina,
-              _detallesBocina,
-              "encargado",
-              _fechaBocina);
+          createBocina = true;
           _currentStep = _currentStep + 1;
         }
         break;
-        case CONST_MOUSE:
-          if (formMouse.validate()) {
-            formMouse.save();
-            printForm(
-                _numInvMouse,
-                _marcaMouse,
-                _modeloMouse,
-                _tipoMouse,
-                _detallesMouse,
-                "encargado",
-                _fechaMouse);
-            _currentStep = _currentStep + 1;
-          }
+      case CONST_MOUSE:
+        if (formMouse.validate()) {
+          formMouse.save();
+          createMouse = true;
+          _currentStep = _currentStep + 1;
+        }
         break;
       case CONST_UPS:
         if (formUps.validate()) {
           formUps.save();
-          printForm(
-              _numInvUps,
-              _marcaUps,
-              _modeloUps,
-              _tipoUps,
-              _detallesUps,
-              "encargado",
-              _fechaUps);
+          createUps = true;
           _currentStep = _currentStep + 1;
         }
         break;
-        case CONST_SCANNER:
-          if (formScanner.validate()) {
-            formScanner.save();
-            printForm(
-                _numInvScanner,
-                _marcaScanner,
-                _modeloScanner,
-                _tipoScanner,
-                _detallesScanner,
-                "encargado",
-                _fechaScanner);
-            _currentStep = _currentStep + 1;
-          }
+      case CONST_SCANNER:
+        if (formScanner.validate()) {
+          formScanner.save();
+          createScanner = true;
+          _currentStep = _currentStep + 1;
+        }
         break;
       case CONST_IMPRESORA:
         if (formImpresora.validate()) {
           formImpresora.save();
-          printForm(
-              _numInvImpresora,
-              _marcaImpresora,
-              _modeloImpresora,
-              _tipoImpresora,
-              _detallesImpresora,
-              "encargado",
-              _fechaImpresora);
+          createImpresora = true;
           _currentStep = _currentStep + 1;
         }
         break;
-        case CONST_TABLET:
-          if (formTablet.validate()) {
-            formTablet.save();
-            printForm(
-                _numInvTablet,
-                _marcaTablet,
-                _modeloTablet,
-                _tipoTablet,
-                _detallesTablet,
-                "encargado",
-                _fechaTablet);
-            _currentStep = _currentStep + 1;
-          }
+      case CONST_TABLET:
+        if (formTablet.validate()) {
+          formTablet.save();
+          createTablet = true;
+          _currentStep = _currentStep + 1;
+        }
         break;
-        case CONST_LAPTOP:
-          if (formLaptop.validate()) {
-            formLaptop.save();
-            printForm(
-                _numInvLaptop,
-                _marcaLaptop,
-                _modeloLaptop,
-                _tipoLaptop,
-                _detallesLaptop,
-                "encargado",
-                _fechaLaptop);
-            _currentStep = _currentStep + 1;
-          }
+      case CONST_LAPTOP:
+        if (formLaptop.validate()) {
+          formLaptop.save();
+          createLaptop = true;
+          _currentStep = _currentStep + 1;
+        }
         break;
       case CONST_MEMORIAS_USB_SD:
         if (formMemoria.validate()) {
           formMemoria.save();
-          printForm(
-              _numInvMemoria,
-              _marcaMemoria,
-              _modeloMemoria,
-              _tipoMemoria,
-              _detallesMemoria,
-              "encargado",
-              _fechaMemoria);
+          createMemoria = true;
           _currentStep = _currentStep + 1;
         }
         break;
-
     }
-  }
-
-  /*Object _buildObjectForDB(String value){
-    switch (value) {
-      case CONST_UNIDAD_CENTRAL:
-        return _unidadCentral = UnidadCentral.cliente("id pendiente", _numInvUnidadCentral, _numSelloUnidadCentral, _areaUnidadCentral, _encargadoUnidadCentral, _motherboard, _ram, _hdd);
-        break;
-      case CONST_MOTHERBOARD:
-
-        break;
-      case CONST_RAM:
-
-        break;
-      case CONST_HDD:
-
-        break;
-      case CONST_MONITOR:
-
-        break;
-      case CONST_TECLADO:
-
-        break;
-      case CONST_BOCINA:
-
-        break;
-      case CONST_MOUSE:
-
-        break;
-      case CONST_UPS:
-
-        break;
-      case CONST_SCANNER:
-
-        break;
-      case CONST_IMPRESORA:
-
-        break;
-      case CONST_TABLET:
-
-        break;
-      case CONST_LAPTOP:
-
-        break;
-      case CONST_MEMORIAS_USB_SD:
-
-
-        break;
-    }*/
-
-  void printForm(
-      String _numInv, _marca, _modelo, _tipo, _detalles, _encargado, _fecha) {
-    print('''
-           Valores de los campos
-         $_numInv
-         $_marca -
-         $_modelo -
-         $_tipo -
-         $_detalles -
-         $_encargado -
-         $_fecha -
-               ''');
   }
 
   void _addsItemsInToLists() {
@@ -699,10 +805,14 @@ class _StepperFormState extends State<StepperForm> {
 
         _fechaMotherboard = _dateFormat.format(piked);
         controllerFechaMotherboard.text = _fechaMotherboard;
+        _fechaCpu = _dateFormat.format(piked);
+        controllerFechaCpu.text = _fechaCpu;
         _fechaRam = _dateFormat.format(piked);
         controllerFechaRam.text = _fechaRam;
         _fechaHdd = _dateFormat.format(piked);
         controllerFechaHdd.text = _fechaHdd;
+        _fechaDvdRw = _dateFormat.format(piked);
+        controllerFechaDvdRw.text = _fechaDvdRw;
 
         _fechaMonitor = _dateFormat.format(piked);
         controllerFechaMonitor.text = _fechaMonitor;
@@ -729,17 +839,26 @@ class _StepperFormState extends State<StepperForm> {
 
   Step _buildStepsView(String value) {
     switch (value) {
+      case CONST_ESTACION:
+        return _formEstacion();
+
       case CONST_UNIDAD_CENTRAL:
         return _defaulFromUnidadCentral();
 
       case CONST_MOTHERBOARD:
         return _formMotherboard();
 
+      case CONST_CPU:
+        return _formCpu();
+
       case CONST_RAM:
         return _formRam();
 
       case CONST_HDD:
         return _formHdd();
+
+      case CONST_DVD_RW:
+        return _formDvdRw();
 
       case CONST_MONITOR:
         return _formMonitor();
@@ -770,8 +889,37 @@ class _StepperFormState extends State<StepperForm> {
 
       case CONST_MEMORIAS_USB_SD:
         return _formMemoria();
-
     }
+  }
+
+  Step _formEstacion() {
+    return Step(
+        title: Text(
+          CONST_ESTACION,
+          style: TextStyle(
+            color: Colors.black45,
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Form(
+            key: formKeyUnidadCentral,
+            child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerNombreEstacion,
+                      autocorrect: false,
+                      decoration: _defaulImputDecoration(
+                          NOMBRE_ESTACION, Icons.short_text),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _nombreUnidadCentral = value,
+                    ),
+                  ),
+                ]))));
   }
 
   Step _defaulFromUnidadCentral() {
@@ -793,22 +941,12 @@ class _StepperFormState extends State<StepperForm> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextFormField(
-                    autocorrect: false,
-                    decoration: _defaulImputDecoration(
-                        NOMBRE_ESTACION, Icons.short_text),
-                    validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
-                    onSaved: (value) => _nombreUnidadCentral = value,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: TextFormField(
+                    controller: controllerNumInventarioUnidadCentral,
                     autocorrect: false,
                     decoration: _defaulImputDecoration(
                         NUM_INVENTARIO, Icons.drag_handle),
                     validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                    val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                     onSaved: (value) => _numInvUnidadCentral = value,
                     keyboardType: TextInputType.numberWithOptions(),
                   ),
@@ -816,22 +954,24 @@ class _StepperFormState extends State<StepperForm> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextFormField(
+                    controller: controllerNumInventarioUnidadCentral,
                     autocorrect: false,
                     decoration:
-                        _defaulImputDecoration(NUM_SELLO, Icons.payment),
+                    _defaulImputDecoration(NUM_SELLO, Icons.payment),
                     validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
-                    onSaved: (value) => _numSelloUnidadCentral = value,
+                    val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                    onSaved: (value) => _selloUnidadCentral = value,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextFormField(
                     autocorrect: false,
+                    controller: controllerAreaUnidadCentral,
                     decoration:
-                        _defaulImputDecoration(AREA_OFICINA, Icons.location_on),
+                    _defaulImputDecoration(AREA_OFICINA, Icons.location_on),
                     validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                    val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                     onSaved: (value) => _areaUnidadCentral = value,
                   ),
                 ),
@@ -839,10 +979,11 @@ class _StepperFormState extends State<StepperForm> {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextFormField(
                     autocorrect: false,
+                    controller: controllerEncargadoUnidadCentral,
                     decoration:
-                        _defaulImputDecoration(NOMBRE_ENCARGADO, Icons.person),
+                    _defaulImputDecoration(NOMBRE_ENCARGADO, Icons.person),
                     validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                    val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                     onSaved: (value) => _encargadoUnidadCentral = value,
                   ),
                 ),
@@ -871,7 +1012,7 @@ class _StepperFormState extends State<StepperForm> {
                           decorationStyle: TextDecorationStyle.wavy),
                     ),
                     validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                    val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                     onSaved: (value) => _fechaUnidadCentral = value,
                     //initialValue: '$_fechaMonitor',
                   ),
@@ -904,7 +1045,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioMotherboard,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.drag_handle),
+                          NUM_INVENTARIO, Icons.developer_board),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvMotherboard = value,
@@ -918,7 +1059,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaMotherboard,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.drag_handle),
+                      _defaulImputDecoration(MARCA, Icons.developer_board),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaMotherboard = value,
@@ -930,7 +1071,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloMotherboard,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.drag_handle),
+                      _defaulImputDecoration(MODELO, Icons.developer_board),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloMotherboard = value,
@@ -942,7 +1083,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoMotherboard,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.drag_handle),
+                      _defaulImputDecoration(TIPO, Icons.developer_board),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoMotherboard = value,
@@ -954,23 +1095,11 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerDetallesMotherboard,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(DETALLES, Icons.drag_handle),
+                      _defaulImputDecoration(DETALLES, Icons.developer_board),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesMotherboard = value,
                       //onSaved: (value) => valueSaveMotherboard( saveDetalles: value),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: TextFormField(
-                      controller: controllerEncargadoMotherboard,
-                      autocorrect: false,
-                      decoration: _defaulImputDecoration(
-                          NOMBRE_ENCARGADO, Icons.person),
-                      validator: (val) =>
-                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
-                      onSaved: (value) => _encargadoMotherboard = value,
                     ),
                   ),
                   Padding(
@@ -1008,6 +1137,120 @@ class _StepperFormState extends State<StepperForm> {
             )));
   }
 
+  Step _formCpu() {
+    return Step(
+        title: Text(
+          CONST_RAM,
+          style: TextStyle(
+            color: Colors.black45,
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Form(
+            key: formKeyCpu,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerNumInventarioCpu,
+                      autocorrect: false,
+                      decoration: _defaulImputDecoration(
+                          NUM_INVENTARIO, Icons.straighten),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _numInvCpu = value,
+                      autovalidate: true,
+                      keyboardType: TextInputType.numberWithOptions(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerMarcaCpu,
+                      autocorrect: false,
+                      decoration:
+                      _defaulImputDecoration(MARCA, Icons.straighten),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _marcaCpu = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerModeloCpu,
+                      autocorrect: false,
+                      decoration:
+                      _defaulImputDecoration(MODELO, Icons.straighten),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _modeloCpu = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerTipoCpu,
+                      autocorrect: false,
+                      decoration:
+                      _defaulImputDecoration(TIPO, Icons.straighten),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _tipoCpu = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerDetallesCpu,
+                      autocorrect: false,
+                      decoration:
+                      _defaulImputDecoration(DETALLES, Icons.straighten),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _detallesCpu = value,
+                      //onSaved: (value) => valueSaveMotherboard( saveDetalles: value),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      autocorrect: false,
+                      controller: controllerFechaCpu,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            icon: Icon(Icons.date_range),
+                            onPressed: () {
+                              _selectDate(context);
+                              setState(() {
+                                //_saveDate = new DateFormat.yMd(_dateTime)
+                              });
+                            }),
+                        contentPadding: EdgeInsets.all(16.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        labelText: 'Fecha',
+                        labelStyle: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 16.0,
+                            decorationStyle: TextDecorationStyle.wavy),
+                      ),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _fechaCpu = value,
+                      //initialValue: '$_fechaMonitor',
+                    ),
+                  ),
+                ],
+              ),
+            )));
+  }
+
   Step _formRam() {
     return Step(
         title: Text(
@@ -1030,7 +1273,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioRam,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.drag_handle),
+                          NUM_INVENTARIO, Icons.straighten),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvRam = value,
@@ -1044,7 +1287,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaRam,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.drag_handle),
+                      _defaulImputDecoration(MARCA, Icons.straighten),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaRam = value,
@@ -1056,7 +1299,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloRam,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.drag_handle),
+                      _defaulImputDecoration(MODELO, Icons.straighten),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloRam = value,
@@ -1068,7 +1311,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoRam,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.drag_handle),
+                      _defaulImputDecoration(TIPO, Icons.straighten),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoRam = value,
@@ -1080,7 +1323,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerDetallesRam,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(DETALLES, Icons.drag_handle),
+                      _defaulImputDecoration(DETALLES, Icons.straighten),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesRam = value,
@@ -1144,7 +1387,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioHdd,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.drag_handle),
+                          NUM_INVENTARIO, Icons.call_to_action),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvHdd = value,
@@ -1158,7 +1401,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaHdd,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.drag_handle),
+                      _defaulImputDecoration(MARCA, Icons.call_to_action),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaHdd = value,
@@ -1170,7 +1413,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloHdd,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.drag_handle),
+                      _defaulImputDecoration(MODELO, Icons.call_to_action),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloHdd = value,
@@ -1182,7 +1425,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoHdd,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.drag_handle),
+                      _defaulImputDecoration(TIPO, Icons.call_to_action),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoHdd = value,
@@ -1194,7 +1437,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerDetallesHdd,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(DETALLES, Icons.drag_handle),
+                      _defaulImputDecoration(DETALLES, Icons.call_to_action),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesHdd = value,
@@ -1228,6 +1471,117 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _fechaHdd = value,
+                      //initialValue: '$_fechaMonitor',
+                    ),
+                  ),
+                ],
+              ),
+            )));
+  }
+
+  Step _formDvdRw() {
+    return Step(
+        title: Text(
+          CONST_DVD_RW,
+          style: TextStyle(
+            color: Colors.black45,
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Form(
+            key: formKeyDvdRw,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerNumInventarioDvdRw,
+                      autocorrect: false,
+                      decoration:
+                      _defaulImputDecoration(NUM_INVENTARIO, Icons.adjust),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _numInvDvdRw = value,
+                      autovalidate: true,
+                      keyboardType: TextInputType.numberWithOptions(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerMarcaDvdRw,
+                      autocorrect: false,
+                      decoration: _defaulImputDecoration(MARCA, Icons.adjust),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _marcaDvdRw = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerModeloDvdRw,
+                      autocorrect: false,
+                      decoration: _defaulImputDecoration(MODELO, Icons.adjust),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _modeloDvdRw = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerTipoDvdRw,
+                      autocorrect: false,
+                      decoration: _defaulImputDecoration(TIPO, Icons.adjust),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _tipoDvdRw = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      controller: controllerDetallesDvdRw,
+                      autocorrect: false,
+                      decoration:
+                      _defaulImputDecoration(DETALLES, Icons.adjust),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _detallesDvdRw = value,
+                      //onSaved: (value) => valueSaveMotherboard( saveDetalles: value),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      autocorrect: false,
+                      controller: controllerFechaDvdRw,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            icon: Icon(Icons.date_range),
+                            onPressed: () {
+                              _selectDate(context);
+                              setState(() {
+                                //_saveDate = new DateFormat.yMd(_dateTime)
+                              });
+                            }),
+                        contentPadding: EdgeInsets.all(16.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        labelText: 'Fecha',
+                        labelStyle: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 16.0,
+                            decorationStyle: TextDecorationStyle.wavy),
+                      ),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _fechaDvdRw = value,
                       //initialValue: '$_fechaMonitor',
                     ),
                   ),
@@ -1307,8 +1661,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesMonitor,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.desktop_windows),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesMonitor = value,
@@ -1372,7 +1726,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioTeclado,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.keyboard),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvTeclado = value,
@@ -1386,7 +1740,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaTeclado,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.keyboard),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaTeclado = value,
@@ -1398,7 +1752,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloTeclado,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.keyboard),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloTeclado = value,
@@ -1410,7 +1764,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoTeclado,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.keyboard),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoTeclado = value,
@@ -1421,8 +1775,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesTeclado,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.keyboard),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesTeclado = value,
@@ -1486,7 +1840,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioBocina,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.speaker),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvBocina = value,
@@ -1500,7 +1854,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaBocina,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.speaker),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaBocina = value,
@@ -1512,7 +1866,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloBocina,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.speaker),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloBocina = value,
@@ -1524,7 +1878,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoBocina,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.speaker),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoBocina = value,
@@ -1535,8 +1889,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesBocina,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.speaker),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesBocina = value,
@@ -1600,7 +1954,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioMouse,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.mouse),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvMouse = value,
@@ -1614,7 +1968,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaMouse,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.mouse),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaMouse = value,
@@ -1626,7 +1980,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloMouse,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.mouse),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloMouse = value,
@@ -1638,7 +1992,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoMouse,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.mouse),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoMouse = value,
@@ -1649,8 +2003,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesMouse,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.mouse),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesMouse = value,
@@ -1714,7 +2068,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioUps,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.battery_charging_full),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvUps = value,
@@ -1728,7 +2082,8 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaUps,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(
+                          MARCA, Icons.battery_charging_full),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaUps = value,
@@ -1740,7 +2095,8 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloUps,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(
+                          MODELO, Icons.battery_charging_full),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloUps = value,
@@ -1752,7 +2108,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoUps,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.battery_charging_full),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoUps = value,
@@ -1763,8 +2119,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesUps,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.battery_charging_full),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesUps = value,
@@ -1828,7 +2184,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioScanner,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.scanner),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvScanner = value,
@@ -1842,7 +2198,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaScanner,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.scanner),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaScanner = value,
@@ -1854,7 +2210,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloScanner,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.scanner),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloScanner = value,
@@ -1866,7 +2222,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoScanner,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.scanner),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoScanner = value,
@@ -1877,8 +2233,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesScanner,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.scanner),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesScanner = value,
@@ -1942,7 +2298,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioImpresora,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.print),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvImpresora = value,
@@ -1956,7 +2312,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaImpresora,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.print),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaImpresora = value,
@@ -1968,7 +2324,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloImpresora,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.print),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloImpresora = value,
@@ -1980,7 +2336,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoImpresora,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.print),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoImpresora = value,
@@ -1991,8 +2347,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesImpresora,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.print),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesImpresora = value,
@@ -2056,7 +2412,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioTablet,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.tablet_android),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvTablet = value,
@@ -2070,7 +2426,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaTablet,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.tablet_android),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaTablet = value,
@@ -2082,7 +2438,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloTablet,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.tablet_android),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloTablet = value,
@@ -2094,7 +2450,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoTablet,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.tablet_android),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoTablet = value,
@@ -2105,8 +2461,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesTablet,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.tablet_android),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesTablet = value,
@@ -2170,7 +2526,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioLaptop,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.laptop_windows),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvLaptop = value,
@@ -2184,7 +2540,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaLaptop,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.laptop_windows),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaLaptop = value,
@@ -2196,7 +2552,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloLaptop,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.laptop_windows),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloLaptop = value,
@@ -2208,7 +2564,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoLaptop,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.laptop_windows),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoLaptop = value,
@@ -2219,8 +2575,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesLaptop,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.laptop_windows),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesLaptop = value,
@@ -2284,7 +2640,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerNumInventarioMemoria,
                       autocorrect: false,
                       decoration: _defaulImputDecoration(
-                          NUM_INVENTARIO, Icons.desktop_windows),
+                          NUM_INVENTARIO, Icons.sd_storage),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvMemoria = value,
@@ -2298,7 +2654,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerMarcaMemoria,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MARCA, Icons.desktop_windows),
+                      _defaulImputDecoration(MARCA, Icons.sd_storage),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _marcaMemoria = value,
@@ -2310,7 +2666,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerModeloMemoria,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(MODELO, Icons.desktop_windows),
+                      _defaulImputDecoration(MODELO, Icons.sd_storage),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _modeloMemoria = value,
@@ -2322,7 +2678,7 @@ class _StepperFormState extends State<StepperForm> {
                       controller: controllerTipoMemoria,
                       autocorrect: false,
                       decoration:
-                      _defaulImputDecoration(TIPO, Icons.desktop_windows),
+                      _defaulImputDecoration(TIPO, Icons.sd_storage),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _tipoMemoria = value,
@@ -2333,8 +2689,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesMemoria,
                       autocorrect: false,
-                      decoration:
-                      _defaulImputDecoration(DETALLES, Icons.desktop_windows),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.sd_storage),
                       validator: (val) =>
                       val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesMemoria = value,

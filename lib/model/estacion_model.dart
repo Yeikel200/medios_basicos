@@ -10,7 +10,7 @@ import 'impresora_model.dart';
 import 'unidad_central_model.dart';
 
 class Estacion {
-  String _idEstacion;
+  String _idEstacion, _name;
   Uuid _randomId = Uuid();
 
   UnidadCentral _unidadCentral;
@@ -22,37 +22,38 @@ class Estacion {
   Scanner _scanner;
   Impresora _impresora;
 
-  Estacion(this._unidadCentral, this._monitor, this._teclado, this._bocina,
+  Estacion(this._name, this._unidadCentral, this._monitor, this._teclado, this._bocina,
       this._mouse) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.Ups(this._idEstacion, this._unidadCentral, this._monitor,
+  Estacion.Ups(this._name, this._unidadCentral, this._monitor,
       this._teclado, this._bocina, this._mouse, this._ups) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.Impresora(this._unidadCentral, this._monitor, this._teclado,
+  Estacion.Impresora(this._name, this._unidadCentral, this._monitor, this._teclado,
       this._bocina, this._mouse, this._impresora) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.Scanner(this._unidadCentral, this._monitor, this._teclado,
+  Estacion.Scanner(this._name, this._unidadCentral, this._monitor, this._teclado,
       this._bocina, this._mouse, this._scanner) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.UpsImpresora(this._unidadCentral, this._monitor, this._teclado,
+  Estacion.UpsImpresora(this._name, this._unidadCentral, this._monitor, this._teclado,
       this._bocina, this._mouse, this._ups, this._impresora) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.ImpresoraScanner(this._unidadCentral, this._monitor, this._teclado,
+  Estacion.ImpresoraScanner(this._name, this._unidadCentral, this._monitor, this._teclado,
       this._bocina, this._mouse, this._scanner, this._impresora) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
   Estacion.UpsImpresoraScanner(
+      this._name,
       this._unidadCentral,
       this._monitor,
       this._teclado,
@@ -62,6 +63,13 @@ class Estacion {
       this._scanner,
       this._impresora) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
+
+
+  get name => _name;
+
+  set name(value) {
+    _name = value;
   }
 
   Impresora get impresora => _impresora;

@@ -29,7 +29,7 @@ class _ItemCardListState extends State<ItemCardList> {
         vertical: 8.0
       ),
       child: InkWell(
-        onTap: (){print('${laptop.numInv}');},
+        onTap: (){print('${laptop.idLsptop}');},
         child: Container(
           height: 115.0,
           child: Stack(

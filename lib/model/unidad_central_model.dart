@@ -1,3 +1,4 @@
+import 'package:medios_basicos/model/cpu_model.dart';
 import 'package:uuid/uuid.dart';
 
 import 'motherboard_model.dart';
@@ -15,51 +16,62 @@ class UnidadCentral  {
   String _sello;
   String _area;
   String _encargado;
+  String _fecha;
 
-  Motherboard _motherboard;
-  Ram _ram;
-  Hdd _hdd;
-  DvdRw _dvdRw;
+  String _idMotherboard, _idCpu, _idRam, _idHdd, _idDvdRw;
 
-  UnidadCentral( this._numInv, this._sello, this._area,
-      this._encargado, this._motherboard, this._ram, this._hdd, this._dvdRw){
+  UnidadCentral(this._numInv, this._sello, this._area,
+      this._encargado, this._idMotherboard, this._idCpu,
+      this._idRam, this._idHdd, this._idDvdRw, this._fecha,){
     this._idUCentral = _randomId.v1().toString().substring(24, 36);
-
   }
 
-  UnidadCentral.cliente(this._numInv, this._sello, this._area,
-      this._encargado, this._motherboard, this._ram, this._hdd){
+  UnidadCentral.ClienteLigero(this._numInv, this._sello,
+      this._area,
+      this._encargado, this._fecha, this._idMotherboard, this._idCpu,
+      this._idRam, this._idHdd){
     this._idUCentral = _randomId.v1().toString().substring(24, 36);
-
   }
 
-  DvdRw get dvdRw => _dvdRw;
+  get idDvdRw => _idDvdRw;
 
-  set dvdRw(DvdRw value) {
-    _dvdRw = value;
+  set idDvdRw(value) {
+    _idDvdRw = value;
   }
 
-  Hdd get hdd => _hdd;
+  get idHdd => _idHdd;
 
-  set hdd(Hdd value) {
-    _hdd = value;
+  set idHdd(value) {
+    _idHdd = value;
   }
 
-  Ram get ram => _ram;
+  get idRam => _idRam;
 
-  set ram(Ram value) {
-    _ram = value;
+  set idRam(value) {
+    _idRam = value;
   }
 
-  Motherboard get motherboard => _motherboard;
+  get idCpu => _idCpu;
 
-  set motherboard(Motherboard value) {
-    _motherboard = value;
+  set idCpu(value) {
+    _idCpu = value;
   }
 
-  String get responsable => _encargado;
+  String get idMotherboard => _idMotherboard;
 
-  set responsable(String value) {
+  set idMotherboard(String value) {
+    _idMotherboard = value;
+  }
+
+  String get fecha => _fecha;
+
+  set fecha(String value) {
+    _fecha = value;
+  }
+
+  String get encargado => _encargado;
+
+  set encargado(String value) {
     _encargado = value;
   }
 
@@ -85,21 +97,6 @@ class UnidadCentral  {
 
   set idUCentral(String value) {
     _idUCentral = value;
-  }
-
-  @override
-  String toString() {
-    return '''UnidadCentral{
-      _idUCentral: $_idUCentral, 
-      _numInv: $_numInv,
-      _sello: $_sello,
-      _area: $_area,
-      _responsable: $_encargado, 
-      _motherboard: $_motherboard,
-      _ram: $_ram, 
-      _hdd: $_hdd, 
-      _dvdRw: $_dvdRw
-    }''';
   }
 
 

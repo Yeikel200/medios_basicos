@@ -7,9 +7,17 @@ class BasicPropRegister {
   String _modelo;
   String _tipo;
   String _detalle;
+  String _fecha;
 
   BasicPropRegister(@required this._numInv, this._marca, this._modelo, this._tipo,
-      this._detalle);
+      this._detalle, this._fecha);
+
+
+  String get fecha => _fecha;
+
+  set fecha(String value) {
+    _fecha = value;
+  }
 
   String get detalle => _detalle;
 

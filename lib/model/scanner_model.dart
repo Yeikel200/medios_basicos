@@ -8,8 +8,8 @@ class Scanner extends BasicPropRegister {
   Uuid _randomId = Uuid();
 
   Scanner(
-      String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle) {
+      String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, fecha) {
     this._idScanner = _randomId.v1().toString().substring(24, 36);
   }
 
@@ -21,6 +21,6 @@ class Scanner extends BasicPropRegister {
 
   @override
   String toString() {
-    return 'Scanner{_idScanner: $_idScanner, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle}';
+    return 'Scanner{_idScanner: $_idScanner, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
   }
 }

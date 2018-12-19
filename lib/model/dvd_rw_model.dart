@@ -6,8 +6,8 @@ class DvdRw extends BasicPropRegister {
   String _idDvdRw;
   Uuid _randomId = Uuid();
 
-  DvdRw( String numInv, String marca, String modelo, String tipo, String detalle)
-      : super(numInv, marca, modelo, tipo, detalle){
+  DvdRw( String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, fecha){
     this._idDvdRw = _randomId.v1().toString().substring(24, 36);
 
   }
@@ -20,7 +20,7 @@ class DvdRw extends BasicPropRegister {
 
   @override
   String toString() {
-    return 'DvdRw{_idDvdRw: $_idDvdRw, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle}';
+    return 'DvdRw{_idDvdRw: $_idDvdRw, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
   }
 
 

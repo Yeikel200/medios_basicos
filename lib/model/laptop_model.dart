@@ -7,8 +7,8 @@ class Laptop extends BasicPropRegister {
   _encargado;
   Uuid _randomId = Uuid();
 
-  Laptop(String numInv, String marca, String modelo, String tipo, String detalle, this._encargado)
-      : super(numInv, marca, modelo, tipo, detalle){
+  Laptop(String numInv, String marca, String modelo, String tipo, String detalle, this._encargado, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, fecha){
     //this._idLsptop = _randomId.v1().toString();
     this._idLsptop = _randomId.v1().toString().substring(24, 36);
     //6009d8e0-e440-11e8-e459-ef36ab52cf1b
@@ -29,7 +29,7 @@ class Laptop extends BasicPropRegister {
 
   @override
   String toString() {
-    return 'Laptop{_idLsptop: $_idLsptop, _encargado: $_encargado, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle}';
+    return 'Laptop{_idLsptop: $_idLsptop, _encargado: $_encargado, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
   }
 
 
