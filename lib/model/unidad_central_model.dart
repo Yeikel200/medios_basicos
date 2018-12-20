@@ -1,13 +1,6 @@
 import 'package:medios_basicos/model/cpu_model.dart';
 import 'package:uuid/uuid.dart';
 
-import 'motherboard_model.dart';
-import 'hdd_model.dart';
-import 'ram_model.dart';
-import 'dvd_rw_model.dart';
-
-
-
 class UnidadCentral  {
   String _idUCentral;
   Uuid _randomId = Uuid();

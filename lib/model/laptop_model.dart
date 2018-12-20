@@ -3,14 +3,14 @@ import 'package:uuid/uuid.dart';
 import 'basic_prop_register.dart';
 
 class Laptop extends BasicPropRegister {
-  String _idLsptop,
+  String _idLaptop,
   _encargado;
   Uuid _randomId = Uuid();
 
-  Laptop(String numInv, String marca, String modelo, String tipo, String detalle, this._encargado, String fecha)
-      : super(numInv, marca, modelo, tipo, detalle, fecha){
+  Laptop(String numInv, String marca, String modelo, String tipo, String detalle, String estado, this._encargado, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, estado, fecha){
     //this._idLsptop = _randomId.v1().toString();
-    this._idLsptop = _randomId.v1().toString().substring(24, 36);
+    this._idLaptop = _randomId.v1().toString().substring(24, 36);
     //6009d8e0-e440-11e8-e459-ef36ab52cf1b
 
   }
@@ -21,15 +21,15 @@ class Laptop extends BasicPropRegister {
     _encargado = value;
   }
 
-  String get idLsptop => _idLsptop;
+  String get idLaptop => _idLaptop;
 
-  set idLsptop(String value) {
-    _idLsptop = value;
+  set idLaptop(String value) {
+    _idLaptop = value;
   }
 
   @override
   String toString() {
-    return 'Laptop{_idLsptop: $_idLsptop, _encargado: $_encargado, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
+    return 'Laptop{_idLaptop: $_idLaptop, _encargado: $_encargado, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _estado: $estado, _fecha: $fecha}';
   }
 
 

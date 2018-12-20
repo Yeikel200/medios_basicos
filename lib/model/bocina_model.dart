@@ -6,8 +6,8 @@ class Bocina extends BasicPropRegister {
   String _idBocina;
   Uuid _randomId = Uuid();
 
-  Bocina( String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
-      : super(numInv, marca, modelo, tipo, detalle, fecha){
+  Bocina( String numInv, String marca, String modelo, String tipo, String detalle, String estado, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, estado, fecha){
     this._idBocina = _randomId.v1().toString().substring(24, 36);
 
   }

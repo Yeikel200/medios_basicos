@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var myLaptop = Laptop('686468464', 'TOSHIBA', 'Satellite', 'Moderna', '17 pulgadas', 'Yeikel Uriarte', "fecha");
+    var myLaptop = Laptop('686468464', 'TOSHIBA', 'Satellite', 'Moderna', '17 pulgadas','Bien', 'Yeikel Uriarte', "fecha");
 
     return MaterialApp(
       title: 'Pantalla de pruebas',

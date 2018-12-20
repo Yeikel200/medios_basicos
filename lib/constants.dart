@@ -15,6 +15,7 @@
  const String CONST_TABLET = "Tablet";
  const String CONST_LAPTOP = "Laptop";
  const String CONST_MEMORIAS_USB_SD = "Memorias";
+ const String CONST_STEP_GUARDAR = "Guardar";
 
  // constantes de los campos de los TextFormImput de la estacion
 
@@ -29,4 +30,24 @@
  const MODELO = 'Modelo';
  const TIPO = 'Tipo';
  const DETALLES = 'Detalles';
+ const ENCARGADO = 'Encargado';
  const CONST_FECHA = 'Fecha';
+
+ /// Nombre de  tablas
+ const TAB_LAPTOP = 'laptop';
+ const TAB_TABLET = 'tablet';
+ const TAB_MEMORIA = 'memoria';
+
+ /// Campos de las tablas ( TABLET, LAPTOP, MEMORIA )
+ const CAMP_ID_TABLET = 'idTablet';
+ const CAMP_ID_LAPTOP = 'idLaptop';
+ const CAMP_ENCARGADO = 'encargado';
+ const CAMP_ID_MEMORIA = 'idMemoria';
+
+ const CAMP_NUM_INVENTARIO =  'numInventario';
+ const CAMP_MARCA = 'marca';
+ const CAMP_MODELO = 'modelo';
+ const CAMP_TIPO = 'tipo';
+ const CAMP_DETALLES = 'detalles';
+ const CAMP_ESTADO = 'estado';
+ const CAMP_FECHA = 'fecha';

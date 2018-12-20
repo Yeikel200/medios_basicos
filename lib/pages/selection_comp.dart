@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:medios_basicos/constants.dart';
 
 import 'form_estation.dart';
-import 'add_record.dart';
 
 class SelectionComponentPC extends StatefulWidget {
   @override
@@ -378,7 +377,7 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
     _listSelectComp.clear();
     _listComp.forEach((k, v) {
       if (v) {
-        debugPrint('Filtro --> K: $k , V: $v');
+        //debugPrint('Filtro --> K: $k , V: $v');
         if (!_listSelectComp.contains(k)) {
           _listSelectComp.add(k);
         }
@@ -388,6 +387,8 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
         _listSelectComp.remove(k);
       }
     });
+
+    _listSelectComp.add(CONST_STEP_GUARDAR);
     return _listSelectComp;
   }
 

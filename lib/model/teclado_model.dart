@@ -6,8 +6,8 @@ class Teclado extends BasicPropRegister {
   String _idTeclado;
   Uuid _randomId = new Uuid();
 
-  Teclado( String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
-      : super(numInv, marca, modelo, tipo, detalle, fecha){
+  Teclado( String numInv, String marca, String modelo, String tipo, String detalle, String estado, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, estado, fecha){
 
     this._idTeclado = _randomId.v1().toString().substring(24, 36);
   }

@@ -7,8 +7,8 @@ class Ups extends BasicPropRegister {
 
   Uuid _randomId = Uuid();
 
-  Ups(String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
-      : super(numInv, marca, modelo, tipo, detalle, fecha){
+  Ups(String numInv, String marca, String modelo, String tipo, String detalle, String estado, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, estado, fecha){
     this._idUps = _randomId.v1().toString().substring(24, 36);
   }
 
@@ -20,7 +20,7 @@ class Ups extends BasicPropRegister {
 
   @override
   String toString() {
-    return 'Ups{_idUps: $_idUps, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
+    return 'Ups{_idUps: $_idUps, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _estado: $estado, _fecha: $fecha}';
   }
 
 

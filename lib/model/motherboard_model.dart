@@ -6,8 +6,8 @@ class Motherboard extends BasicPropRegister {
   String _idMotherboard;
   Uuid _randomId = Uuid();
 
-  Motherboard( String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
-      : super(numInv, marca, modelo, tipo, detalle, fecha){
+  Motherboard( String numInv, String marca, String modelo, String tipo, String detalle, String estado, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, estado, fecha){
     this._idMotherboard = _randomId.v1().toString().substring(24, 36);
 
   }

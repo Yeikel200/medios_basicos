@@ -144,11 +144,12 @@ class _HomeState extends State<Home> {
                                       listLaptop: new List<Laptop>.generate(
                                           50,
                                           (i) => new Laptop(
-                                              '${i * 154617}',
+                                              '${(i+5) * 154617}',
                                               'TOSHIBA',
                                               'Satellite',
                                               'Moderna',
                                               '17 pulgadas',
+                                              'Bien',
                                               'Yeikel Uriarte',
                                               "fecha")
                                       ),

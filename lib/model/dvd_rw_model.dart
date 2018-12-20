@@ -6,8 +6,8 @@ class DvdRw extends BasicPropRegister {
   String _idDvdRw;
   Uuid _randomId = Uuid();
 
-  DvdRw( String numInv, String marca, String modelo, String tipo, String detalle, String fecha)
-      : super(numInv, marca, modelo, tipo, detalle, fecha){
+  DvdRw( String numInv, String marca, String modelo, String tipo, String detalle, String estado, String fecha)
+      : super(numInv, marca, modelo, tipo, detalle, estado, fecha){
     this._idDvdRw = _randomId.v1().toString().substring(24, 36);
 
   }
