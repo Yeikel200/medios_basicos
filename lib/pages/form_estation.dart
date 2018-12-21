@@ -47,27 +47,27 @@ class _StepperFormState extends State<StepperForm> {
 
   /// Foromulario  ESTACION
   final formKeyEstacion = new GlobalKey<FormState>();
-  String _nombreUnidadCentral;
+  String _nombreEstacion,
+      _areaEstacion,
+      _encargadoEstacion;
 
   final TextEditingController controllerNombreEstacion =
       new TextEditingController();
+  final TextEditingController controllerAreaEstacion =
+  new TextEditingController();
+  final TextEditingController controllerEncargadoEstacion =
+  new TextEditingController();
 
   /// Foromulario  UNIDAD CENTRAL
   final formKeyUnidadCentral = new GlobalKey<FormState>();
   String _numInvUnidadCentral,
       _selloUnidadCentral,
-      _areaUnidadCentral,
-      _encargadoUnidadCentral,
       _estadoUnidadCentral,
       _fechaUnidadCentral;
 
   final TextEditingController controllerNumInventarioUnidadCentral =
       new TextEditingController();
   final TextEditingController controllerSelloUnidadCentral =
-      new TextEditingController();
-  final TextEditingController controllerAreaUnidadCentral =
-      new TextEditingController();
-  final TextEditingController controllerEncargadoUnidadCentral =
       new TextEditingController();
   final TextEditingController controllerFechaUnidadCentral =
       new TextEditingController();
@@ -99,7 +99,13 @@ class _StepperFormState extends State<StepperForm> {
 
   /// Foromulario  CPU
   final formKeyCpu = new GlobalKey<FormState>();
-  String _numInvCpu, _marcaCpu, _modeloCpu, _tipoCpu, _detallesCpu, _estadoCpu, _fechaCpu;
+  String _numInvCpu,
+      _marcaCpu,
+      _modeloCpu,
+      _tipoCpu,
+      _detallesCpu,
+      _estadoCpu,
+      _fechaCpu;
 
   final TextEditingController controllerNumInventarioCpu =
       new TextEditingController();
@@ -112,7 +118,13 @@ class _StepperFormState extends State<StepperForm> {
 
   /// Foromulario  RAM
   final formKeyRam = new GlobalKey<FormState>();
-  String _numInvRam, _marcaRam, _modeloRam, _tipoRam, _detallesRam, _estadoRam, _fechaRam;
+  String _numInvRam,
+      _marcaRam,
+      _modeloRam,
+      _tipoRam,
+      _detallesRam,
+      _estadoRam,
+      _fechaRam;
 
   final TextEditingController controllerNumInventarioRam =
       new TextEditingController();
@@ -125,7 +137,13 @@ class _StepperFormState extends State<StepperForm> {
 
   /// Foromulario  HDD
   final formKeyHdd = new GlobalKey<FormState>();
-  String _numInvHdd, _marcaHdd, _modeloHdd, _tipoHdd, _detallesHdd, _estadoHdd, _fechaHdd;
+  String _numInvHdd,
+      _marcaHdd,
+      _modeloHdd,
+      _tipoHdd,
+      _detallesHdd,
+      _estadoHdd,
+      _fechaHdd;
 
   final TextEditingController controllerNumInventarioHdd =
       new TextEditingController();
@@ -251,7 +269,13 @@ class _StepperFormState extends State<StepperForm> {
 
   /// Foromulario  UPS
   final formKeyUps = new GlobalKey<FormState>();
-  String _numInvUps, _marcaUps, _modeloUps, _tipoUps, _detallesUps, _estadoUps, _fechaUps;
+  String _numInvUps,
+      _marcaUps,
+      _modeloUps,
+      _tipoUps,
+      _detallesUps,
+      _estadoUps,
+      _fechaUps;
 
   final TextEditingController controllerNumInventarioUps =
       new TextEditingController();
@@ -317,7 +341,7 @@ class _StepperFormState extends State<StepperForm> {
       _detallesTablet,
       _encargadoTablet,
       _fechaTablet;
-   String _estadoTablet = 'BIEN';
+  String _estadoTablet = 'BIEN';
 
   final TextEditingController controllerNumInventarioTablet =
       new TextEditingController();
@@ -395,6 +419,7 @@ class _StepperFormState extends State<StepperForm> {
   DvdRw _dvdRw;
 
   DBHelper dbHelper;
+  Future<List<Tablet>> listTablets;
 
   Monitor _monitor;
   Teclado _teclado;
@@ -433,19 +458,62 @@ class _StepperFormState extends State<StepperForm> {
 
     _addsItemsInToLists();
 
-    _fechaUnidadCentral = _dateFormat.format(_dateTime);
-    _fechaMotherboard = _dateFormat.format(_dateTime);
-    _fechaCpu = _dateFormat.format(_dateTime);
-    _fechaRam = _dateFormat.format(_dateTime);
-    _fechaHdd = _dateFormat.format(_dateTime);
-    _fechaMonitor = _dateFormat.format(_dateTime);
-    _fechaTeclado = _dateFormat.format(_dateTime);
-    _fechaBocina = _dateFormat.format(_dateTime);
-    _fechaMouse = _dateFormat.format(_dateTime);
-    _fechaScanner = _dateFormat.format(_dateTime);
-    _fechaImpresora = _dateFormat.format(_dateTime);
-    _fechaTablet = _dateFormat.format(_dateTime);
-    _fechaLaptop = _dateFormat.format(_dateTime);
+    if (controllerFechaUnidadCentral.text.isEmpty) {
+      controllerFechaUnidadCentral.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaMotherboard.text.isEmpty) {
+      controllerFechaMotherboard.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaCpu.text.isEmpty) {
+      controllerFechaCpu.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaRam.text.isEmpty) {
+      controllerFechaRam.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaHdd.text.isEmpty) {
+      controllerFechaHdd.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaDvdRw.text.isEmpty) {
+      controllerFechaDvdRw.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaMonitor.text.isEmpty) {
+      controllerFechaMonitor.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaTeclado.text.isEmpty) {
+      controllerFechaTeclado.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaBocina.text.isEmpty) {
+      controllerFechaBocina.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaMouse.text.isEmpty) {
+      controllerFechaMouse.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaScanner.text.isEmpty) {
+      controllerFechaScanner.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaImpresora.text.isEmpty) {
+      controllerFechaImpresora.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaTablet.text.isEmpty) {
+      controllerFechaTablet.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaLaptop.text.isEmpty) {
+      controllerFechaLaptop.text = _dateFormat.format(_dateTime);
+    }
+    if (controllerFechaMemoria.text.isEmpty) {
+      controllerFechaMemoria.text = _dateFormat.format(_dateTime);
+    }
+//    _fechaCpu = _dateFormat.format(_dateTime);
+//    _fechaRam = _dateFormat.format(_dateTime);
+//    _fechaHdd = _dateFormat.format(_dateTime);
+//    _fechaMonitor = _dateFormat.format(_dateTime);
+//    _fechaTeclado = _dateFormat.format(_dateTime);
+//    _fechaBocina = _dateFormat.format(_dateTime);
+//    _fechaMouse = _dateFormat.format(_dateTime);
+//    _fechaScanner = _dateFormat.format(_dateTime);
+//    _fechaImpresora = _dateFormat.format(_dateTime);
+//    _fechaTablet = _dateFormat.format(_dateTime);
+//    _fechaLaptop = _dateFormat.format(_dateTime);
   }
 
   @override
@@ -453,6 +521,15 @@ class _StepperFormState extends State<StepperForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Formulario'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.bug_report),
+            onPressed: () {
+              dbHelper.getAllTablets();
+              //print(listTablets);
+            },
+          ),
+        ],
       ),
       body: Container(
         child: Stepper(
@@ -461,7 +538,7 @@ class _StepperFormState extends State<StepperForm> {
           currentStep: this._currentStep,
           onStepContinue: () {
             setState(() {
-              if (_currentStep < listSteps.length - 1) {
+              if (buildListSteps[_currentStep] != CONST_STEP_GUARDAR) {
                 print('Escalon: $_currentStep');
                 _debugValidatorFrom(buildListSteps[_currentStep]);
               } else {
@@ -469,103 +546,159 @@ class _StepperFormState extends State<StepperForm> {
                 // Este es el ultimo escalon de la lista
                 //Aqui implementamos la accion de guardar los datos recogidos en los formularios
                 print('Fin del la lista. Este es el ultimo elemento');
-                
+
                 /// Reglas para guardar los formularios en DB
 
                 //Creando Tablet Laptop Memoria
                 if (createTablet) {
-                  _tablet = Tablet(
-                      _numInvTablet,
-                      _marcaTablet,
-                      _modeloTablet,
-                      _tipoTablet,
-                      _detallesTablet,
-                      _estadoTablet,
-                      _encargadoTablet,
-                      _fechaTablet);
-                  // Guardar en la base de datos
-                  dbHelper.saveTablet(_tablet);
+                  print("Construllendo TABLET");
+//                  _tablet = Tablet(
+//                      _numInvTablet,
+//                      _marcaTablet,
+//                      _modeloTablet,
+//                      _tipoTablet,
+//                      _detallesTablet,
+//                      _estadoTablet,
+//                      _encargadoTablet,
+//                      _fechaTablet);
+//                  // Guardar en la base de datos
+//                  dbHelper.saveTablet(_tablet);
                   //print(_tablet);
                 }
                 if (createLaptop) {
-                  _laptop = Laptop(
-                      _numInvLaptop,
-                      _marcaLaptop,
-                      _modeloLaptop,
-                      _tipoLaptop,
-                      _detallesLaptop,
-                      _estadoLaptop,
-                      _encargadoLaptop,
-                      _fechaLaptop);
-                  // Guardar en la base de datos
-                  //print(_laptop);
-                  dbHelper.saveLaptop(_laptop);
+                  print("Construllendo LAPTOP");
+//                  _laptop = Laptop(
+//                      _numInvLaptop,
+//                      _marcaLaptop,
+//                      _modeloLaptop,
+//                      _tipoLaptop,
+//                      _detallesLaptop,
+//                      _estadoLaptop,
+//                      _encargadoLaptop,
+//                      _fechaLaptop);
+//                  // Guardar en la base de datos
+//                  //print(_laptop);
+//                  dbHelper.saveLaptop(_laptop);
                 }
                 if (createMemoria) {
-                  _memoria = Memoria(
-                      _numInvMemoria,
-                      _marcaMemoria,
-                      _modeloMemoria,
-                      _tipoMemoria,
-                      _detallesMemoria,
-                      _estadoMemoria,
-                      _encargadoMemoria,
-                      _fechaMemoria);
-                  // Guardar en la base de datos
-                  //print(_memoria);
-                  dbHelper.saveMemoria(_memoria);
-
+                  print("Construllendo MEMORIA");
+//                  _memoria = Memoria(
+//                      _numInvMemoria,
+//                      _marcaMemoria,
+//                      _modeloMemoria,
+//                      _tipoMemoria,
+//                      _detallesMemoria,
+//                      _estadoMemoria,
+//                      _encargadoMemoria,
+//                      _fechaMemoria);
+//                  // Guardar en la base de datos
+//                  //print(_memoria);
+//                  dbHelper.saveMemoria(_memoria);
                 }
 
-                // Creando la Unidad Central:
-                if (createUc &&
-                    createMotherboard &&
-                    createCpu &&
-                    createRam &&
-                    createHdd) {
-                  buildMotherboardCpuRam();
-
-                  buildHdd();
-
-                  buildDvdRw();
-
-                  _unidadCentral = createDvdRw
-                      ? UnidadCentral(
-                          _numInvUnidadCentral,
-                          _selloUnidadCentral,
-                          _areaUnidadCentral,
-                          _encargadoUnidadCentral,
-                          _motherboard.idMotherboard,
-                          _cpu.idCpu,
-                          _ram.idRam,
-                          _hdd.idHdd,
-                          _dvdRw.idDvdRw,
-                          _fechaUnidadCentral)
-                      : UnidadCentral.ClienteLigero(
-                          _numInvUnidadCentral,
-                          _selloUnidadCentral,
-                          _areaUnidadCentral,
-                          _encargadoUnidadCentral,
-                          _motherboard.idMotherboard,
-                          _cpu.idCpu,
-                          _ram.idRam,
-                          _hdd.idHdd,
-                          _fechaUnidadCentral);
+                /// Creamos la ESTACION despues de saber cuales son las
+                /// obciones que seleciono el usuario a guardar
+                if (createEstacion && createUc) {
+                  buildUnidadCentral();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else  if(createEstacion && createUc && createMonitor){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina && createMouse){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  buildMouse();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina && createMouse && createUps ){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  buildMouse();
+                  buildUps();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina && createMouse && createImpresora ){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  buildMouse();
+                  buildImpresora();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina && createMouse && createScanner ){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  buildMouse();
+                  buildScanner();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina && createMouse && createUps
+                && createScanner){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  buildMouse();
+                  buildUps();
+                  buildScanner();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina && createMouse && createUps
+                    && createImpresora){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  buildMouse();
+                  buildUps();
+                  buildImpresora();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
+                }else if(createEstacion && createUc && createMonitor
+                    && createTeclado && createBocina && createMouse && createUps
+                && createScanner && createImpresora){
+                  buildUnidadCentral();
+                  buildMonitor();
+                  buildTeclado();
+                  buildBocina();
+                  buildMouse();
+                  buildUps();
+                  buildScanner();
+                  buildImpresora();
+                  print("         CONSTRUIDA ESTACION DE TRABAJO");
+                  print("----------------------END----------------------");
                 }
-
-                buildMonitor();
-
-                buildTeclado();
-
-                buildBocina();
-
-                buildMouse();
-
-                buildUps();
-
-                buildScanner();
-
-                buildImpresora();
               }
             });
           },
@@ -581,85 +714,158 @@ class _StepperFormState extends State<StepperForm> {
     );
   }
 
+  void buildUnidadCentral() {
+    if (createUc &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw) {
+      print("---------------------START---------------------");
+      print("    Construllendo UNIDAD CENTRAL COMPLETA");
+      buildMotherboardCpuRam();
+      buildHdd();
+      buildDvdRw();
+      print("----------------------END----------------------");
+    } else if (createUc &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        !createDvdRw) {
+      print("---------------------START---------------------");
+      print("   Construllendo UNIDAD CENTRAL SIN DVD-RW");
+      buildMotherboardCpuRam();
+      buildHdd();
+      print("---------------------------------------------");
+    }
+    print("         Construida UNIDAD CENTRAL");
+    print("----------------------END----------------------");
+
+//    _unidadCentral = UnidadCentral(
+//        _numInvUnidadCentral,
+//        _selloUnidadCentral,
+//        _areaUnidadCentral,
+//        _encargadoUnidadCentral,
+//        _motherboard.idMotherboard,
+//        _cpu.idCpu,
+//        _ram.idRam,
+//        _hdd.idHdd,
+//        _dvdRw.idDvdRw,
+//        _fechaUnidadCentral);
+  }
+
   void buildDvdRw() {
-    _dvdRw = DvdRw(_numInvDvdRw, _marcaDvdRw, _modeloDvdRw, _tipoDvdRw,
-        _detallesDvdRw, _estadoDvdRw, _fechaDvdRw);
+    print("Construllendo DVD-RW");
+//    _dvdRw = DvdRw(_numInvDvdRw, _marcaDvdRw, _modeloDvdRw, _tipoDvdRw,
+//        _detallesDvdRw, _estadoDvdRw, _fechaDvdRw);
   }
 
   void buildHdd() {
-    _hdd = Hdd(
-        _numInvHdd, _marcaHdd, _modeloHdd, _tipoHdd, _detallesHdd,  _estadoHdd, _fechaHdd);
+    print("Construllendo HDD");
+
+//    _hdd = Hdd(_numInvHdd, _marcaHdd, _modeloHdd, _tipoHdd, _detallesHdd,
+//        _estadoHdd, _fechaHdd);
   }
 
   void buildMotherboardCpuRam() {
-    _motherboard = Motherboard(
-        _numInvMotherboard,
-        _marcaMotherboard,
-        _modeloMotherboard,
-        _tipoMotherboard,
-        _detallesMotherboard,
-        _estadoMotherboard,
-        _fechaMotherboard);
+    print("Construllendo MODULO = MOTHERBOARD-RAM-CPU");
+    if (createMotherboard && createCpu && createRam) {
+      buildMotherboard();
+      buildCpu();
+      buildRam();
+    } else if (createMotherboard && !createCpu && !createRam) {
+      print("Construllendo SOLO MOTHERBOARD");
+      buildMotherboard();
+    } else if (!createMotherboard && createCpu && !createRam) {
+      buildCpu();
+      print("Construllendo SOLO CPU");
+    } else if (!createMotherboard && !createCpu && createRam) {
+      buildRam();
+      print("Construllendo SOLO RAM");
+    }
+  }
 
-    _cpu = Cpu(
-        _numInvCpu, _marcaCpu, _modeloCpu, _tipoCpu, _detallesCpu, _estadoCpu, _fechaCpu);
+  void buildRam() {
+    print("Construllendo RAM");
+//    _ram = Ram(_numInvRam, _marcaRam, _modeloRam, _tipoRam, _detallesRam,
+//        _estadoRam, _fechaRam);
+  }
 
-    _ram = Ram(
-        _numInvRam, _marcaRam, _modeloRam, _tipoRam, _detallesRam, _estadoRam, _fechaRam);
+  void buildCpu() {
+    print("Construllendo CPU");
+//    _cpu = Cpu(_numInvCpu, _marcaCpu, _modeloCpu, _tipoCpu, _detallesCpu,
+//        _estadoCpu, _fechaCpu);
+  }
+
+  void buildMotherboard() {
+    print("Construllendo MOTHERBOARD ");
+//
+//    _motherboard = Motherboard( _numInvMotherboard,
+//        _marcaMotherboard, _modeloMotherboard, _tipoMotherboard,
+//        _detallesMotherboard, _estadoMotherboard, _fechaMotherboard);
   }
 
   void buildImpresora() {
     if (createImpresora) {
-      _impresora = Impresora(
-          _numInvImpresora,
-          _marcaImpresora,
-          _modeloImpresora,
-          _tipoImpresora,
-          _detallesImpresora,
-          _estadoImpresora,
-          _fechaImpresora);
+      print("Construllendo IMPRESORA ");
+//      _impresora = Impresora(
+//          _numInvImpresora,
+//          _marcaImpresora,
+//          _modeloImpresora,
+//          _tipoImpresora,
+//          _detallesImpresora,
+//          _estadoImpresora,
+//          _fechaImpresora);
     }
   }
 
   void buildScanner() {
     if (createScanner) {
-      _scanner = Scanner(_numInvScanner, _marcaScanner, _modeloScanner,
-          _tipoScanner, _detallesScanner, _estadoScanner, _fechaScanner);
+      print("Construllendo SCANNER ");
+//      _scanner = Scanner(_numInvScanner, _marcaScanner, _modeloScanner,
+//          _tipoScanner, _detallesScanner, _estadoScanner, _fechaScanner);
     }
   }
 
   void buildUps() {
     if (createUps) {
-      _ups = Ups(
-          _numInvUps, _marcaUps, _modeloUps, _tipoUps, _detallesUps,  _estadoUps, _fechaUps);
+      print("Construllendo UPS ");
+//      _ups = Ups(_numInvUps, _marcaUps, _modeloUps, _tipoUps, _detallesUps,
+//          _estadoUps, _fechaUps);
     }
   }
 
   void buildMouse() {
     if (createMouse) {
-      _mouse = Mouse(_numInvMouse, _marcaMouse, _modeloMouse, _tipoMouse,
-          _detallesMouse,_estadoMouse, _fechaMouse);
+      print("Construllendo MOUSE ");
+
+//      _mouse = Mouse(_numInvMouse, _marcaMouse, _modeloMouse, _tipoMouse,
+//          _detallesMouse, _estadoMouse, _fechaMouse);
     }
   }
 
   void buildBocina() {
     if (createBocina) {
-      _bocina = Bocina(_numInvBocina, _marcaBocina, _modeloBocina, _tipoBocina,
-          _detallesBocina, _estadoBocina, _fechaBocina);
+      print("Construllendo BOCINA");
+//      _bocina = Bocina(_numInvBocina, _marcaBocina, _modeloBocina, _tipoBocina,
+//          _detallesBocina, _estadoBocina, _fechaBocina);
     }
   }
 
   void buildTeclado() {
     if (createTeclado) {
-      _teclado = Teclado(_numInvTeclado, _marcaTeclado, _modeloTeclado,
-          _tipoTeclado, _detallesTeclado, _estadoTeclado, _fechaTeclado);
+      print("Construllendo TECLADO");
+//      _teclado = Teclado(_numInvTeclado, _marcaTeclado, _modeloTeclado,
+//          _tipoTeclado, _detallesTeclado, _estadoTeclado, _fechaTeclado);
     }
   }
 
   void buildMonitor() {
     if (createMonitor) {
-      _monitor = Monitor(_numInvMonitor, _marcaMonitor, _modeloMonitor,
-          _tipoMonitor, _detallesMonitor, _estadoMonitor, _fechaMonitor);
+      print("Construllendo MONITOR ");
+//      _monitor = Monitor(_numInvMonitor, _marcaMonitor, _modeloMonitor,
+//          _tipoMonitor, _detallesMonitor, _estadoMonitor, _fechaMonitor);
     }
   }
 
@@ -667,7 +873,7 @@ class _StepperFormState extends State<StepperForm> {
     var formEstacion = formKeyEstacion.currentState;
     var formUc = formKeyUnidadCentral.currentState;
     var formMotherboard = formKeyMotherboard.currentState;
-    var formCpu = formKeyRam.currentState;
+    var formCpu = formKeyCpu.currentState;
     var formRam = formKeyRam.currentState;
     var formHdd = formKeyHdd.currentState;
     var formDvdRw = formKeyDvdRw.currentState;
@@ -683,7 +889,7 @@ class _StepperFormState extends State<StepperForm> {
     var formMemoria = formKeyMemoria.currentState;
 
 //    print('-- $marca -- ');
-    print('Folmulario acontinuacion es: ' + buildListSteps[_currentStep + 1]);
+    print('Folmulario actual es: ' + buildListSteps[_currentStep + 1]);
     int size = buildListSteps.length;
 
     switch (caseValite) {
@@ -710,7 +916,7 @@ class _StepperFormState extends State<StepperForm> {
       case CONST_CPU:
         if (formCpu.validate()) {
           formCpu.save();
-          createRam = true;
+          createCpu = true;
           _currentStep = _currentStep + 1;
         }
         break;
@@ -826,39 +1032,68 @@ class _StepperFormState extends State<StepperForm> {
       setState(() {
         print(_dateFormat.format(piked));
         _dateTime = piked;
-        _fechaUnidadCentral = _dateFormat.format(piked);
-        controllerFechaUnidadCentral.text = _fechaMonitor;
+        String textDate = _dateFormat.format(piked);
 
-        _fechaMotherboard = _dateFormat.format(piked);
-        controllerFechaMotherboard.text = _fechaMotherboard;
-        _fechaCpu = _dateFormat.format(piked);
-        controllerFechaCpu.text = _fechaCpu;
-        _fechaRam = _dateFormat.format(piked);
-        controllerFechaRam.text = _fechaRam;
-        _fechaHdd = _dateFormat.format(piked);
-        controllerFechaHdd.text = _fechaHdd;
-        _fechaDvdRw = _dateFormat.format(piked);
-        controllerFechaDvdRw.text = _fechaDvdRw;
-
-        _fechaMonitor = _dateFormat.format(piked);
-        controllerFechaMonitor.text = _fechaMonitor;
-        _fechaTeclado = _dateFormat.format(piked);
-        controllerFechaTeclado.text = _fechaTeclado;
-        _fechaBocina = _dateFormat.format(piked);
-        controllerFechaBocina.text = _fechaBocina;
-        _fechaMouse = _dateFormat.format(piked);
-        controllerFechaMouse.text = _fechaMouse;
-        _fechaScanner = _dateFormat.format(piked);
-        controllerFechaScanner.text = _fechaScanner;
-        _fechaImpresora = _dateFormat.format(piked);
-        controllerFechaImpresora.text = _fechaImpresora;
-
-        _fechaTablet = _dateFormat.format(piked);
-        controllerFechaTablet.text = _fechaTablet;
-        _fechaLaptop = _dateFormat.format(piked);
-        controllerFechaLaptop.text = _fechaLaptop;
-        _fechaMemoria = _dateFormat.format(piked);
-        controllerFechaMemoria.text = _fechaMemoria;
+        if (buildListSteps[_currentStep] == CONST_UNIDAD_CENTRAL) {
+          _fechaUnidadCentral = textDate;
+          controllerFechaUnidadCentral.text = textDate;
+        }
+        if (buildListSteps[_currentStep] == CONST_MOTHERBOARD) {
+          _fechaMotherboard = textDate;
+          controllerFechaMotherboard.text = textDate;
+        }
+        if (buildListSteps[_currentStep] == CONST_CPU) {
+          _fechaCpu = textDate;
+          controllerFechaCpu.text = textDate;
+        }
+        if (buildListSteps[_currentStep] == CONST_RAM) {
+          _fechaRam = textDate;
+          controllerFechaRam.text = textDate;
+        }
+        if (buildListSteps[_currentStep] == CONST_HDD) {
+          _fechaHdd = _dateFormat.format(piked);
+          controllerFechaHdd.text = _fechaHdd;
+        }
+        if (buildListSteps[_currentStep] == CONST_DVD_RW) {
+          _fechaDvdRw = _dateFormat.format(piked);
+          controllerFechaDvdRw.text = _fechaDvdRw;
+        }
+        if (buildListSteps[_currentStep] == CONST_MONITOR) {
+          _fechaMonitor = _dateFormat.format(piked);
+          controllerFechaMonitor.text = _fechaMonitor;
+        }
+        if (buildListSteps[_currentStep] == CONST_TECLADO) {
+          _fechaTeclado = _dateFormat.format(piked);
+          controllerFechaTeclado.text = _fechaTeclado;
+        }
+        if (buildListSteps[_currentStep] == CONST_BOCINA) {
+          _fechaBocina = _dateFormat.format(piked);
+          controllerFechaBocina.text = _fechaBocina;
+        }
+        if (buildListSteps[_currentStep] == CONST_MOUSE) {
+          _fechaMouse = _dateFormat.format(piked);
+          controllerFechaMouse.text = _fechaMouse;
+        }
+        if (buildListSteps[_currentStep] == CONST_SCANNER) {
+          _fechaScanner = _dateFormat.format(piked);
+          controllerFechaScanner.text = _fechaScanner;
+        }
+        if (buildListSteps[_currentStep] == CONST_IMPRESORA) {
+          _fechaImpresora = _dateFormat.format(piked);
+          controllerFechaImpresora.text = _fechaImpresora;
+        }
+        if (buildListSteps[_currentStep] == CONST_TABLET) {
+          _fechaTablet = _dateFormat.format(piked);
+          controllerFechaTablet.text = _fechaTablet;
+        }
+        if (buildListSteps[_currentStep] == CONST_LAPTOP) {
+          _fechaLaptop = _dateFormat.format(piked);
+          controllerFechaLaptop.text = _fechaLaptop;
+        }
+        if (buildListSteps[_currentStep] == CONST_MEMORIAS_USB_SD) {
+          _fechaMemoria = _dateFormat.format(piked);
+          controllerFechaMemoria.text.isEmpty;
+        }
       });
     }
   }
@@ -932,7 +1167,7 @@ class _StepperFormState extends State<StepperForm> {
           ),
         ),
         content: Form(
-            key: formKeyUnidadCentral,
+            key: formKeyEstacion,
             child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(children: <Widget>[
@@ -945,7 +1180,31 @@ class _StepperFormState extends State<StepperForm> {
                           NOMBRE_ESTACION, Icons.short_text),
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
-                      onSaved: (value) => _nombreUnidadCentral = value,
+                      onSaved: (value) => _nombreEstacion = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      autocorrect: false,
+                      controller: controllerAreaEstacion,
+                      decoration:
+                      _defaulImputDecoration(AREA_OFICINA, Icons.location_on),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _areaEstacion = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      autocorrect: false,
+                      controller: controllerEncargadoEstacion,
+                      decoration:
+                      _defaulImputDecoration(NOMBRE_ENCARGADO, Icons.person),
+                      validator: (val) =>
+                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                      onSaved: (value) => _encargadoEstacion = value,
                     ),
                   ),
                 ]))));
@@ -983,37 +1242,13 @@ class _StepperFormState extends State<StepperForm> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextFormField(
-                    controller: controllerNumInventarioUnidadCentral,
+                    controller: controllerSelloUnidadCentral,
                     autocorrect: false,
                     decoration:
                         _defaulImputDecoration(NUM_SELLO, Icons.payment),
                     validator: (val) =>
                         val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                     onSaved: (value) => _selloUnidadCentral = value,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: TextFormField(
-                    autocorrect: false,
-                    controller: controllerAreaUnidadCentral,
-                    decoration:
-                        _defaulImputDecoration(AREA_OFICINA, Icons.location_on),
-                    validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
-                    onSaved: (value) => _areaUnidadCentral = value,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: TextFormField(
-                    autocorrect: false,
-                    controller: controllerEncargadoUnidadCentral,
-                    decoration:
-                        _defaulImputDecoration(NOMBRE_ENCARGADO, Icons.person),
-                    validator: (val) =>
-                        val.isEmpty ? ERROR_RELLENE_CAMPO : null,
-                    onSaved: (value) => _encargadoUnidadCentral = value,
                   ),
                 ),
                 Padding(
@@ -1078,7 +1313,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvMotherboard = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1169,7 +1404,7 @@ class _StepperFormState extends State<StepperForm> {
   Step _formCpu() {
     return Step(
         title: Text(
-          CONST_RAM,
+          CONST_CPU,
           style: TextStyle(
             color: Colors.black45,
             fontSize: 22.0,
@@ -1192,7 +1427,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvCpu = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1306,7 +1541,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvRam = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1420,7 +1655,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvHdd = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1534,7 +1769,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvDvdRw = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1645,7 +1880,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvMonitor = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1759,7 +1994,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvTeclado = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1871,7 +2106,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvBocina = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -1982,7 +2217,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvMouse = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -2092,7 +2327,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvUps = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -2206,7 +2441,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvScanner = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -2317,7 +2552,7 @@ class _StepperFormState extends State<StepperForm> {
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _numInvImpresora = value,
-                      autovalidate: true,
+                      autovalidate: false,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -2435,14 +2670,13 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerEncargadoTablet,
                       autocorrect: false,
-                      decoration: _defaulImputDecoration(
-                          ENCARGADO, Icons.person),
+                      decoration:
+                          _defaulImputDecoration(ENCARGADO, Icons.person),
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _encargadoTablet = value,
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextFormField(
@@ -2561,10 +2795,10 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerEncargadoLaptop,
                       autocorrect: false,
-                      decoration: _defaulImputDecoration(
-                          ENCARGADO, Icons.person),
+                      decoration:
+                          _defaulImputDecoration(ENCARGADO, Icons.person),
                       validator: (val) =>
-                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                          val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _encargadoLaptop = value,
                     ),
                   ),
@@ -2686,10 +2920,10 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerEncargadoMemoria,
                       autocorrect: false,
-                      decoration: _defaulImputDecoration(
-                          ENCARGADO, Icons.person),
+                      decoration:
+                          _defaulImputDecoration(ENCARGADO, Icons.person),
                       validator: (val) =>
-                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                          val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _encargadoMemoria = value,
                     ),
                   ),
@@ -2778,7 +3012,6 @@ class _StepperFormState extends State<StepperForm> {
   }
 
   Step _formGuardar() {
-
     return Step(
       title: Text(
         CONST_STEP_GUARDAR,

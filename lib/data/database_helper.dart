@@ -17,10 +17,9 @@ class DBHelper {
   static Database _db;
 
   Future<Database> get db async {
-    if (_db == null) {
-      _db = await initDB();
-      return _db;
-    }
+    if (_db != null) return _db;
+    _db = await initDB();
+    return _db;
   }
 
   Future<Database> initDB() async {
@@ -90,11 +89,8 @@ class DBHelper {
     print('[DBHelper] _createTables - $TAB_MEMORIA : Success');
   }
 
-  //String idTablet, String numInv, String marca, String modelo,
-  //      String tipo, String detalle, String estado, String fecha
-
+  /// Metodos de guardar y leer la tabla TABLET
   void saveTablet(Tablet tablet) async {
-    print(tablet);
     var dbClient = await db;
     String addQuery = '''
          INSERT INTO $TAB_TABLET ( 
@@ -119,6 +115,22 @@ class DBHelper {
     print('[DBHelper] saveTablet: Success');
   }
 
+  Future<List<Tablet>> getAllTablets() async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_TABLET');
+    List<Tablet> tabletList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Tablet tablet = Tablet.fromMap(queryList[i]);
+      tabletList.add(tablet);
+      print(tablet);
+    }
+
+    print(tabletList);
+    return tabletList;
+  }
+
+  /// Metodos de guardar y leer la tabla LAPTOP
   void saveLaptop(Laptop laptop) async {
     print(laptop);
     var dbClient = await db;
@@ -145,6 +157,22 @@ class DBHelper {
     print('[DBHelper] saveLAPTOP: Success');
   }
 
+  Future<List<Laptop>> getAllLaptops() async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_LAPTOP');
+    List<Laptop> laptopList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Laptop laptop = Laptop.fromMap(queryList[i]);
+      laptopList.add(laptop);
+      print(Laptop);
+    }
+
+    print(laptopList);
+    return laptopList;
+  }
+
+  /// Metodos de guardar y leer la tabla MEMORIA
   void saveMemoria(Memoria memoria) async {
     print(memoria);
     var dbClient = await db;
@@ -170,5 +198,19 @@ class DBHelper {
     });
     print('[DBHelper] savememoria: Success');
   }
-  
+
+  Future<List<Memoria>> getAllMemorias() async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_LAPTOP');
+    List<Memoria> memoriaList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Memoria memoria = Memoria.fromMap(queryList[i]);
+      memoriaList.add(memoria);
+      print(Memoria);
+    }
+
+    print(memoriaList);
+    return memoriaList;
+  }
 }

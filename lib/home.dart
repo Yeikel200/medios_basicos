@@ -5,6 +5,7 @@ import 'package:medios_basicos/pages/form_estation.dart';
 import 'package:medios_basicos/pages/selection_comp.dart';
 
 import 'package:medios_basicos/model/laptop_model.dart';
+import 'package:medios_basicos/pages/tablet_list.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, @required this.title}) : super(key: key);
@@ -39,8 +40,9 @@ class _HomeState extends State<Home> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SelectionComponentPC())
-                          );
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      SelectionComponentPC()));
                         },
                         child: _buildContainerButton(
                             icon: Icons.add_circle_outline,
@@ -103,8 +105,7 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StepperForm())
-                        );
+                                builder: (context) => StepperForm()));
                       },
                       child: _buildContainerButton(
                           icon: Icons.alternate_email,
@@ -144,15 +145,14 @@ class _HomeState extends State<Home> {
                                       listLaptop: new List<Laptop>.generate(
                                           50,
                                           (i) => new Laptop(
-                                              '${(i+5) * 154617}',
+                                              '${(i + 5) * 154617}',
                                               'TOSHIBA',
                                               'Satellite',
                                               'Moderna',
                                               '17 pulgadas',
                                               'Bien',
                                               'Yeikel Uriarte',
-                                              "fecha")
-                                      ),
+                                              "fecha")),
                                     )));
                       },
                       child: _buildContainerButton(
@@ -167,7 +167,12 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TabletList()));
+                      },
                       child: _buildContainerButton(
                           icon: Icons.tablet_android,
                           iconColor: Colors.white,

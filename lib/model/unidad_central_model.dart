@@ -7,21 +7,17 @@ class UnidadCentral  {
 
   String _numInv;
   String _sello;
-  String _area;
-  String _encargado;
   String _fecha;
 
   String _idMotherboard, _idCpu, _idRam, _idHdd, _idDvdRw;
 
-  UnidadCentral(this._numInv, this._sello, this._area,
-      this._encargado, this._idMotherboard, this._idCpu,
+  UnidadCentral(this._numInv, this._sello, this._idMotherboard, this._idCpu,
       this._idRam, this._idHdd, this._idDvdRw, this._fecha,){
     this._idUCentral = _randomId.v1().toString().substring(24, 36);
   }
 
   UnidadCentral.ClienteLigero(this._numInv, this._sello,
-      this._area,
-      this._encargado, this._fecha, this._idMotherboard, this._idCpu,
+      this._fecha, this._idMotherboard, this._idCpu,
       this._idRam, this._idHdd){
     this._idUCentral = _randomId.v1().toString().substring(24, 36);
   }
@@ -60,18 +56,6 @@ class UnidadCentral  {
 
   set fecha(String value) {
     _fecha = value;
-  }
-
-  String get encargado => _encargado;
-
-  set encargado(String value) {
-    _encargado = value;
-  }
-
-  String get area => _area;
-
-  set area(String value) {
-    _area = value;
   }
 
   String get sello => _sello;

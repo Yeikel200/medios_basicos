@@ -647,7 +647,7 @@ class _AddRecordState extends State<AddRecord> {
                       NUM_INVENTARIO, Icons.confirmation_number),
                   validator: (val) => val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                   onSaved: (value) => _numInvUnidadCentral = value,
-                  keyboardType: TextInputType.numberWithOptions(),
+                  keyboardType: TextInputType.number,
                 ),
               ),
               Padding(

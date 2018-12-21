@@ -73,23 +73,29 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 icon: Icon(Icons.check),
                 onPressed: () {
                   _button();
-                  if (_listSelectComp.isNotEmpty) {
+                  if (_listSelectComp.isNotEmpty && _listSelectComp.length > 2) {
                     print('Lista con elementos');
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => StepperForm(
-                                listSteps: _updateList(),
-                              )));
-                  }else {
-                    print('Lista vacia'+ _listSelectComp.toString());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StepperForm(
+                                  listSteps: _updateList(),
+                                )));
+                  } else {
+                    print('Lista vacia' + _listSelectComp.toString());
 
                     AlertDialog alert = AlertDialog(
-                      title: Text('Deve elgir almenos un elemento'),
+                      title: Text('Deve elgir almenos un elemento para conformar la Estacion de Trabajo'),
                       titlePadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                      contentPadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                      contentPadding:
+                          EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                       actions: <Widget>[
-                        FlatButton(onPressed: (){}, child: Text('Aceptar'))
+                        FlatButton(
+                          child: Text('Aceptar'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
                       ],
                     );
 
@@ -105,11 +111,13 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
             Center(
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Seleccione los componentes que conforman su expediente',
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.black45,
-              ),),
+              child: Text(
+                'Seleccione los componentes que conforman su expediente',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.black45,
+                ),
+              ),
             )),
             SwitchListTile(
               value: _checkEstacion,
@@ -118,11 +126,10 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 _setChangeStatus(value, CONST_ESTACION);
               },
               title: Text(CONST_ESTACION),
-              subtitle: Text('Unidad Central, Monitor, Telcado, Bocina, Mouse',
-              style: TextStyle(
-                fontSize: 10.0,
-                color: Colors.black38
-              ),),
+              subtitle: Text(
+                'Unidad Central, Monitor, Telcado, Bocina, Mouse',
+                style: TextStyle(fontSize: 10.0, color: Colors.black38),
+              ),
               secondary: _checkEstacion
                   ? Icon(
                       Icons.devices_other,
@@ -137,11 +144,10 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 _setChangeStatus(value, CONST_UNIDAD_CENTRAL);
               },
               title: Text(CONST_UNIDAD_CENTRAL),
-              subtitle: Text('Motherboard, CPU, RAM, HDD, DVD-RW',
-                style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.black38
-                ),),
+              subtitle: Text(
+                'Motherboard, CPU, RAM, HDD, DVD-RW',
+                style: TextStyle(fontSize: 10.0, color: Colors.black38),
+              ),
               secondary: _checkUnidadCentral
                   ? Icon(
                       Icons.crop_portrait,
@@ -317,11 +323,10 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 _setChangeStatus(value, CONST_TABLET);
               },
               title: Text(CONST_TABLET),
-              subtitle: Text('Android, Windows Phone, iOs ',
-                style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.black38
-                ),),
+              subtitle: Text(
+                'Android, Windows Phone, iOs ',
+                style: TextStyle(fontSize: 10.0, color: Colors.black38),
+              ),
               secondary: _checkTablets
                   ? Icon(
                       Icons.tablet_android,
@@ -336,11 +341,10 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 _setChangeStatus(value, CONST_LAPTOP);
               },
               title: Text(CONST_LAPTOP),
-              subtitle: Text('Windows, Linux, Mac-OS',
-                style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.black38
-                ),),
+              subtitle: Text(
+                'Windows, Linux, Mac-OS',
+                style: TextStyle(fontSize: 10.0, color: Colors.black38),
+              ),
               secondary: _checkLaptop
                   ? Icon(
                       Icons.laptop_windows,
@@ -355,11 +359,10 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 _setChangeStatus(value, CONST_MEMORIAS_USB_SD);
               },
               title: Text(CONST_MEMORIAS_USB_SD),
-              subtitle: Text('USB, SD, Micro-USB ',
-                style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.black38
-                ),),
+              subtitle: Text(
+                'USB, SD, Micro-USB ',
+                style: TextStyle(fontSize: 10.0, color: Colors.black38),
+              ),
               secondary: _checkMemorias
                   ? Icon(
                       Icons.sd_storage,
@@ -421,7 +424,7 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
 
           ///_updateList(status, name);
           break;
-          case CONST_UNIDAD_CENTRAL:
+        case CONST_UNIDAD_CENTRAL:
           _checkUnidadCentral = status;
           _listComp.update(CONST_UNIDAD_CENTRAL, (value) => status);
           _checkMotherboard = status;
@@ -445,7 +448,7 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
           _listComp.update(CONST_CPU, (value) => status);
           _checkCpu = status;
           break;
-          case CONST_RAM:
+        case CONST_RAM:
           _listComp.update(CONST_RAM, (value) => status);
           _checkRam = status;
           break;
@@ -453,7 +456,7 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
           _checkHdd = status;
           _listComp.update(CONST_HDD, (value) => status);
           break;
-          case CONST_DVD_RW:
+        case CONST_DVD_RW:
           _checkDvdRw = status;
           _listComp.update(CONST_DVD_RW, (value) => status);
           break;

@@ -18,6 +18,8 @@ class _ItemCardListState extends State<ItemCardList> {
   Laptop laptop;
   Tablet tablet;
   Memoria memoria;
+  Object object;
+
 
   _ItemCardListState(this.laptop, this.tablet, this.memoria);
 
@@ -29,7 +31,7 @@ class _ItemCardListState extends State<ItemCardList> {
         vertical: 8.0
       ),
       child: InkWell(
-        onTap: (){print('${laptop.idLaptop}');},
+        onTap: (){print('${tablet.numInv}');},
         child: Container(
           height: 115.0,
           child: Stack(
@@ -68,9 +70,9 @@ class _ItemCardListState extends State<ItemCardList> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text('Marca: ${widget.laptop.marca}'),
-              Text('Numero de Inventario: ${widget.laptop.numInv}'),
-              Text('Encargado: ${widget.laptop.encargado}'),
+              Text('Marca: ${widget.tablet.marca}'),
+              Text('Numero de Inventario: ${widget.tablet.numInv}'),
+              Text('Encargado: ${widget.tablet.encargado}'),
             ],
           ),
         ),
