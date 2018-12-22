@@ -73,7 +73,7 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 icon: Icon(Icons.check),
                 onPressed: () {
                   _button();
-                  if (_listSelectComp.isNotEmpty && _listSelectComp.length > 2) {
+                  if (_listSelectComp.isNotEmpty && _listSelectComp.length >= 2) {
                     print('Lista con elementos');
                     Navigator.push(
                         context,

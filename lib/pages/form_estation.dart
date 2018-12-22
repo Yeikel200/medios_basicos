@@ -47,16 +47,14 @@ class _StepperFormState extends State<StepperForm> {
 
   /// Foromulario  ESTACION
   final formKeyEstacion = new GlobalKey<FormState>();
-  String _nombreEstacion,
-      _areaEstacion,
-      _encargadoEstacion;
+  String _nombreEstacion, _areaEstacion, _encargadoEstacion;
 
   final TextEditingController controllerNombreEstacion =
       new TextEditingController();
   final TextEditingController controllerAreaEstacion =
-  new TextEditingController();
+      new TextEditingController();
   final TextEditingController controllerEncargadoEstacion =
-  new TextEditingController();
+      new TextEditingController();
 
   /// Foromulario  UNIDAD CENTRAL
   final formKeyUnidadCentral = new GlobalKey<FormState>();
@@ -342,6 +340,7 @@ class _StepperFormState extends State<StepperForm> {
       _encargadoTablet,
       _fechaTablet;
   String _estadoTablet = 'BIEN';
+  int _selectStateTablet = 0;
 
   final TextEditingController controllerNumInventarioTablet =
       new TextEditingController();
@@ -552,18 +551,28 @@ class _StepperFormState extends State<StepperForm> {
                 //Creando Tablet Laptop Memoria
                 if (createTablet) {
                   print("Construllendo TABLET");
-//                  _tablet = Tablet(
-//                      _numInvTablet,
-//                      _marcaTablet,
-//                      _modeloTablet,
-//                      _tipoTablet,
-//                      _detallesTablet,
-//                      _estadoTablet,
-//                      _encargadoTablet,
-//                      _fechaTablet);
-//                  // Guardar en la base de datos
-//                  dbHelper.saveTablet(_tablet);
-                  //print(_tablet);
+                  _tablet = Tablet(
+                      _numInvTablet,
+                      _marcaTablet,
+                      _modeloTablet,
+                      _tipoTablet,
+                      _detallesTablet,
+                      _estadoTablet,
+                      _encargadoTablet,
+                      _fechaTablet);
+                  // Guardar en la base de datos
+                  dbHelper.saveTablet(_tablet);
+                  print(_tablet);
+//                  Scaffold.of(context).showSnackBar(SnackBar(
+//                    content: Text('Registro guardado correctamete'),
+//                    backgroundColor: Colors.green.shade400,
+//                    duration: Duration(seconds: 3),
+//                    action: SnackBarAction(
+//                        label: 'Ver',
+//                        onPressed: () {
+//                          // logica para ir a ver el registro guardado
+//                        }),
+//                  ));
                 }
                 if (createLaptop) {
                   print("Construllendo LAPTOP");
@@ -602,28 +611,37 @@ class _StepperFormState extends State<StepperForm> {
                   buildUnidadCentral();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else  if(createEstacion && createUc && createMonitor){
+                } else if (createEstacion && createUc && createMonitor) {
                   buildUnidadCentral();
                   buildMonitor();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
                   buildBocina();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina && createMouse){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina &&
+                    createMouse) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
@@ -631,8 +649,13 @@ class _StepperFormState extends State<StepperForm> {
                   buildMouse();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina && createMouse && createUps ){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina &&
+                    createMouse &&
+                    createUps) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
@@ -641,8 +664,13 @@ class _StepperFormState extends State<StepperForm> {
                   buildUps();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina && createMouse && createImpresora ){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina &&
+                    createMouse &&
+                    createImpresora) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
@@ -651,8 +679,13 @@ class _StepperFormState extends State<StepperForm> {
                   buildImpresora();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina && createMouse && createScanner ){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina &&
+                    createMouse &&
+                    createScanner) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
@@ -661,9 +694,14 @@ class _StepperFormState extends State<StepperForm> {
                   buildScanner();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina && createMouse && createUps
-                && createScanner){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina &&
+                    createMouse &&
+                    createUps &&
+                    createScanner) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
@@ -673,9 +711,14 @@ class _StepperFormState extends State<StepperForm> {
                   buildScanner();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina && createMouse && createUps
-                    && createImpresora){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina &&
+                    createMouse &&
+                    createUps &&
+                    createImpresora) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
@@ -685,9 +728,15 @@ class _StepperFormState extends State<StepperForm> {
                   buildImpresora();
                   print("         CONSTRUIDA ESTACION DE TRABAJO");
                   print("----------------------END----------------------");
-                }else if(createEstacion && createUc && createMonitor
-                    && createTeclado && createBocina && createMouse && createUps
-                && createScanner && createImpresora){
+                } else if (createEstacion &&
+                    createUc &&
+                    createMonitor &&
+                    createTeclado &&
+                    createBocina &&
+                    createMouse &&
+                    createUps &&
+                    createScanner &&
+                    createImpresora) {
                   buildUnidadCentral();
                   buildMonitor();
                   buildTeclado();
@@ -1188,10 +1237,10 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       autocorrect: false,
                       controller: controllerAreaEstacion,
-                      decoration:
-                      _defaulImputDecoration(AREA_OFICINA, Icons.location_on),
+                      decoration: _defaulImputDecoration(
+                          AREA_OFICINA, Icons.location_on),
                       validator: (val) =>
-                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                          val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _areaEstacion = value,
                     ),
                   ),
@@ -1200,10 +1249,10 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       autocorrect: false,
                       controller: controllerEncargadoEstacion,
-                      decoration:
-                      _defaulImputDecoration(NOMBRE_ENCARGADO, Icons.person),
+                      decoration: _defaulImputDecoration(
+                          NOMBRE_ENCARGADO, Icons.person),
                       validator: (val) =>
-                      val.isEmpty ? ERROR_RELLENE_CAMPO : null,
+                          val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _encargadoEstacion = value,
                     ),
                   ),
@@ -2636,6 +2685,13 @@ class _StepperFormState extends State<StepperForm> {
             )));
   }
 
+  void _onChangeRadioButton(int value) {
+
+      _selectStateTablet = value;
+
+    print("Value = $value  variable: $_selectStateTablet");
+  }
+
   Step _formTablet() {
     return Step(
         title: Text(
@@ -2677,6 +2733,48 @@ class _StepperFormState extends State<StepperForm> {
                       onSaved: (value) => _encargadoTablet = value,
                     ),
                   ),
+//                  Column(
+////                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                    children: <Widget>[
+//                      Text('Bien'),
+//                      Radio(
+//                          value: 0,
+//                          groupValue: _selectStateTablet,
+//                          onChanged: (int val) {
+//                            setState(() {
+//                              _onChangeRadioButton(val);
+//                            });
+//                          }),
+//                      Text('Regular'),
+//                      Radio(
+//                          value: 1,
+//                          groupValue: _selectStateTablet,
+//                          onChanged: (int val) {
+//                            setState(() {
+//                              _onChangeRadioButton(val);
+//                            });
+//                          }),
+//                      Text('Roto'),
+//                      Radio(
+//                          //secondary: Icon(Icons.sentiment_dissatisfied),
+//                          value: 2,
+//                          groupValue: _selectStateTablet,
+//                          onChanged: (int val) {
+//                            setState(() {
+//                              _onChangeRadioButton(val);
+//                            });
+//                          }),
+//                      Text('Enviado a reparar'),
+//                      Radio(
+//                          value: 3,
+//                          groupValue: _selectStateTablet,
+//                          onChanged: (int val) {
+//                            setState(() {
+//                              _onChangeRadioButton(val);
+//                            });
+//                          }),
+//                    ],
+//                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextFormField(

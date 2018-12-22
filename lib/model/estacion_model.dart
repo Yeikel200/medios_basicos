@@ -1,5 +1,7 @@
 import 'package:uuid/uuid.dart';
 
+import 'package:medios_basicos/constants.dart';
+
 class Estacion {
   String _idEstacion, _name;
   String _area;
@@ -107,6 +109,53 @@ class Estacion {
       this._idUps,
       this._idImpresora) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
+
+  Estacion.map(dynamic obj)  {
+    this._idEstacion = obj[CAMP_ID_ESTACION];
+    this._name = obj[CAMP_NOMBRE_ESTACION];
+    this._area = obj[CAMP_AREA_ESTACION];
+    this._encargado = obj[CAMP_ENCARGADO];
+    this._idUnidadCentral = obj[CAMP_ID_UNIDAD_CENTRAL];
+    this._idMonitor = obj[CAMP_ID_MONITOR];
+    this._idTeclado = obj[CAMP_ID_TECLADO];
+    this._idBocina = obj[CAMP_ID_BOCINA];
+    this._idMouse = obj[CAMP_ID_MOUSE];
+    this._idUps = obj[CAMP_ID_UPS];
+    this._idImpresora = obj[CAMP_ID_IMPRESORA];
+    this._idScanner = obj[CAMP_ID_SCANNER];
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = Map<String, dynamic>();
+    map[CAMP_ID_ESTACION] = this._idEstacion;
+    map[CAMP_NOMBRE_ESTACION] = this._name;
+    map[CAMP_AREA_ESTACION] = this._area;
+    map[CAMP_ENCARGADO] = this._encargado;
+    map[CAMP_ID_UNIDAD_CENTRAL] = this._idUnidadCentral;
+    map[CAMP_ID_MONITOR] = this._idMonitor;
+    map[CAMP_ID_TECLADO] = this._idTeclado;
+    map[CAMP_ID_BOCINA] = this._idBocina;
+    map[CAMP_ID_MOUSE] = this._idMouse;
+    map[CAMP_ID_UPS] = this._idUps;
+    map[CAMP_ID_IMPRESORA] = this._idImpresora;
+    map[CAMP_ID_SCANNER] = this._idScanner;
+    return map;
+  }
+
+  Estacion.fromMap(Map<String, dynamic> map) {
+    this._idEstacion = map[CAMP_ID_ESTACION];
+    this._name = map[CAMP_NOMBRE_ESTACION];
+    this._area = map[CAMP_AREA_ESTACION];
+    this._encargado = map[CAMP_ENCARGADO];
+    this._idUnidadCentral = map[CAMP_ID_UNIDAD_CENTRAL];
+    this._idMonitor = map[CAMP_ID_MONITOR];
+    this._idTeclado = map[CAMP_ID_TECLADO];
+    this._idBocina = map[CAMP_ID_BOCINA];
+    this._idMouse = map[CAMP_ID_MOUSE];
+    this._idUps = map[CAMP_ID_UPS];
+    this._idImpresora = map[CAMP_ID_IMPRESORA];
+    this._idScanner = map[CAMP_ID_SCANNER];
   }
 
   String get encargado => _encargado;
