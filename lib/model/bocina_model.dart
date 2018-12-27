@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -32,6 +33,32 @@ class Bocina extends BasicPropRegister {
 
   Bocina.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this._idBocina = map[CAMP_ID_BOCINA];
+  }
+
+
+  /// Metodos de guardar y leer la tabla BOCINA
+  static void saveBocina(Bocina bocina, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_BOCINA ( 
+         $CAMP_ID_BOCINA, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${bocina.idBocina}\',
+            \'${bocina.numInv}\',
+            \'${bocina.marca}\', 
+            \'${bocina.modelo}\',  
+            \'${bocina.tipo}\', 
+            \'${bocina.detalle}\', 
+            \'${bocina.estado}\', 
+            \'${bocina.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveMouse: Success');
   }
 
   String get idBocina => _idBocina;

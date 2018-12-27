@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -36,6 +37,59 @@ class Tablet extends BasicPropRegister {
     this._encargado = map[CAMP_ENCARGADO];
   }
 
+  /// Metodos de guardar y leer la tabla TABLET
+  static void saveTablet(Tablet tablet, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_TABLET ( 
+         $CAMP_ID_TABLET, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_ENCARGADO, $CAMP_FECHA ) VALUES 
+          (
+            \'${tablet.idTablet}\',
+            \'${tablet.numInv}\',
+            \'${tablet.marca}\', 
+            \'${tablet.modelo}\',  
+            \'${tablet.tipo}\', 
+            \'${tablet.detalle}\', 
+            \'${tablet.estado}\', 
+            \'${tablet.encargado}\', 
+            \'${tablet.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+
+    print('[DBHelper] saveTablet: Success');
+  }
+
+  static Future<List<Tablet>> getAllTablets(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_TABLET');
+    List<Tablet> tabletList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Tablet tablet = Tablet.fromMap(queryList[i]);
+      tabletList.add(tablet);
+      print(tablet);
+    }
+
+    print(tabletList);
+    return tabletList;
+  }
+
+  static Future<Tablet> getTablet(Future<Database> db, String idTablet) async {
+    var dbClient = await db;
+    List<Map> queryTablet =
+    await dbClient.query('$TAB_TABLET', where:'$CAMP_ID_TABLET = ? ', whereArgs: [idTablet] );
+    //print(queryTablet);
+      if(queryTablet.length > 0){
+        return Tablet.fromMap(queryTablet.first);
+      }else{
+        return null;
+      }
+  }
 
   get encargado => _encargado;
 

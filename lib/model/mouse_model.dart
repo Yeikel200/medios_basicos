@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -34,6 +35,30 @@ class Mouse extends BasicPropRegister {
     this._idMouse = map[CAMP_ID_MOUSE];
   }
 
+  /// Metodos de guardar y leer la tabla MOUSE
+  static void saveMouse(Mouse mouse, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_MOUSE ( 
+         $CAMP_ID_MOUSE, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${mouse.idMouse}\',
+            \'${mouse.numInv}\',
+            \'${mouse.marca}\', 
+            \'${mouse.modelo}\',  
+            \'${mouse.tipo}\', 
+            \'${mouse.detalle}\', 
+            \'${mouse.estado}\', 
+            \'${mouse.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveMouse: Success');
+  }
 
   String get idMouse => _idMouse;
 

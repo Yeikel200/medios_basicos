@@ -60,7 +60,7 @@ class _StepperFormState extends State<StepperForm> {
   final formKeyUnidadCentral = new GlobalKey<FormState>();
   String _numInvUnidadCentral,
       _selloUnidadCentral,
-      _estadoUnidadCentral,
+      _estadoUnidadCentral = 'Bien',
       _fechaUnidadCentral;
 
   final TextEditingController controllerNumInventarioUnidadCentral =
@@ -77,7 +77,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloMotherboard,
       _tipoMotherboard,
       _detallesMotherboard,
-      _estadoMotherboard,
+      _estadoMotherboard = 'Bien',
       _fechaMotherboard;
 
   final TextEditingController controllerNumInventarioMotherboard =
@@ -102,7 +102,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloCpu,
       _tipoCpu,
       _detallesCpu,
-      _estadoCpu,
+      _estadoCpu = 'Bien',
       _fechaCpu;
 
   final TextEditingController controllerNumInventarioCpu =
@@ -121,7 +121,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloRam,
       _tipoRam,
       _detallesRam,
-      _estadoRam,
+      _estadoRam = 'Bien',
       _fechaRam;
 
   final TextEditingController controllerNumInventarioRam =
@@ -140,7 +140,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloHdd,
       _tipoHdd,
       _detallesHdd,
-      _estadoHdd,
+      _estadoHdd = 'Bien',
       _fechaHdd;
 
   final TextEditingController controllerNumInventarioHdd =
@@ -159,7 +159,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloDvdRw,
       _tipoDvdRw,
       _detallesDvdRw,
-      _estadoDvdRw,
+      _estadoDvdRw = 'Bien',
       _fechaDvdRw;
 
   final TextEditingController controllerNumInventarioDvdRw =
@@ -181,7 +181,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloMonitor,
       _tipoMonitor,
       _detallesMonitor,
-      _estadoMonitor,
+      _estadoMonitor = 'Bien',
       _fechaMonitor;
 
   final TextEditingController controllerNumInventarioMonitor =
@@ -204,7 +204,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloTeclado,
       _tipoTeclado,
       _detallesTeclado,
-      _estadoTeclado,
+      _estadoTeclado = 'Bien',
       _fechaTeclado;
 
   final TextEditingController controllerNumInventarioTeclado =
@@ -227,7 +227,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloBocina,
       _tipoBocina,
       _detallesBocina,
-      _estadoBocina,
+      _estadoBocina = 'Bien',
       _fechaBocina;
 
   final TextEditingController controllerNumInventarioBocina =
@@ -250,7 +250,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloMouse,
       _tipoMouse,
       _detallesMouse,
-      _estadoMouse,
+      _estadoMouse = 'Bien',
       _fechaMouse;
 
   final TextEditingController controllerNumInventarioMouse =
@@ -272,7 +272,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloUps,
       _tipoUps,
       _detallesUps,
-      _estadoUps,
+      _estadoUps = 'Bien',
       _fechaUps;
 
   final TextEditingController controllerNumInventarioUps =
@@ -291,7 +291,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloScanner,
       _tipoScanner,
       _detallesScanner,
-      _estadoScanner,
+      _estadoScanner = 'Bien',
       _fechaScanner;
 
   final TextEditingController controllerNumInventarioScanner =
@@ -314,7 +314,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloImpresora,
       _tipoImpresora,
       _detallesImpresora,
-      _estadoImpresora,
+      _estadoImpresora = 'Bien',
       _fechaImpresora;
 
   final TextEditingController controllerNumInventarioImpresora =
@@ -364,7 +364,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloLaptop,
       _tipoLaptop,
       _detallesLaptop,
-      _estadoLaptop,
+      _estadoLaptop = 'Bien',
       _encargadoLaptop,
       _fechaLaptop;
 
@@ -390,7 +390,7 @@ class _StepperFormState extends State<StepperForm> {
       _modeloMemoria,
       _tipoMemoria,
       _detallesMemoria,
-      _estadoMemoria,
+      _estadoMemoria = 'Bien',
       _encargadoMemoria,
       _fechaMemoria;
 
@@ -502,17 +502,6 @@ class _StepperFormState extends State<StepperForm> {
     if (controllerFechaMemoria.text.isEmpty) {
       controllerFechaMemoria.text = _dateFormat.format(_dateTime);
     }
-//    _fechaCpu = _dateFormat.format(_dateTime);
-//    _fechaRam = _dateFormat.format(_dateTime);
-//    _fechaHdd = _dateFormat.format(_dateTime);
-//    _fechaMonitor = _dateFormat.format(_dateTime);
-//    _fechaTeclado = _dateFormat.format(_dateTime);
-//    _fechaBocina = _dateFormat.format(_dateTime);
-//    _fechaMouse = _dateFormat.format(_dateTime);
-//    _fechaScanner = _dateFormat.format(_dateTime);
-//    _fechaImpresora = _dateFormat.format(_dateTime);
-//    _fechaTablet = _dateFormat.format(_dateTime);
-//    _fechaLaptop = _dateFormat.format(_dateTime);
   }
 
   @override
@@ -524,7 +513,14 @@ class _StepperFormState extends State<StepperForm> {
           IconButton(
             icon: Icon(Icons.bug_report),
             onPressed: () {
-              dbHelper.getAllTablets();
+              //print(
+              Tablet.getTablet(dbHelper.db, '33e9114292b7');
+              //);
+
+              print('-----------------------------------------------');
+              Tablet.getAllTablets(dbHelper.db);
+              //Estacion.getAllEstacions(dbHelper.db);
+
               //print(listTablets);
             },
           ),
@@ -541,12 +537,8 @@ class _StepperFormState extends State<StepperForm> {
                 print('Escalon: $_currentStep');
                 _debugValidatorFrom(buildListSteps[_currentStep]);
               } else {
-                //_currentStep = 0;
-                // Este es el ultimo escalon de la lista
-                //Aqui implementamos la accion de guardar los datos recogidos en los formularios
-                print('Fin del la lista. Este es el ultimo elemento');
-
-                /// Reglas para guardar los formularios en DB
+                /// Este es el ultimo escalon de la lista, aquí implementamos
+                /// la accion de guardar los datos recogidos en los formularios
 
                 //Creando Tablet Laptop Memoria
                 if (createTablet) {
@@ -561,192 +553,54 @@ class _StepperFormState extends State<StepperForm> {
                       _encargadoTablet,
                       _fechaTablet);
                   // Guardar en la base de datos
-                  dbHelper.saveTablet(_tablet);
-                  print(_tablet);
-//                  Scaffold.of(context).showSnackBar(SnackBar(
-//                    content: Text('Registro guardado correctamete'),
-//                    backgroundColor: Colors.green.shade400,
-//                    duration: Duration(seconds: 3),
-//                    action: SnackBarAction(
-//                        label: 'Ver',
-//                        onPressed: () {
-//                          // logica para ir a ver el registro guardado
-//                        }),
-//                  ));
+                  Tablet.saveTablet(_tablet, dbHelper.db);
+                  //print(_tablet);
+
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Registro guardado correctamete'),
+                    backgroundColor: Colors.green.shade400,
+                    duration: Duration(seconds: 3),
+                    action: SnackBarAction(
+                        label: 'Ver',
+                        onPressed: () {
+                          // logica para ir a ver el registro guardado
+                        }),
+                  ));
                 }
                 if (createLaptop) {
                   print("Construllendo LAPTOP");
-//                  _laptop = Laptop(
-//                      _numInvLaptop,
-//                      _marcaLaptop,
-//                      _modeloLaptop,
-//                      _tipoLaptop,
-//                      _detallesLaptop,
-//                      _estadoLaptop,
-//                      _encargadoLaptop,
-//                      _fechaLaptop);
-//                  // Guardar en la base de datos
-//                  //print(_laptop);
-//                  dbHelper.saveLaptop(_laptop);
+                  _laptop = Laptop(
+                      _numInvLaptop,
+                      _marcaLaptop,
+                      _modeloLaptop,
+                      _tipoLaptop,
+                      _detallesLaptop,
+                      _estadoLaptop,
+                      _encargadoLaptop,
+                      _fechaLaptop);
+                  // Guardar en la base de datos
+                  //print(_laptop);
+                  Laptop.saveLaptop(_laptop, dbHelper.db);
                 }
                 if (createMemoria) {
                   print("Construllendo MEMORIA");
-//                  _memoria = Memoria(
-//                      _numInvMemoria,
-//                      _marcaMemoria,
-//                      _modeloMemoria,
-//                      _tipoMemoria,
-//                      _detallesMemoria,
-//                      _estadoMemoria,
-//                      _encargadoMemoria,
-//                      _fechaMemoria);
-//                  // Guardar en la base de datos
-//                  //print(_memoria);
-//                  dbHelper.saveMemoria(_memoria);
+                  _memoria = Memoria(
+                      _numInvMemoria,
+                      _marcaMemoria,
+                      _modeloMemoria,
+                      _tipoMemoria,
+                      _detallesMemoria,
+                      _estadoMemoria,
+                      _encargadoMemoria,
+                      _fechaMemoria);
+                  // Guardar en la base de datos
+                  //print(_memoria);
+                  Memoria.saveMemoria(_memoria, dbHelper.db);
                 }
 
-                /// Creamos la ESTACION despues de saber cuales son las
-                /// obciones que seleciono el usuario a guardar
-                if (createEstacion && createUc) {
-                  buildUnidadCentral();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion && createUc && createMonitor) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina &&
-                    createMouse) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  buildMouse();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina &&
-                    createMouse &&
-                    createUps) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  buildMouse();
-                  buildUps();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina &&
-                    createMouse &&
-                    createImpresora) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  buildMouse();
-                  buildImpresora();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina &&
-                    createMouse &&
-                    createScanner) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  buildMouse();
-                  buildScanner();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina &&
-                    createMouse &&
-                    createUps &&
-                    createScanner) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  buildMouse();
-                  buildUps();
-                  buildScanner();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina &&
-                    createMouse &&
-                    createUps &&
-                    createImpresora) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  buildMouse();
-                  buildUps();
-                  buildImpresora();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
-                } else if (createEstacion &&
-                    createUc &&
-                    createMonitor &&
-                    createTeclado &&
-                    createBocina &&
-                    createMouse &&
-                    createUps &&
-                    createScanner &&
-                    createImpresora) {
-                  buildUnidadCentral();
-                  buildMonitor();
-                  buildTeclado();
-                  buildBocina();
-                  buildMouse();
-                  buildUps();
-                  buildScanner();
-                  buildImpresora();
-                  print("         CONSTRUIDA ESTACION DE TRABAJO");
-                  print("----------------------END----------------------");
+                /// Comprobamos que halla selecionado la ESTACIOON primero
+                if (createEstacion) {
+                  buildEstacion();
                 }
               }
             });
@@ -763,158 +617,594 @@ class _StepperFormState extends State<StepperForm> {
     );
   }
 
+  void buildEstacion() {
+    print("---------------------START---------------------");
+    print("|Construllendo ESTACION CON UNIDAD CENTRAL     |");
+    print("-----------------------------------------------");
+    if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        //createDvdRw &&
+        createUc &&
+        !createMonitor &&
+        !createTeclado &&
+        !createBocina &&
+        !createMouse &&
+        !createUps &&
+        !createImpresora &&
+        !createScanner) {
+      buildUnidadCentral();
+
+      _estacion = Estacion(_nombreEstacion, _areaEstacion, _encargadoEstacion,
+          _unidadCentral.idUCentral);
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+      print(_estacion);
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        !createMotherboard &&
+        !createCpu &&
+        !createRam &&
+        !createHdd &&
+        !createDvdRw &&
+        !createUc &&
+        createMonitor &&
+        !createTeclado &&
+        !createBocina &&
+        !createMouse &&
+        !createUps &&
+        !createImpresora &&
+        !createScanner) {
+      //buildUnidadCentral();
+      buildMonitor();
+
+      _estacion = Estacion.ucMonitor(_nombreEstacion, _areaEstacion,
+          _encargadoEstacion, _monitor.idMonitor);
+      print(_estacion);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        !createBocina &&
+        !createMouse &&
+        !createUps &&
+        !createImpresora &&
+        !createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+
+      _estacion = Estacion.ucMonitorTeclado(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado);
+      print(_estacion);
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        createBocina &&
+        !createMouse &&
+        !createUps &&
+        !createImpresora &&
+        !createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+      buildBocina();
+
+      _estacion = Estacion.ucMonitorTecladoBocina(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado,
+          _bocina.idBocina);
+      print(_estacion);
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Bocina.saveBocina(_bocina, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        createBocina &&
+        createMouse &&
+        !createUps &&
+        !createImpresora &&
+        !createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+      buildBocina();
+      buildMouse();
+
+      _estacion = Estacion.ucMonitorTecladoBocinaMouse(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado,
+          _bocina.idBocina,
+          _mouse.idMouse);
+      print(_estacion);
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Bocina.saveBocina(_bocina, dbHelper.db);
+      Mouse.saveMouse(_mouse, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        createBocina &&
+        createMouse &&
+        createUps &&
+        !createImpresora &&
+        !createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+      buildBocina();
+      buildMouse();
+      buildUps();
+
+      _estacion = Estacion.ucMonitorTecladoBocinaMouseUps(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado,
+          _bocina.idBocina,
+          _mouse.idMouse,
+          _ups.idUps);
+      print(_estacion);
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Bocina.saveBocina(_bocina, dbHelper.db);
+      Mouse.saveMouse(_mouse, dbHelper.db);
+      Ups.saveUps(_ups, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        createBocina &&
+        createMouse &&
+        !createUps &&
+        createImpresora &&
+        !createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+      buildBocina();
+      buildMouse();
+      buildImpresora();
+
+      _estacion = Estacion.ucMonitorTecladoBocinaMouseImpresora(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado,
+          _bocina.idBocina,
+          _mouse.idMouse,
+          _impresora.idImpresora);
+      print(_estacion);
+
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Bocina.saveBocina(_bocina, dbHelper.db);
+      Mouse.saveMouse(_mouse, dbHelper.db);
+      Impresora.saveImpresora(_impresora, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        createBocina &&
+        createMouse &&
+        !createUps &&
+        !createImpresora &&
+        createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+      buildBocina();
+      buildMouse();
+      buildScanner();
+
+      _estacion = Estacion.ucMonitorTecladoBocinaMouseScanner(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado,
+          _bocina.idBocina,
+          _mouse.idMouse,
+          _scanner.idScanner);
+      print(_estacion);
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Bocina.saveBocina(_bocina, dbHelper.db);
+      Mouse.saveMouse(_mouse, dbHelper.db);
+      Scanner.saveScanner(_scanner, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        createBocina &&
+        createMouse &&
+        createUps &&
+        createImpresora &&
+        !createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+      buildBocina();
+      buildMouse();
+      buildUps();
+      buildImpresora();
+
+      _estacion = Estacion.ucMonitorTecladoBocinaMouseUpsImpresora(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado,
+          _bocina.idBocina,
+          _mouse.idMouse,
+          _ups.idUps,
+          _impresora.idImpresora);
+      print(_estacion);
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Bocina.saveBocina(_bocina, dbHelper.db);
+      Mouse.saveMouse(_mouse, dbHelper.db);
+      Ups.saveUps(_ups, dbHelper.db);
+      Impresora.saveImpresora(_impresora, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+      print("----------------------END----------------------");
+    } else if (createEstacion &&
+        createMotherboard &&
+        createCpu &&
+        createRam &&
+        createHdd &&
+        createDvdRw &&
+        createUc &&
+        createMonitor &&
+        createTeclado &&
+        createBocina &&
+        createMouse &&
+        createUps &&
+        createImpresora &&
+        createScanner) {
+      buildUnidadCentral();
+      buildMonitor();
+      buildTeclado();
+      buildBocina();
+      buildMouse();
+      buildUps();
+      buildImpresora();
+      buildScanner();
+
+      _estacion = Estacion.ucMonitorTecladoBocinaMouseUpsImpresoraScanner(
+          _nombreEstacion,
+          _areaEstacion,
+          _encargadoEstacion,
+          _unidadCentral.idUCentral,
+          _monitor.idMonitor,
+          _teclado.idTeclado,
+          _bocina.idBocina,
+          _mouse.idMouse,
+          _ups.idUps,
+          _impresora.idImpresora,
+          _scanner.idScanner);
+      print(_estacion);
+
+      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Monitor.saveMonitor(_monitor, dbHelper.db);
+      Teclado.saveTeclado(_teclado, dbHelper.db);
+      Bocina.saveBocina(_bocina, dbHelper.db);
+      Mouse.saveMouse(_mouse, dbHelper.db);
+      Ups.saveUps(_ups, dbHelper.db);
+      Impresora.saveImpresora(_impresora, dbHelper.db);
+      Scanner.saveScanner(_scanner, dbHelper.db);
+      Estacion.saveEstacion(_estacion, dbHelper.db);
+      print("----------------------END----------------------");
+    }
+  }
+
   void buildUnidadCentral() {
+    print("---------------------START---------------------");
+    print("|    Construllendo UNIDAD CENTRAL COMPLETA    |");
+    print("-----------------------------------------------");
     if (createUc &&
         createMotherboard &&
         createCpu &&
         createRam &&
-        createHdd &&
-        createDvdRw) {
-      print("---------------------START---------------------");
-      print("    Construllendo UNIDAD CENTRAL COMPLETA");
+        createHdd
+        //&& createDvdRw
+    ) {
       buildMotherboardCpuRam();
       buildHdd();
-      buildDvdRw();
-      print("----------------------END----------------------");
-    } else if (createUc &&
-        createMotherboard &&
-        createCpu &&
-        createRam &&
-        createHdd &&
-        !createDvdRw) {
-      print("---------------------START---------------------");
-      print("   Construllendo UNIDAD CENTRAL SIN DVD-RW");
-      buildMotherboardCpuRam();
-      buildHdd();
-      print("---------------------------------------------");
-    }
-    print("         Construida UNIDAD CENTRAL");
-    print("----------------------END----------------------");
+      //buildDvdRw();
 
-//    _unidadCentral = UnidadCentral(
-//        _numInvUnidadCentral,
-//        _selloUnidadCentral,
-//        _areaUnidadCentral,
-//        _encargadoUnidadCentral,
-//        _motherboard.idMotherboard,
-//        _cpu.idCpu,
-//        _ram.idRam,
-//        _hdd.idHdd,
-//        _dvdRw.idDvdRw,
-//        _fechaUnidadCentral);
+      _unidadCentral = UnidadCentral.clienteLigero(
+          _numInvUnidadCentral,
+          _selloUnidadCentral,
+          _motherboard.idMotherboard,
+          _cpu.idCpu,
+          _ram.idRam,
+          _hdd.idHdd,
+         // _dvdRw.idDvdRw,
+          _fechaUnidadCentral);
+      print(_motherboard);
+      print(_cpu);
+      print(_ram);
+      print(_hdd);
+      print(_unidadCentral);
+    }
+    print("-----------------------------------------------");
+    print("|         Construida UNIDAD CENTRAL           |");
+    print("----------------------END----------------------");
   }
 
   void buildDvdRw() {
-    print("Construllendo DVD-RW");
-//    _dvdRw = DvdRw(_numInvDvdRw, _marcaDvdRw, _modeloDvdRw, _tipoDvdRw,
-//        _detallesDvdRw, _estadoDvdRw, _fechaDvdRw);
+    if (createDvdRw) {
+      print("-----------------------------------------------");
+      print("           Construllendo DVD-RW");
+      print("-----------------------------------------------");
+      _dvdRw = DvdRw(_numInvDvdRw, _marcaDvdRw, _modeloDvdRw, _tipoDvdRw,
+          _detallesDvdRw, _estadoDvdRw, _fechaDvdRw);
+      print(_dvdRw);
+      print("-----------------------------------------------");
+    }
   }
 
   void buildHdd() {
-    print("Construllendo HDD");
-
-//    _hdd = Hdd(_numInvHdd, _marcaHdd, _modeloHdd, _tipoHdd, _detallesHdd,
-//        _estadoHdd, _fechaHdd);
+    if (createHdd) {
+      print("-----------------------------------------------");
+      print("             Construllendo HDD");
+      print("-----------------------------------------------");
+      _hdd = Hdd(_numInvHdd, _marcaHdd, _modeloHdd, _tipoHdd, _detallesHdd,
+          _estadoHdd, _fechaHdd);
+      print(_hdd);
+    }
   }
 
   void buildMotherboardCpuRam() {
     print("Construllendo MODULO = MOTHERBOARD-RAM-CPU");
-    if (createMotherboard && createCpu && createRam) {
+    //if (createMotherboard && createCpu && createRam) {
       buildMotherboard();
       buildCpu();
       buildRam();
-    } else if (createMotherboard && !createCpu && !createRam) {
-      print("Construllendo SOLO MOTHERBOARD");
-      buildMotherboard();
-    } else if (!createMotherboard && createCpu && !createRam) {
-      buildCpu();
-      print("Construllendo SOLO CPU");
-    } else if (!createMotherboard && !createCpu && createRam) {
-      buildRam();
-      print("Construllendo SOLO RAM");
-    }
+//    } else if (createMotherboard && !createCpu && !createRam) {
+//      print("Construllendo SOLO MOTHERBOARD");
+//      buildMotherboard();
+//    } else if (!createMotherboard && createCpu && !createRam) {
+//      buildCpu();
+//      print("Construllendo SOLO CPU");
+//    } else if (!createMotherboard && !createCpu && createRam) {
+//      buildRam();
+//      print("Construllendo SOLO RAM");
+//    }
   }
 
   void buildRam() {
-    print("Construllendo RAM");
-//    _ram = Ram(_numInvRam, _marcaRam, _modeloRam, _tipoRam, _detallesRam,
-//        _estadoRam, _fechaRam);
+    if (createRam) {
+      print("-----------------------------------------------");
+      print("              Construllendo RAM");
+      print("-----------------------------------------------");
+      _ram = Ram(_numInvRam, _marcaRam, _modeloRam, _tipoRam, _detallesRam,
+          _estadoRam, _fechaRam);
+      print(_ram);
+    }
   }
 
   void buildCpu() {
-    print("Construllendo CPU");
-//    _cpu = Cpu(_numInvCpu, _marcaCpu, _modeloCpu, _tipoCpu, _detallesCpu,
-//        _estadoCpu, _fechaCpu);
+    if (createCpu) {
+      print("-----------------------------------------------");
+      print("            Construllendo CPU");
+      print("-----------------------------------------------");
+      _cpu = Cpu(_numInvCpu, _marcaCpu, _modeloCpu, _tipoCpu, _detallesCpu,
+          _estadoCpu, _fechaCpu);
+      print(_cpu);
+    }
   }
 
   void buildMotherboard() {
-    print("Construllendo MOTHERBOARD ");
-//
-//    _motherboard = Motherboard( _numInvMotherboard,
-//        _marcaMotherboard, _modeloMotherboard, _tipoMotherboard,
-//        _detallesMotherboard, _estadoMotherboard, _fechaMotherboard);
+    if (createMotherboard) {
+      print("-----------------------------------------------");
+      print("          Construllendo MOTHERBOARD ");
+      print("-----------------------------------------------");
+      _motherboard = Motherboard(
+          _numInvMotherboard,
+          _marcaMotherboard,
+          _modeloMotherboard,
+          _tipoMotherboard,
+          _detallesMotherboard,
+          _estadoMotherboard,
+          _fechaMotherboard);
+
+      print('''$_numInvMotherboard, 
+          $_marcaMotherboard, 
+          $_modeloMotherboard, 
+          $_tipoMotherboard, 
+          $_detallesMotherboard, 
+          $_estadoMotherboard, 
+          $_fechaMotherboard
+          ''');
+
+      print(_motherboard);
+      print(controllerNumInventarioMotherboard.text);
+      print(controllerMarcaMotherboard.text);
+      print(controllerModeloMotherboard.text);
+      print(controllerTipoMotherboard.text);
+      print(controllerDetallesMotherboard.text);
+      print(controllerFechaMotherboard.text);
+    }
   }
 
   void buildImpresora() {
     if (createImpresora) {
-      print("Construllendo IMPRESORA ");
-//      _impresora = Impresora(
-//          _numInvImpresora,
-//          _marcaImpresora,
-//          _modeloImpresora,
-//          _tipoImpresora,
-//          _detallesImpresora,
-//          _estadoImpresora,
-//          _fechaImpresora);
+      print("-----------------------------------------------");
+      print("           Construllendo IMPRESORA ");
+      print("-----------------------------------------------");
+      _impresora = Impresora(
+          _numInvImpresora,
+          _marcaImpresora,
+          _modeloImpresora,
+          _tipoImpresora,
+          _detallesImpresora,
+          _estadoImpresora,
+          _fechaImpresora);
+      print(_impresora);
     }
   }
 
   void buildScanner() {
     if (createScanner) {
-      print("Construllendo SCANNER ");
-//      _scanner = Scanner(_numInvScanner, _marcaScanner, _modeloScanner,
-//          _tipoScanner, _detallesScanner, _estadoScanner, _fechaScanner);
+      print("-----------------------------------------------");
+      print("             Construllendo SCANNER ");
+      print("-----------------------------------------------");
+      _scanner = Scanner(_numInvScanner, _marcaScanner, _modeloScanner,
+          _tipoScanner, _detallesScanner, _estadoScanner, _fechaScanner);
+      print(_scanner);
     }
   }
 
   void buildUps() {
     if (createUps) {
-      print("Construllendo UPS ");
-//      _ups = Ups(_numInvUps, _marcaUps, _modeloUps, _tipoUps, _detallesUps,
-//          _estadoUps, _fechaUps);
+      print("-----------------------------------------------");
+      print("              Construllendo UPS ");
+      print("-----------------------------------------------");
+      _ups = Ups(_numInvUps, _marcaUps, _modeloUps, _tipoUps, _detallesUps,
+          _estadoUps, _fechaUps);
+      print(_ups);
     }
   }
 
   void buildMouse() {
     if (createMouse) {
-      print("Construllendo MOUSE ");
-
-//      _mouse = Mouse(_numInvMouse, _marcaMouse, _modeloMouse, _tipoMouse,
-//          _detallesMouse, _estadoMouse, _fechaMouse);
+      print("-----------------------------------------------");
+      print("              Construllendo MOUSE ");
+      print("-----------------------------------------------");
+      _mouse = Mouse(_numInvMouse, _marcaMouse, _modeloMouse, _tipoMouse,
+          _detallesMouse, _estadoMouse, _fechaMouse);
+      print(_mouse);
     }
   }
 
   void buildBocina() {
     if (createBocina) {
+      print("-----------------------------------------------");
       print("Construllendo BOCINA");
-//      _bocina = Bocina(_numInvBocina, _marcaBocina, _modeloBocina, _tipoBocina,
-//          _detallesBocina, _estadoBocina, _fechaBocina);
+      print("-----------------------------------------------");
+      _bocina = Bocina(_numInvBocina, _marcaBocina, _modeloBocina, _tipoBocina,
+          _detallesBocina, _estadoBocina, _fechaBocina);
+      print(_bocina);
     }
   }
 
   void buildTeclado() {
     if (createTeclado) {
-      print("Construllendo TECLADO");
-//      _teclado = Teclado(_numInvTeclado, _marcaTeclado, _modeloTeclado,
-//          _tipoTeclado, _detallesTeclado, _estadoTeclado, _fechaTeclado);
+      print("-----------------------------------------------");
+      print("            Construllendo TECLADO");
+      print("-----------------------------------------------");
+      _teclado = Teclado(_numInvTeclado, _marcaTeclado, _modeloTeclado,
+          _tipoTeclado, _detallesTeclado, _estadoTeclado, _fechaTeclado);
+      print(_teclado);
     }
   }
 
   void buildMonitor() {
     if (createMonitor) {
-      print("Construllendo MONITOR ");
-//      _monitor = Monitor(_numInvMonitor, _marcaMonitor, _modeloMonitor,
-//          _tipoMonitor, _detallesMonitor, _estadoMonitor, _fechaMonitor);
+      print("-----------------------------------------------");
+      print("            Construllendo MONITOR ");
+      print("-----------------------------------------------");
+      _monitor = Monitor(_numInvMonitor, _marcaMonitor, _modeloMonitor,
+          _tipoMonitor, _detallesMonitor, _estadoMonitor, _fechaMonitor);
+      print(_monitor);
     }
   }
 
@@ -1122,6 +1412,10 @@ class _StepperFormState extends State<StepperForm> {
         if (buildListSteps[_currentStep] == CONST_MOUSE) {
           _fechaMouse = _dateFormat.format(piked);
           controllerFechaMouse.text = _fechaMouse;
+        }
+        if (buildListSteps[_currentStep] == CONST_UPS) {
+          _fechaUps = _dateFormat.format(piked);
+          controllerFechaUps.text = _fechaUps;
         }
         if (buildListSteps[_currentStep] == CONST_SCANNER) {
           _fechaScanner = _dateFormat.format(piked);
@@ -1407,8 +1701,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesMotherboard,
                       autocorrect: false,
-                      decoration: _defaulImputDecoration(
-                          DETALLES, Icons.developer_board),
+                      decoration:
+                          _defaulImputDecoration(DETALLES, Icons.developer_board),
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesMotherboard = value,
@@ -1450,7 +1744,7 @@ class _StepperFormState extends State<StepperForm> {
             )));
   }
 
-  Step _formCpu() {
+ Step _formCpu() {
     return Step(
         title: Text(
           CONST_CPU,
@@ -2686,8 +2980,7 @@ class _StepperFormState extends State<StepperForm> {
   }
 
   void _onChangeRadioButton(int value) {
-
-      _selectStateTablet = value;
+    _selectStateTablet = value;
 
     print("Value = $value  variable: $_selectStateTablet");
   }

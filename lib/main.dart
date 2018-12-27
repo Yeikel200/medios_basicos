@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medios_basicos/model/laptop_model.dart';
 import 'package:medios_basicos/pages/laptop_list.dart';
 import 'package:medios_basicos/pages/form_estation.dart';
-import 'package:medios_basicos/widget/item_card.dart';
+import 'package:medios_basicos/widget/item_card_laptop.dart';
 import 'package:medios_basicos/home.dart';
 
 void main() => runApp(MyApp());

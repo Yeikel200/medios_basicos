@@ -1,4 +1,6 @@
 import 'package:medios_basicos/model/cpu_model.dart';
+import 'package:medios_basicos/model/estacion_model.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 import 'package:medios_basicos/constants.dart';
 
@@ -25,8 +27,8 @@ class UnidadCentral {
     this._idUCentral = _randomId.v1().toString().substring(24, 36);
   }
 
-  UnidadCentral.ClienteLigero(this._numInv, this._sello, this._fecha,
-      this._idMotherboard, this._idCpu, this._idRam, this._idHdd) {
+  UnidadCentral.clienteLigero(this._numInv, this._sello, this._idMotherboard,
+      this._idCpu, this._idRam, this._idHdd, this._fecha) {
     this._idUCentral = _randomId.v1().toString().substring(24, 36);
   }
 
@@ -73,6 +75,32 @@ class UnidadCentral {
     this._idRam = map[CAMP_ID_RAM];
     this._idHdd = map[CAMP_ID_HDD];
     this._idDvdRw = map[CAMP_ID_DVD_RW];
+  }
+
+  /// Metodos de guardar y leer la tabla UNIDAD CENTRAL
+  static void saveUnidadCentral(UnidadCentral unidadCentral, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_UNIDAD_CENTRAL ( 
+         $CAMP_ID_UNIDAD_CENTRAL, $CAMP_NUM_INVENTARIO, $CAMP_SELLO_UC,
+          $CAMP_ID_MOTHERBOARD, $CAMP_ID_CPU, $CAMP_ID_RAM, $CAMP_ID_HDD, 
+          $CAMP_ID_DVD_RW, $CAMP_FECHA ) VALUES 
+          (
+            \'${unidadCentral.idUCentral}\',
+            \'${unidadCentral.numInv}\',
+            \'${unidadCentral.sello}\', 
+            \'${unidadCentral.idMotherboard}\',  
+            \'${unidadCentral.idCpu}\', 
+            \'${unidadCentral.idRam}\', 
+            \'${unidadCentral.idHdd}\', 
+            \'${unidadCentral.idDvdRw}\', 
+            \'${unidadCentral.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveUnidadCentral: Success');
   }
 
   get idDvdRw => _idDvdRw;
@@ -128,4 +156,11 @@ class UnidadCentral {
   set idUCentral(String value) {
     _idUCentral = value;
   }
+
+  @override
+  String toString() {
+    return 'UnidadCentral{_idUCentral: $_idUCentral, _numInv: $_numInv, _sello: $_sello, _fecha: $_fecha, _idMotherboard: $_idMotherboard, _idCpu: $_idCpu, _idRam: $_idRam, _idHdd: $_idHdd, _idDvdRw: $_idDvdRw}';
+  }
+
+
 }

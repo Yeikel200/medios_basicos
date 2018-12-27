@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -34,16 +35,41 @@ class Cpu extends BasicPropRegister {
   }
 
 
-  Uuid get randomId => _randomId;
 
-  set randomId(Uuid value) {
-    _randomId = value;
+  /// Metodos de guardar y leer la tabla CPU
+  void saveCpu(Cpu cpu, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_CPU ( 
+         $CAMP_ID_CPU, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${cpu.idCpu}\',
+            \'${cpu.numInv}\',
+            \'${cpu.marca}\', 
+            \'${cpu.modelo}\',  
+            \'${cpu.tipo}\', 
+            \'${cpu.detalle}\', 
+            \'${cpu.estado}\', 
+            \'${cpu.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveCpu: Success');
   }
 
   String get idCpu => _idCpu;
 
   set idCpu(String value) {
     _idCpu = value;
+  }
+
+  @override
+  String toString() {
+    return 'Cpu{_idCpu: $_idCpu, _numInv: $numInv, _marca: $marca, _modelo: $modelo, _tipo: $tipo, _detalle: $detalle, _fecha: $fecha}';
   }
 
 

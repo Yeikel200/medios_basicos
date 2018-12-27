@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:medios_basicos/pages/laptop_list.dart';
 import 'package:medios_basicos/pages/form_estation.dart';
+import 'package:medios_basicos/pages/memoria_list.dart';
 import 'package:medios_basicos/pages/selection_comp.dart';
 
 import 'package:medios_basicos/model/laptop_model.dart';
@@ -141,19 +142,7 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LaptopList(
-                                      listLaptop: new List<Laptop>.generate(
-                                          50,
-                                          (i) => new Laptop(
-                                              '${(i + 5) * 154617}',
-                                              'TOSHIBA',
-                                              'Satellite',
-                                              'Moderna',
-                                              '17 pulgadas',
-                                              'Bien',
-                                              'Yeikel Uriarte',
-                                              "fecha")),
-                                    )));
+                                builder: (context) => LaptopList()));
                       },
                       child: _buildContainerButton(
                           icon: Icons.laptop_windows,
@@ -185,7 +174,12 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MemoriaList()));
+                      },
                       child: _buildContainerButton(
                           icon: Icons.sd_storage,
                           iconColor: Colors.white,

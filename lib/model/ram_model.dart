@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -33,6 +34,30 @@ class Ram extends BasicPropRegister {
     this._idRam = map[CAMP_ID_RAM];
   }
 
+  /// Metodos de guardar y leer la tabla RAM
+  static void saveRam(Ram ram, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_RAM ( 
+         $CAMP_ID_RAM, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${ram.idRam}\',
+            \'${ram.numInv}\',
+            \'${ram.marca}\', 
+            \'${ram.modelo}\',  
+            \'${ram.tipo}\', 
+            \'${ram.detalle}\', 
+            \'${ram.estado}\', 
+            \'${ram.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveRam: Success');
+  }
 
   String get idRam => _idRam;
 

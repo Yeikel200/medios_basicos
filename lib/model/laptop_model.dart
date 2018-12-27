@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -37,6 +38,48 @@ class Laptop extends BasicPropRegister {
   Laptop.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this._idLaptop = map[CAMP_ID_LAPTOP];
     this._encargado = map[CAMP_ENCARGADO];
+  }
+
+  /// Metodos de guardar y leer la tabla LAPTOP
+  static void saveLaptop(Laptop laptop, Future<Database> db) async {
+    print(laptop);
+    var dbClient = await db;
+    String addQuery = '''
+           INSERT INTO $TAB_LAPTOP ( 
+           $CAMP_ID_LAPTOP, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+            $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+            $CAMP_ENCARGADO, $CAMP_FECHA ) VALUES 
+            (
+              \'${laptop.idLaptop}\',
+              \'${laptop.numInv}\',
+              \'${laptop.marca}\', 
+              \'${laptop.modelo}\',  
+              \'${laptop.tipo}\', 
+              \'${laptop.detalle}\', 
+              \'${laptop.estado}\', 
+              \'${laptop.encargado}\', 
+              \'${laptop.fecha}\'
+            )
+      ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveLAPTOP: Success');
+  }
+
+  static Future<List<Laptop>> getAllLaptops(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_LAPTOP');
+    List<Laptop> laptopList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Laptop laptop = Laptop.fromMap(queryList[i]);
+      laptopList.add(laptop);
+      print(Laptop);
+    }
+
+    print(laptopList);
+    return laptopList;
   }
 
   get encargado => _encargado;

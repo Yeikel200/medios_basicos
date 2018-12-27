@@ -1,50 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:medios_basicos/model/laptop_model.dart';
-import 'package:medios_basicos/model/tablet_model.dart';
-import 'package:medios_basicos/model/memoria_model.dart';
 
-class ItemCardList extends StatefulWidget {
+class ItemCardListLaptop extends StatefulWidget {
   final Laptop laptop;
-  final Tablet tablet;
-  final Memoria memoria;
 
-  const ItemCardList({Key key, this.laptop, this.tablet, this.memoria}) : super(key: key);
+  const ItemCardListLaptop({Key key, this.laptop}) : super(key: key);
 
   @override
-  _ItemCardListState createState() => _ItemCardListState(laptop, tablet, memoria);
+  _ItemCardListLaptopState createState() => _ItemCardListLaptopState(laptop);
 }
 
-class _ItemCardListState extends State<ItemCardList> {
+class _ItemCardListLaptopState extends State<ItemCardListLaptop> {
   Laptop laptop;
-  Tablet tablet;
-  Memoria memoria;
-  Object object;
 
-
-  _ItemCardListState(this.laptop, this.tablet, this.memoria);
+  _ItemCardListLaptopState(this.laptop);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal:8.0,
-        vertical: 8.0
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: InkWell(
-        onTap: (){print('${tablet.numInv}');},
+        onTap: () {
+          print('${laptop.numInv}');
+        },
         child: Container(
           height: 115.0,
           child: Stack(
             children: <Widget>[
-              Positioned(
-                  top: 10.0,
-                  left: 10.0,
-                  child: _bodyCard
-              ),
-              Positioned(
-                left: 0.0,
-                  child: _imageCard
-              ),
+              Positioned(top: 10.0, left: 10.0, child: _bodyCard),
+              Positioned(left: 0.0, child: _imageCard),
             ],
           ),
         ),
@@ -70,9 +54,9 @@ class _ItemCardListState extends State<ItemCardList> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text('Marca: ${widget.tablet.marca}'),
-              Text('Numero de Inventario: ${widget.tablet.numInv}'),
-              Text('Encargado: ${widget.tablet.encargado}'),
+              Text('Marca: ${widget.laptop.marca}'),
+              Text('Número de Inventario: ${widget.laptop.numInv}'),
+              Text('Encargado: ${widget.laptop.encargado}'),
             ],
           ),
         ),
@@ -83,9 +67,8 @@ class _ItemCardListState extends State<ItemCardList> {
   Widget get _imageCard {
     return Container(
       decoration: BoxDecoration(
-      color: Colors.orangeAccent,
+        color: Colors.orangeAccent,
         borderRadius: BorderRadius.circular(15.0),
-
       ),
       height: 95.0,
       width: 95.0,

@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -34,6 +35,48 @@ class Memoria extends BasicPropRegister {
   Memoria.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this._idMemoria = map[CAMP_ID_MEMORIA];
     this._encargadoMemoria = map[CAMP_ENCARGADO];
+  }
+
+  /// Metodos de guardar y leer la tabla MEMORIA
+  static void saveMemoria(Memoria memoria, Future<Database> db) async {
+    print(memoria);
+    var dbClient = await db;
+    String addQuery = '''
+           INSERT INTO $TAB_MEMORIA ( 
+           $CAMP_ID_MEMORIA, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+            $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+            $CAMP_ENCARGADO, $CAMP_FECHA ) VALUES 
+            (
+              \'${memoria.idMemoria}\',
+              \'${memoria.numInv}\',
+              \'${memoria.marca}\', 
+              \'${memoria.modelo}\',  
+              \'${memoria.tipo}\', 
+              \'${memoria.detalle}\', 
+              \'${memoria.estado}\', 
+              \'${memoria.encargadoMemoria}\', 
+              \'${memoria.fecha}\'
+            )
+      ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] savememoria: Success');
+  }
+
+  static Future<List<Memoria>> getAllMemorias(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_LAPTOP');
+    List<Memoria> memoriaList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Memoria memoria = Memoria.fromMap(queryList[i]);
+      memoriaList.add(memoria);
+      print(Memoria);
+    }
+
+    print(memoriaList);
+    return memoriaList;
   }
 
   get encargadoMemoria => _encargadoMemoria;

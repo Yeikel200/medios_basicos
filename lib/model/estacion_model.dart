@@ -1,6 +1,8 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:medios_basicos/constants.dart';
+import 'package:flutter/foundation.dart';
 
 class Estacion {
   String _idEstacion, _name;
@@ -17,12 +19,12 @@ class Estacion {
   String _idScanner;
   String _idImpresora;
 
-  Estacion(this._name, this._area, this._encargado, this._idUnidadCentral) {
+  Estacion(@required this._name, @required this._area, @required this._encargado, this._idUnidadCentral) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
   Estacion.ucMonitor(this._name, this._area, this._encargado,
-      this._idUnidadCentral, this._idMonitor) {
+       this._idMonitor) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
@@ -31,12 +33,12 @@ class Estacion {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.ucMonitorTecladoBicina(this._name, this._area, this._encargado,
+  Estacion.ucMonitorTecladoBocina(this._name, this._area, this._encargado,
       this._idUnidadCentral, this._idMonitor, this._idTeclado, this._idBocina) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.ucMonitorTecladoBicinaMouse(
+  Estacion.ucMonitorTecladoBocinaMouse(
       this._name,
       this._area,
       this._encargado,
@@ -48,7 +50,7 @@ class Estacion {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.ucMonitorTecladoBicinaMouseUps(
+  Estacion.ucMonitorTecladoBocinaMouseUps(
       this._name,
       this._area,
       this._encargado,
@@ -60,7 +62,8 @@ class Estacion {
       this._idUps) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
-  Estacion.ucMonitorTecladoBicinaMouseImpresora(
+
+  Estacion.ucMonitorTecladoBocinaMouseImpresora(
       this._name,
       this._area,
       this._encargado,
@@ -72,7 +75,8 @@ class Estacion {
       this._idImpresora) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
-  Estacion.ucMonitorTecladoBicinaMouseScanner(
+
+  Estacion.ucMonitorTecladoBocinaMouseScanner(
       this._name,
       this._area,
       this._encargado,
@@ -84,7 +88,8 @@ class Estacion {
       this._idScanner) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
-  Estacion.ucMonitorTecladoBicinaMouseUpsScanner(
+
+  Estacion.ucMonitorTecladoBocinaMouseUpsScanner(
       this._name,
       this._area,
       this._encargado,
@@ -97,7 +102,8 @@ class Estacion {
       this._idScanner) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
-  Estacion.ucMonitorTecladoBicinaMouseUpsImpresora(
+
+  Estacion.ucMonitorTecladoBocinaMouseUpsImpresora(
       this._name,
       this._area,
       this._encargado,
@@ -111,7 +117,22 @@ class Estacion {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.map(dynamic obj)  {
+  Estacion.ucMonitorTecladoBocinaMouseUpsImpresoraScanner(
+      this._name,
+      this._area,
+      this._encargado,
+      this._idUnidadCentral,
+      this._idMonitor,
+      this._idTeclado,
+      this._idBocina,
+      this._idMouse,
+      this._idUps,
+      this._idImpresora,
+      this._idScanner) {
+    this._idEstacion = _randomId.v1().toString().substring(24, 36);
+  }
+
+  Estacion.map(dynamic obj) {
     this._idEstacion = obj[CAMP_ID_ESTACION];
     this._name = obj[CAMP_NOMBRE_ESTACION];
     this._area = obj[CAMP_AREA_ESTACION];
@@ -122,8 +143,8 @@ class Estacion {
     this._idBocina = obj[CAMP_ID_BOCINA];
     this._idMouse = obj[CAMP_ID_MOUSE];
     this._idUps = obj[CAMP_ID_UPS];
-    this._idImpresora = obj[CAMP_ID_IMPRESORA];
     this._idScanner = obj[CAMP_ID_SCANNER];
+    this._idImpresora = obj[CAMP_ID_IMPRESORA];
   }
 
   Map<String, dynamic> toMap() {
@@ -138,8 +159,8 @@ class Estacion {
     map[CAMP_ID_BOCINA] = this._idBocina;
     map[CAMP_ID_MOUSE] = this._idMouse;
     map[CAMP_ID_UPS] = this._idUps;
-    map[CAMP_ID_IMPRESORA] = this._idImpresora;
     map[CAMP_ID_SCANNER] = this._idScanner;
+    map[CAMP_ID_IMPRESORA] = this._idImpresora;
     return map;
   }
 
@@ -154,8 +175,53 @@ class Estacion {
     this._idBocina = map[CAMP_ID_BOCINA];
     this._idMouse = map[CAMP_ID_MOUSE];
     this._idUps = map[CAMP_ID_UPS];
-    this._idImpresora = map[CAMP_ID_IMPRESORA];
     this._idScanner = map[CAMP_ID_SCANNER];
+    this._idImpresora = map[CAMP_ID_IMPRESORA];
+  }
+
+  /// Metodos de guardar y leer la tabla ESTACION
+  static void saveEstacion(Estacion estacion, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_ESTACION ( 
+         $CAMP_ID_ESTACION, $CAMP_NOMBRE_ESTACION, $CAMP_AREA_ESTACION,
+          $CAMP_ENCARGADO, $CAMP_ID_UNIDAD_CENTRAL, $CAMP_ID_MONITOR,
+          $CAMP_ID_TECLADO, $CAMP_ID_BOCINA, $CAMP_ID_MOUSE, $CAMP_ID_UPS, 
+          $CAMP_ID_SCANNER, $CAMP_ID_IMPRESORA ) VALUES 
+          (
+            \'${estacion.idEstacion}\',
+            \'${estacion.name}\',
+            \'${estacion.area}\', 
+            \'${estacion.encargado}\',  
+            \'${estacion.idUnidadCentral}\', 
+            \'${estacion.idMonitor}\', 
+            \'${estacion.idTeclado}\', 
+            \'${estacion.idBocina}\', 
+            \'${estacion.idMouse}\', 
+            \'${estacion.idUps}\', 
+            \'${estacion.idScanner}\', 
+            \'${estacion.idImpresora}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveUnidadCentral: Success');
+  }
+
+  static Future<List<Estacion>> getAllEstacions(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_ESTACION');
+    List<Estacion> estacionList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Estacion estacion = Estacion.fromMap(queryList[i]);
+      estacionList.add(estacion);
+      print(Estacion);
+    }
+
+    print(estacionList);
+    return estacionList;
   }
 
   String get encargado => _encargado;
@@ -232,6 +298,10 @@ class Estacion {
 
   @override
   String toString() {
-    return 'Estacion{_idEstacion: $_idEstacion, _name: $_name, _area: $_area, _encargado: $_encargado, _randomId: $_randomId, _idUnidadCentral: $_idUnidadCentral, _idMonitor: $_idMonitor, _idTeclado: $_idTeclado, _idBocina: $_idBocina, _idMouse: $_idMouse, _idUps: $_idUps, _idScanner: $_idScanner, _idImpresora: $_idImpresora}';
+    return 'Estacion{_idEstacion: $_idEstacion, _name: $_name, _area: $_area,'
+        ' _encargado: $_encargado, _idUnidadCentral: $_idUnidadCentral,'
+        ' _idMonitor: $_idMonitor, _idTeclado: $_idTeclado, '
+        '_idBocina: $_idBocina, _idMouse: $_idMouse, _idUps: $_idUps,'
+        ' _idScanner: $_idScanner, _idImpresora: $_idImpresora}';
   }
 }

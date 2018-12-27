@@ -1,3 +1,5 @@
+import 'package:sqflite/sqflite.dart';
+
 import 'basic_prop_register.dart';
 import 'package:uuid/uuid.dart';
 import 'package:medios_basicos/constants.dart';
@@ -32,6 +34,30 @@ class Hdd extends BasicPropRegister {
     this._idHdd = map[CAMP_ID_HDD];
   }
 
+  /// Metodos de guardar y leer la tabla HDD
+  static void saveHdd(Hdd hdd, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_HDD ( 
+         $CAMP_ID_HDD, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${hdd.idHdd}\',
+            \'${hdd.numInv}\',
+            \'${hdd.marca}\', 
+            \'${hdd.modelo}\',  
+            \'${hdd.tipo}\', 
+            \'${hdd.detalle}\', 
+            \'${hdd.estado}\', 
+            \'${hdd.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveHdd: Success');
+  }
 
   String get idHdd => _idHdd;
 

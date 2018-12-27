@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -31,6 +32,32 @@ class DvdRw extends BasicPropRegister {
 
   DvdRw.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this._idDvdRw = map[CAMP_ID_DVD_RW];
+  }
+
+
+  /// Metodos de guardar y leer la tabla DVD-RW
+  static void saveDvdRw(DvdRw dvd, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_DVD_RW ( 
+         $CAMP_ID_DVD_RW, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${dvd.idDvdRw}\',
+            \'${dvd.numInv}\',
+            \'${dvd.marca}\', 
+            \'${dvd.modelo}\',  
+            \'${dvd.tipo}\', 
+            \'${dvd.detalle}\', 
+            \'${dvd.estado}\', 
+            \'${dvd.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveDVD-RW: Success');
   }
 
 

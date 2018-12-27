@@ -32,6 +32,7 @@ class BasicPropRegister {
     map[CAMP_DETALLES] = _detalle;
     map[CAMP_ESTADO] = _estado;
     map[CAMP_FECHA] = _fecha;
+    return map;
   }
 
   BasicPropRegister.fromMap(Map<String, dynamic> map) {

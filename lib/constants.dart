@@ -45,6 +45,7 @@
  const TAB_CPU = 'cpu';
  const TAB_RAM = 'ram';
  const TAB_HDD = 'hdd';
+ const TAB_DVD_RW = 'dvd_rw';
 
  const TAB_MONITOR = 'monitor';
  const TAB_TECLADO = 'teclado';

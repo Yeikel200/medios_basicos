@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:medios_basicos/data/database_helper.dart';
 import 'package:medios_basicos/model/tablet_model.dart';
-import 'package:medios_basicos/widget/item_card.dart';
+import 'package:medios_basicos/widget/item_card_tablet.dart';
 
 Future<List<Tablet>> getTabletFromDB() async {
-  var dbHelper = DBHelper();
-  Future<List<Tablet>> listTablet = dbHelper.getAllTablets();
+  var _dbHelper = DBHelper();
+  Future<List<Tablet>> listTablet = Tablet.getAllTablets(_dbHelper.db);
   return listTablet;
 }
 
@@ -37,7 +37,7 @@ class _TabletListState extends State<TabletList> {
                 return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      return ItemCardList(
+                      return ItemCardListTablet(
                         tablet: snapshot.data[index],
                       );
                     });

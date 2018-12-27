@@ -1,6 +1,3 @@
-import 'package:medios_basicos/model/laptop_model.dart';
-import 'package:medios_basicos/model/memoria_model.dart';
-import 'package:medios_basicos/model/tablet_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io' as io;
@@ -43,7 +40,6 @@ class DBHelper {
   }
 
   void _createTables(Database db, int version) async {
-
     /// TABLA DE TABLETS
     await db.execute('''
       CREATE TABLE $TAB_TABLET (
@@ -96,14 +92,16 @@ class DBHelper {
     await db.execute('''
           CREATE TABLE $TAB_ESTACION (
           '$CAMP_ID_ESTACION' TEXT PRIMARY KEY NOT NULL,
-          '$CAMP_NUM_INVENTARIO' TEXT,
-          '$CAMP_MARCA' TEXT,
-          '$CAMP_MODELO' TEXT,
-          '$CAMP_TIPO' TEXT NULL,
-          '$CAMP_DETALLES' TEXT,
-          '$CAMP_ESTADO' TEXT,
+          '$CAMP_AREA_ESTACION' TEXT,
           '$CAMP_ENCARGADO' TEXT,
-          '$CAMP_FECHA' TEXT 
+          '$CAMP_ID_UNIDAD_CENTRAL' TEXT,
+          '$CAMP_ID_MONITOR' TEXT NULL,
+          '$CAMP_ID_TECLADO' TEXT,
+          '$CAMP_ID_BOCINA' TEXT,
+          '$CAMP_ID_MOUSE' TEXT,
+          '$CAMP_ID_UPS' TEXT,
+          '$CAMP_ID_SCANNER' TEXT,
+          '$CAMP_ID_IMPRESORA' TEXT 
          )
           ''');
     print('[DBHelper] _createTables - $TAB_ESTACION : Success');
@@ -113,12 +111,12 @@ class DBHelper {
           CREATE TABLE $TAB_UNIDAD_CENTRAL (
           '$CAMP_ID_UNIDAD_CENTRAL' TEXT PRIMARY KEY NOT NULL,
           '$CAMP_NUM_INVENTARIO' TEXT,
-          '$CAMP_MARCA' TEXT,
-          '$CAMP_MODELO' TEXT,
-          '$CAMP_TIPO' TEXT NULL,
-          '$CAMP_DETALLES' TEXT,
-          '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
+          '$CAMP_SELLO_UC' TEXT,
+          '$CAMP_ID_MOTHERBOARD' TEXT,
+          '$CAMP_ID_CPU' TEXT NULL,
+          '$CAMP_ID_RAM' TEXT,
+          '$CAMP_ID_HDD' TEXT,
+          '$CAMP_ID_DVD_RW' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -134,7 +132,6 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -150,7 +147,6 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -166,7 +162,6 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -182,11 +177,25 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
     print('[DBHelper] _createTables - $TAB_HDD : Success');
+
+    /// TABLA DE TAB DVD-RW
+    await db.execute('''
+          CREATE TABLE $TAB_DVD_RW (
+          '$CAMP_ID_DVD_RW' TEXT PRIMARY KEY NOT NULL,
+          '$CAMP_NUM_INVENTARIO' TEXT,
+          '$CAMP_MARCA' TEXT,
+          '$CAMP_MODELO' TEXT,
+          '$CAMP_TIPO' TEXT NULL,
+          '$CAMP_DETALLES' TEXT,
+          '$CAMP_ESTADO' TEXT,
+          '$CAMP_FECHA' TEXT 
+         )
+          ''');
+    print('[DBHelper] _createTables - $TAB_DVD_RW : Success');
 
     /// TABLA DE MONITOR
     await db.execute('''
@@ -198,7 +207,6 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -214,7 +222,6 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -230,7 +237,6 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -246,11 +252,25 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
     print('[DBHelper] _createTables - $TAB_MOUSE : Success');
+
+    /// TABLA DE UPS
+    await db.execute('''
+          CREATE TABLE $TAB_UPS (
+          '$CAMP_ID_UPS' TEXT PRIMARY KEY NOT NULL,
+          '$CAMP_NUM_INVENTARIO' TEXT,
+          '$CAMP_MARCA' TEXT,
+          '$CAMP_MODELO' TEXT,
+          '$CAMP_TIPO' TEXT NULL,
+          '$CAMP_DETALLES' TEXT,
+          '$CAMP_ESTADO' TEXT,
+          '$CAMP_FECHA' TEXT 
+         )
+          ''');
+    print('[DBHelper] _createTables - $TAB_UPS : Success');
 
     /// TABLA DE SCANNER
     await db.execute('''
@@ -262,7 +282,6 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
@@ -278,136 +297,15 @@ class DBHelper {
           '$CAMP_TIPO' TEXT NULL,
           '$CAMP_DETALLES' TEXT,
           '$CAMP_ESTADO' TEXT,
-          '$CAMP_ENCARGADO' TEXT,
           '$CAMP_FECHA' TEXT 
          )
           ''');
     print('[DBHelper] _createTables - $TAB_IMPRESORA : Success');
-
   }
 
-  /// Metodos de guardar y leer la tabla TABLET
-  void saveTablet(Tablet tablet) async {
-    var dbClient = await db;
-    String addQuery = '''
-         INSERT INTO $TAB_TABLET ( 
-         $CAMP_ID_TABLET, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
-          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
-          $CAMP_ENCARGADO, $CAMP_FECHA ) VALUES 
-          (
-            \'${tablet.idTablet}\',
-            \'${tablet.numInv}\',
-            \'${tablet.marca}\', 
-            \'${tablet.modelo}\',  
-            \'${tablet.tipo}\', 
-            \'${tablet.detalle}\', 
-            \'${tablet.estado}\', 
-            \'${tablet.encargado}\', 
-            \'${tablet.fecha}\'
-          )
-    ''';
-    await dbClient.transaction((trans) async {
-      return await trans.rawQuery(addQuery);
-    });
-    print('[DBHelper] saveTablet: Success');
-  }
 
-  Future<List<Tablet>> getAllTablets() async {
-    var dbClient = await db;
-    List<Map> queryList = await dbClient.query('$TAB_TABLET');
-    List<Tablet> tabletList = List();
 
-    for (int i = 0; i < queryList.length; i++) {
-      Tablet tablet = Tablet.fromMap(queryList[i]);
-      tabletList.add(tablet);
-      print(tablet);
-    }
 
-    print(tabletList);
-    return tabletList;
-  }
 
-  /// Metodos de guardar y leer la tabla LAPTOP
-  void saveLaptop(Laptop laptop) async {
-    print(laptop);
-    var dbClient = await db;
-    String addQuery = '''
-           INSERT INTO $TAB_LAPTOP ( 
-           $CAMP_ID_LAPTOP, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
-            $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
-            $CAMP_ENCARGADO, $CAMP_FECHA ) VALUES 
-            (
-              \'${laptop.idLaptop}\',
-              \'${laptop.numInv}\',
-              \'${laptop.marca}\', 
-              \'${laptop.modelo}\',  
-              \'${laptop.tipo}\', 
-              \'${laptop.detalle}\', 
-              \'${laptop.estado}\', 
-              \'${laptop.encargado}\', 
-              \'${laptop.fecha}\'
-            )
-      ''';
-    await dbClient.transaction((trans) async {
-      return await trans.rawQuery(addQuery);
-    });
-    print('[DBHelper] saveLAPTOP: Success');
-  }
 
-  Future<List<Laptop>> getAllLaptops() async {
-    var dbClient = await db;
-    List<Map> queryList = await dbClient.query('$TAB_LAPTOP');
-    List<Laptop> laptopList = List();
-
-    for (int i = 0; i < queryList.length; i++) {
-      Laptop laptop = Laptop.fromMap(queryList[i]);
-      laptopList.add(laptop);
-      print(Laptop);
-    }
-
-    print(laptopList);
-    return laptopList;
-  }
-
-  /// Metodos de guardar y leer la tabla MEMORIA
-  void saveMemoria(Memoria memoria) async {
-    print(memoria);
-    var dbClient = await db;
-    String addQuery = '''
-           INSERT INTO $TAB_MEMORIA ( 
-           $CAMP_ID_MEMORIA, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
-            $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
-            $CAMP_ENCARGADO, $CAMP_FECHA ) VALUES 
-            (
-              \'${memoria.idMemoria}\',
-              \'${memoria.numInv}\',
-              \'${memoria.marca}\', 
-              \'${memoria.modelo}\',  
-              \'${memoria.tipo}\', 
-              \'${memoria.detalle}\', 
-              \'${memoria.estado}\', 
-              \'${memoria.encargadoMemoria}\', 
-              \'${memoria.fecha}\'
-            )
-      ''';
-    await dbClient.transaction((trans) async {
-      return await trans.rawQuery(addQuery);
-    });
-    print('[DBHelper] savememoria: Success');
-  }
-
-  Future<List<Memoria>> getAllMemorias() async {
-    var dbClient = await db;
-    List<Map> queryList = await dbClient.query('$TAB_LAPTOP');
-    List<Memoria> memoriaList = List();
-
-    for (int i = 0; i < queryList.length; i++) {
-      Memoria memoria = Memoria.fromMap(queryList[i]);
-      memoriaList.add(memoria);
-      print(Memoria);
-    }
-
-    print(memoriaList);
-    return memoriaList;
-  }
 }

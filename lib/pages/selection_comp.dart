@@ -73,8 +73,9 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                 icon: Icon(Icons.check),
                 onPressed: () {
                   _button();
-                  if (_listSelectComp.isNotEmpty && _listSelectComp.length >= 2) {
-                    print('Lista con elementos');
+                  if (_listSelectComp.isNotEmpty
+                      && _listSelectComp.length >= 2
+                      ) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -85,7 +86,10 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
                     print('Lista vacia' + _listSelectComp.toString());
 
                     AlertDialog alert = AlertDialog(
-                      title: Text('Deve elgir almenos un elemento para conformar la Estacion de Trabajo'),
+                      title: Text(
+                          'Información '),
+                      content:  Text(
+                          'Deve elgir almenos un elemento para poder seguir'),
                       titlePadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                       contentPadding:
                           EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
@@ -384,8 +388,7 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
         if (!_listSelectComp.contains(k)) {
           _listSelectComp.add(k);
         }
-        print('Lista para mandar a la otra actividad');
-        // _listSelectComp.forEach((value) => debugPrint(value));
+
       } else {
         _listSelectComp.remove(k);
       }
@@ -441,19 +444,19 @@ class _SelectionComponentPCState extends State<SelectionComponentPC> {
           ///_updateList(status, name);
           break;
         case CONST_MOTHERBOARD:
-          _checkMotherboard = status;
+          //_checkMotherboard = status;
           _listComp.update(CONST_MOTHERBOARD, (value) => status);
           break;
         case CONST_CPU:
+          //_checkCpu = status;
           _listComp.update(CONST_CPU, (value) => status);
-          _checkCpu = status;
           break;
         case CONST_RAM:
+          //_checkRam = status;
           _listComp.update(CONST_RAM, (value) => status);
-          _checkRam = status;
           break;
         case CONST_HDD:
-          _checkHdd = status;
+         // _checkHdd = status;
           _listComp.update(CONST_HDD, (value) => status);
           break;
         case CONST_DVD_RW:

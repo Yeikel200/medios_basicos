@@ -1,3 +1,5 @@
+import 'package:sqflite/sqflite.dart';
+
 import 'basic_prop_register.dart';
 
 import 'package:uuid/uuid.dart';
@@ -35,6 +37,30 @@ class Scanner extends BasicPropRegister {
     this._idScanner = map[CAMP_ID_SCANNER];
   }
 
+  /// Metodos de guardar y leer la tabla SCANNER
+  static void saveScanner(Scanner scanner, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_SCANNER ( 
+         $CAMP_ID_SCANNER, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${scanner.idScanner}\',
+            \'${scanner.numInv}\',
+            \'${scanner.marca}\', 
+            \'${scanner.modelo}\',  
+            \'${scanner.tipo}\', 
+            \'${scanner.detalle}\', 
+            \'${scanner.estado}\', 
+            \'${scanner.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveScanner: Success');
+  }
 
   String get idScanner => _idScanner;
 

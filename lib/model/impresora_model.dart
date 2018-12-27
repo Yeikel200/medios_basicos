@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -33,6 +34,30 @@ class Impresora extends BasicPropRegister {
     this._idImpresora = map[CAMP_ID_IMPRESORA];
   }
 
+  /// Metodos de guardar y leer la tabla IMPRESORA
+  static void saveImpresora(Impresora impresora, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_IMPRESORA ( 
+         $CAMP_ID_IMPRESORA, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${impresora.idImpresora}\',
+            \'${impresora.numInv}\',
+            \'${impresora.marca}\', 
+            \'${impresora.modelo}\',  
+            \'${impresora.tipo}\', 
+            \'${impresora.detalle}\', 
+            \'${impresora.estado}\', 
+            \'${impresora.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveImpresora: Success');
+  }
 
   String get idImpresora => _idImpresora;
 

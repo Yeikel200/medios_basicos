@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'basic_prop_register.dart';
@@ -29,8 +30,35 @@ class Motherboard extends BasicPropRegister {
     return map;
   }
 
+
+
   Motherboard.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this._idMotherboard = map[CAMP_ID_MOTHERBOARD];
+  }
+
+  /// Metodos de guardar y leer la tabla MOTHERBOARD
+  static void saveMotherboard(Motherboard motherboard, Future<Database> db) async {
+    var dbClient = await db;
+    String addQuery = '''
+         INSERT INTO $TAB_MOTHERBOARD ( 
+         $CAMP_ID_MOTHERBOARD, $CAMP_NUM_INVENTARIO, $CAMP_MARCA,
+          $CAMP_MODELO, $CAMP_TIPO, $CAMP_DETALLES, $CAMP_ESTADO, 
+          $CAMP_FECHA ) VALUES 
+          (
+            \'${motherboard.idMotherboard}\',
+            \'${motherboard.numInv}\',
+            \'${motherboard.marca}\', 
+            \'${motherboard.modelo}\',  
+            \'${motherboard.tipo}\', 
+            \'${motherboard.detalle}\', 
+            \'${motherboard.estado}\', 
+            \'${motherboard.fecha}\'
+          )
+    ''';
+    await dbClient.transaction((trans) async {
+      return await trans.rawQuery(addQuery);
+    });
+    print('[DBHelper] saveMotherboard: Success');
   }
 
   String get idMotherboard => _idMotherboard;
