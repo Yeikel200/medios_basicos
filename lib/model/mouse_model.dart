@@ -60,6 +60,32 @@ class Mouse extends BasicPropRegister {
     print('[DBHelper] saveMouse: Success');
   }
 
+  static Future<List<Mouse>> getAllMouses(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_MOUSE');
+    List<Mouse> mouseList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Mouse mouse = Mouse.fromMap(queryList[i]);
+      mouseList.add(mouse);
+      print(mouse);
+    }
+    print(mouseList);
+    return mouseList;
+  }
+
+  static Future<Mouse> getMouse(Future<Database> db, String idMouse) async {
+    var dbClient = await db;
+    List<Map> queryMouse =
+    await dbClient.query('$TAB_MOUSE', where:'$CAMP_ID_MOUSE = ? ', whereArgs: [idMouse] );
+    //print(queryMouse);
+    if(queryMouse.length > 0){
+      return Mouse.fromMap(queryMouse.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idMouse => _idMouse;
 
   set idMouse(String value) {

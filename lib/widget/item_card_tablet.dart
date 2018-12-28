@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medios_basicos/model/laptop_model.dart';
 import 'package:medios_basicos/model/tablet_model.dart';
-import 'package:medios_basicos/model/memoria_model.dart';
 
 class ItemCardListTablet extends StatefulWidget {
   final Tablet tablet;

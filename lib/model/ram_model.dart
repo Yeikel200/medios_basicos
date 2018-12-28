@@ -59,6 +59,32 @@ class Ram extends BasicPropRegister {
     print('[DBHelper] saveRam: Success');
   }
 
+  static Future<List<Ram>> getAllRams(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_RAM');
+    List<Ram> ramList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Ram ram = Ram.fromMap(queryList[i]);
+      ramList.add(ram);
+      print(ram);
+    }
+    print(ramList);
+    return ramList;
+  }
+
+  static Future<Ram> getRam(Future<Database> db, String idRam) async {
+    var dbClient = await db;
+    List<Map> queryRam =
+    await dbClient.query('$TAB_RAM', where:'$CAMP_ID_RAM = ? ', whereArgs: [idRam] );
+    //print(queryRam);
+    if(queryRam.length > 0){
+      return Ram.fromMap(queryRam.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idRam => _idRam;
 
   set idRam(String value) {

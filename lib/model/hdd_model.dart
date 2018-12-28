@@ -59,6 +59,32 @@ class Hdd extends BasicPropRegister {
     print('[DBHelper] saveHdd: Success');
   }
 
+  static Future<List<Hdd>> getAllHdds(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_HDD');
+    List<Hdd> hddList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Hdd hdd = Hdd.fromMap(queryList[i]);
+      hddList.add(hdd);
+      print(hdd);
+    }
+    print(hddList);
+    return hddList;
+  }
+
+  static Future<Hdd> getHdd(Future<Database> db, String idHdd) async {
+    var dbClient = await db;
+    List<Map> queryHdd =
+    await dbClient.query('$TAB_HDD', where:'$CAMP_ID_HDD = ? ', whereArgs: [idHdd] );
+    //print(queryHdd);
+    if(queryHdd.length > 0){
+      return Hdd.fromMap(queryHdd.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idHdd => _idHdd;
 
   set idHdd(String value) {

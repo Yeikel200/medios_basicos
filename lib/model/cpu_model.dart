@@ -34,10 +34,8 @@ class Cpu extends BasicPropRegister {
     this._idCpu = map[CAMP_ID_CPU];
   }
 
-
-
   /// Metodos de guardar y leer la tabla CPU
-  void saveCpu(Cpu cpu, Future<Database> db) async {
+  static void saveCpu(Cpu cpu, Future<Database> db) async {
     var dbClient = await db;
     String addQuery = '''
          INSERT INTO $TAB_CPU ( 
@@ -59,6 +57,32 @@ class Cpu extends BasicPropRegister {
       return await trans.rawQuery(addQuery);
     });
     print('[DBHelper] saveCpu: Success');
+  }
+
+  static Future<List<Cpu>> getAllCpus(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_CPU');
+    List<Cpu> cpuList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Cpu cpu = Cpu.fromMap(queryList[i]);
+      cpuList.add(cpu);
+      print(cpu);
+    }
+    print(cpuList);
+    return cpuList;
+  }
+
+  static Future<Cpu> getCpu(Future<Database> db, String idCpu) async {
+    var dbClient = await db;
+    List<Map> queryCpu =
+    await dbClient.query('$TAB_CPU', where:'$CAMP_ID_CPU = ? ', whereArgs: [idCpu] );
+    //print(queryCpu);
+    if(queryCpu.length > 0){
+      return Cpu.fromMap(queryCpu.first);
+    }else{
+      return null;
+    }
   }
 
   String get idCpu => _idCpu;

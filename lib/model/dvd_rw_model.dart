@@ -61,6 +61,32 @@ class DvdRw extends BasicPropRegister {
   }
 
 
+  static Future<List<DvdRw>> getAllDvdRws(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_DVD_RW');
+    List<DvdRw> dvdList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      DvdRw dvd = DvdRw.fromMap(queryList[i]);
+      dvdList.add(dvd);
+      print(DvdRw);
+    }
+    print(dvdList);
+    return dvdList;
+  }
+
+  static Future<DvdRw> getDvdRw(Future<Database> db, String idDvdRw) async {
+    var dbClient = await db;
+    List<Map> queryDvdRw =
+    await dbClient.query('$TAB_DVD_RW', where:'$CAMP_ID_DVD_RW = ? ', whereArgs: [idDvdRw] );
+    //print(queryDvdRw);
+    if(queryDvdRw.length > 0){
+      return DvdRw.fromMap(queryDvdRw.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idDvdRw => _idDvdRw;
 
   set idDvdRw(String value) {

@@ -61,6 +61,32 @@ class Bocina extends BasicPropRegister {
     print('[DBHelper] saveMouse: Success');
   }
 
+  static Future<List<Bocina>> getAllBocinas(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_BOCINA');
+    List<Bocina> bocinaList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Bocina bocina = Bocina.fromMap(queryList[i]);
+      bocinaList.add(bocina);
+      print(Bocina);
+    }
+    print(bocinaList);
+    return bocinaList;
+  }
+
+  static Future<Bocina> getBocina(Future<Database> db, String idBocina) async {
+    var dbClient = await db;
+    List<Map> queryBocina =
+    await dbClient.query('$TAB_BOCINA', where:'$CAMP_ID_BOCINA = ? ', whereArgs: [idBocina] );
+    //print(queryBocina);
+    if(queryBocina.length > 0){
+      return Bocina.fromMap(queryBocina.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idBocina => _idBocina;
 
   set idBocina(String value) {

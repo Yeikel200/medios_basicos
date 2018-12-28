@@ -37,7 +37,7 @@ class Memoria extends BasicPropRegister {
     this._encargadoMemoria = map[CAMP_ENCARGADO];
   }
 
-  /// Metodos de guardar y leer la tabla MEMORIA
+  /// Guardar el registro en la tabla MEMORIA
   static void saveMemoria(Memoria memoria, Future<Database> db) async {
     print(memoria);
     var dbClient = await db;
@@ -64,9 +64,10 @@ class Memoria extends BasicPropRegister {
     print('[DBHelper] savememoria: Success');
   }
 
+  ///Obtiene todas las memorias
   static Future<List<Memoria>> getAllMemorias(Future<Database> db) async {
     var dbClient = await db;
-    List<Map> queryList = await dbClient.query('$TAB_LAPTOP');
+    List<Map> queryList = await dbClient.query('$TAB_MEMORIA');
     List<Memoria> memoriaList = List();
 
     for (int i = 0; i < queryList.length; i++) {
@@ -77,6 +78,18 @@ class Memoria extends BasicPropRegister {
 
     print(memoriaList);
     return memoriaList;
+  }
+
+  static Future<Memoria> getMemoria(Future<Database> db, String idMemoria) async {
+    var dbClient = await db;
+    List<Map> queryMemoria =
+    await dbClient.query('$TAB_MEMORIA', where:'$CAMP_ID_MEMORIA = ? ', whereArgs: [idMemoria] );
+    //print(queryMemoria);
+    if(queryMemoria.length > 0){
+      return Memoria.fromMap(queryMemoria.first);
+    }else{
+      return null;
+    }
   }
 
   get encargadoMemoria => _encargadoMemoria;

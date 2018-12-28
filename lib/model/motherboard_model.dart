@@ -61,6 +61,32 @@ class Motherboard extends BasicPropRegister {
     print('[DBHelper] saveMotherboard: Success');
   }
 
+  static Future<List<Motherboard>> getAllMotherboards(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_MOTHERBOARD');
+    List<Motherboard> motherboardList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Motherboard motherboard = Motherboard.fromMap(queryList[i]);
+      motherboardList.add(motherboard);
+      print(motherboard);
+    }
+    print(motherboardList);
+    return motherboardList;
+  }
+
+  static Future<Motherboard> getMotherboard(Future<Database> db, String idMotherboard) async {
+    var dbClient = await db;
+    List<Map> queryMotherboard =
+    await dbClient.query('$TAB_MOTHERBOARD', where:'$CAMP_ID_MOTHERBOARD = ? ', whereArgs: [idMotherboard] );
+    //print(queryMotherboard);
+    if(queryMotherboard.length > 0){
+      return Motherboard.fromMap(queryMotherboard.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idMotherboard => _idMotherboard;
 
   set idMotherboard(String value) {

@@ -61,6 +61,32 @@ class Ups extends BasicPropRegister {
     print('[DBHelper] saveUps: Success');
   }
 
+  static Future<List<Ups>> getAllUpss(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_UPS');
+    List<Ups> upsList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Ups ups = Ups.fromMap(queryList[i]);
+      upsList.add(ups);
+      print(ups);
+    }
+    print(upsList);
+    return upsList;
+  }
+
+  static Future<Ups> getUps(Future<Database> db, String idUps) async {
+    var dbClient = await db;
+    List<Map> queryUps =
+    await dbClient.query('$TAB_UPS', where:'$CAMP_ID_UPS = ? ', whereArgs: [idUps] );
+    //print(queryUps);
+    if(queryUps.length > 0){
+      return Ups.fromMap(queryUps.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idUps => _idUps;
 
   set idUps(String value) {

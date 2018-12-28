@@ -61,6 +61,31 @@ class Teclado extends BasicPropRegister {
     print('[DBHelper] saveTeclado: Success');
   }
 
+  static Future<List<Teclado>> getAllTeclados(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_TECLADO');
+    List<Teclado> tecladoList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Teclado teclado = Teclado.fromMap(queryList[i]);
+      tecladoList.add(teclado);
+      print(teclado);
+    }
+    print(tecladoList);
+    return tecladoList;
+  }
+
+  static Future<Teclado> getTeclado(Future<Database> db, String idTeclado) async {
+    var dbClient = await db;
+    List<Map> queryTeclado =
+    await dbClient.query('$TAB_TECLADO', where:'$CAMP_ID_TECLADO = ? ', whereArgs: [idTeclado] );
+    //print(queryTeclado);
+    if(queryTeclado.length > 0){
+      return Teclado.fromMap(queryTeclado.first);
+    }else{
+      return null;
+    }
+  }
 
   String get idTeclado => _idTeclado;
 

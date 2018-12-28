@@ -59,6 +59,32 @@ class Impresora extends BasicPropRegister {
     print('[DBHelper] saveImpresora: Success');
   }
 
+  static Future<List<Impresora>> getAllImpresoras(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_IMPRESORA');
+    List<Impresora> impresoraList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Impresora impresora = Impresora.fromMap(queryList[i]);
+      impresoraList.add(impresora);
+      print(impresora);
+    }
+    print(impresoraList);
+    return impresoraList;
+  }
+
+  static Future<Impresora> getImpresora(Future<Database> db, String idImpresora) async {
+    var dbClient = await db;
+    List<Map> queryImpresora =
+    await dbClient.query('$TAB_IMPRESORA', where:'$CAMP_ID_IMPRESORA = ? ', whereArgs: [idImpresora] );
+    //print(queryImpresora);
+    if(queryImpresora.length > 0){
+      return Impresora.fromMap(queryImpresora.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idImpresora => _idImpresora;
 
   set idImpresora(String value) {

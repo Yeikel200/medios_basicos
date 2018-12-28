@@ -513,12 +513,38 @@ class _StepperFormState extends State<StepperForm> {
           IconButton(
             icon: Icon(Icons.bug_report),
             onPressed: () {
-              //print(
-              Tablet.getTablet(dbHelper.db, '33e9114292b7');
+             // print(
+              Tablet.getTablet(dbHelper.db, 'a5e9f2c31a69');
               //);
 
-              print('-----------------------------------------------');
-              Tablet.getAllTablets(dbHelper.db);
+              print('-----------------------UC-----------------------------');
+              UnidadCentral.getAllUnidadCentrals(dbHelper.db);
+              print('------------------MOTHERBOARD-----------------------------');
+              Motherboard.getAllMotherboards(dbHelper.db);
+              print('-----------------------CPU-----------------------------');
+              Cpu.getAllCpus(dbHelper.db);
+              print('-----------------------RAM-----------------------------');
+              Ram.getAllRams(dbHelper.db);
+              print('-----------------------HDD-----------------------------');
+              Hdd.getAllHdds(dbHelper.db);
+              print('-----------------------DVD-RW-----------------------------');
+              DvdRw.getAllDvdRws(dbHelper.db);
+              print('-----------------------MONITOR-----------------------------');
+              Monitor.getAllMonitors(dbHelper.db);
+              print('-----------------------TECLADO-----------------------------');
+              Teclado.getAllTeclados(dbHelper.db);
+              print('-----------------------BOCINA-----------------------------');
+              Bocina.getAllBocinas(dbHelper.db);
+              print('-----------------------MOUSE-----------------------------');
+              Mouse.getAllMouses(dbHelper.db);
+              print('-----------------------UPS-----------------------------');
+              Ups.getAllUpss(dbHelper.db);
+              print('-----------------------IMPRESORA-----------------------------');
+              Impresora.getAllImpresoras(dbHelper.db);
+              print('-----------------------SCANNER-----------------------------');
+              Scanner.getAllScanners(dbHelper.db);
+
+              //Tablet.getAllTablets(dbHelper.db);
               //Estacion.getAllEstacions(dbHelper.db);
 
               //print(listTablets);
@@ -555,17 +581,17 @@ class _StepperFormState extends State<StepperForm> {
                   // Guardar en la base de datos
                   Tablet.saveTablet(_tablet, dbHelper.db);
                   //print(_tablet);
-
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Registro guardado correctamete'),
-                    backgroundColor: Colors.green.shade400,
-                    duration: Duration(seconds: 3),
-                    action: SnackBarAction(
-                        label: 'Ver',
-                        onPressed: () {
-                          // logica para ir a ver el registro guardado
-                        }),
-                  ));
+//
+//                  Scaffold.of(context).showSnackBar(SnackBar(
+//                    content: Text('Registro guardado correctamete'),
+//                    backgroundColor: Colors.green.shade400,
+//                    duration: Duration(seconds: 3),
+//                    action: SnackBarAction(
+//                        label: 'Ver',
+//                        onPressed: () {
+//                          // logica para ir a ver el registro guardado
+//                        }),
+//                  ));
                 }
                 if (createLaptop) {
                   print("Construllendo LAPTOP");
@@ -639,7 +665,11 @@ class _StepperFormState extends State<StepperForm> {
 
       _estacion = Estacion(_nombreEstacion, _areaEstacion, _encargadoEstacion,
           _unidadCentral.idUCentral);
-      UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
+      Motherboard.saveMotherboard(_motherboard, dbHelper.db);
+      Cpu.saveCpu(_cpu, dbHelper.db);
+      Ram.saveRam(_ram, dbHelper.db);
+      Hdd.saveHdd(_hdd, dbHelper.db);
+      //DvdRw.saveDvdRw(_dvdRw, dbHelper.db);
       Estacion.saveEstacion(_estacion, dbHelper.db);
       print(_estacion);
       print("----------------------END----------------------");

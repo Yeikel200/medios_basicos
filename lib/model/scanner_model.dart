@@ -62,6 +62,32 @@ class Scanner extends BasicPropRegister {
     print('[DBHelper] saveScanner: Success');
   }
 
+  static Future<List<Scanner>> getAllScanners(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_SCANNER');
+    List<Scanner> scannerList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Scanner scanner = Scanner.fromMap(queryList[i]);
+      scannerList.add(scanner);
+      print(scanner);
+    }
+    print(scannerList);
+    return scannerList;
+  }
+
+  static Future<Scanner> getScanner(Future<Database> db, String idScanner) async {
+    var dbClient = await db;
+    List<Map> queryScanner =
+    await dbClient.query('$TAB_SCANNER', where:'$CAMP_ID_SCANNER = ? ', whereArgs: [idScanner] );
+    //print(queryScanner);
+    if(queryScanner.length > 0){
+      return Scanner.fromMap(queryScanner.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idScanner => _idScanner;
 
   set idScanner(String value) {

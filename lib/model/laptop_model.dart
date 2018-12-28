@@ -82,6 +82,18 @@ class Laptop extends BasicPropRegister {
     return laptopList;
   }
 
+  static Future<Laptop> getLaptop(Future<Database> db, String idLaptop) async {
+    var dbClient = await db;
+    List<Map> queryLaptop =
+    await dbClient.query('$TAB_LAPTOP', where:'$CAMP_ID_LAPTOP = ? ', whereArgs: [idLaptop] );
+    //print(queryLaptop);
+    if(queryLaptop.length > 0){
+      return Laptop.fromMap(queryLaptop.first);
+    }else{
+      return null;
+    }
+  }
+
   get encargado => _encargado;
 
   set encargado(value) {

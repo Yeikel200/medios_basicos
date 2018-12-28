@@ -83,7 +83,7 @@ class Tablet extends BasicPropRegister {
     var dbClient = await db;
     List<Map> queryTablet =
     await dbClient.query('$TAB_TABLET', where:'$CAMP_ID_TABLET = ? ', whereArgs: [idTablet] );
-    //print(queryTablet);
+    print(queryTablet);
       if(queryTablet.length > 0){
         return Tablet.fromMap(queryTablet.first);
       }else{

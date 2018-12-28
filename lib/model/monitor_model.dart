@@ -61,6 +61,32 @@ class Monitor extends BasicPropRegister {
     print('[DBHelper] saveMonitor: Success');
   }
 
+  static Future<List<Monitor>> getAllMonitors(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_MONITOR');
+    List<Monitor> monitorList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      Monitor monitor = Monitor.fromMap(queryList[i]);
+      monitorList.add(monitor);
+      print(monitor);
+    }
+    print(monitorList);
+    return monitorList;
+  }
+
+  static Future<Monitor> getMonitor(Future<Database> db, String idMonitor) async {
+    var dbClient = await db;
+    List<Map> queryMonitor =
+    await dbClient.query('$TAB_MONITOR', where:'$CAMP_ID_MONITOR = ? ', whereArgs: [idMonitor] );
+    //print(queryMonitor);
+    if(queryMonitor.length > 0){
+      return Monitor.fromMap(queryMonitor.first);
+    }else{
+      return null;
+    }
+  }
+
   String get idMonitor => _idMonitor;
 
   set idMonitor(String value) {

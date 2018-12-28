@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:medios_basicos/data/database_helper.dart';
 import 'package:medios_basicos/model/memoria_model.dart';
 import 'package:medios_basicos/widget/item_card_memoria.dart';
-import 'package:sqflite/sqflite.dart';
 
 Future<List<Memoria>> getMemoriaFromDB() async {
   var _dbHelper = DBHelper();
@@ -29,6 +28,7 @@ class _MemoriaListState extends State<MemoriaList> {
         title: Text('Lista de Memorias'),
       ),
       body: Container(
+        color: Colors.white70,
         padding: EdgeInsets.all(4.0),
         child: FutureBuilder<List<Memoria>>(
           future: getMemoriaFromDB(),

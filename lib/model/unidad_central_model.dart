@@ -103,6 +103,33 @@ class UnidadCentral {
     print('[DBHelper] saveUnidadCentral: Success');
   }
 
+  static Future<List<UnidadCentral>> getAllUnidadCentrals(Future<Database> db) async {
+    var dbClient = await db;
+    List<Map> queryList = await dbClient.query('$TAB_UNIDAD_CENTRAL');
+    List<UnidadCentral> unidadCentralList = List();
+
+    for (int i = 0; i < queryList.length; i++) {
+      UnidadCentral unidadCentral = UnidadCentral.fromMap(queryList[i]);
+      unidadCentralList.add(unidadCentral);
+      print(unidadCentral);
+    }
+    print(unidadCentralList);
+    return unidadCentralList;
+  }
+
+  static Future<UnidadCentral> getUnidadCentral(Future<Database> db, String idUnidadCentral) async {
+    var dbClient = await db;
+    List<Map> queryUnidadCentral =
+    await dbClient.query('$TAB_UNIDAD_CENTRAL', where:'$CAMP_ID_UNIDAD_CENTRAL = ? ',
+        whereArgs: [idUnidadCentral] );
+    //print(queryUnidadCentral);
+    if(queryUnidadCentral.length > 0){
+      return UnidadCentral.fromMap(queryUnidadCentral.first);
+    }else{
+      return null;
+    }
+  }
+
   get idDvdRw => _idDvdRw;
 
   set idDvdRw(value) {
