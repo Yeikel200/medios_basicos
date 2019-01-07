@@ -513,13 +513,14 @@ class _StepperFormState extends State<StepperForm> {
           IconButton(
             icon: Icon(Icons.bug_report),
             onPressed: () {
-             // print(
+              // print(
               Tablet.getTablet(dbHelper.db, 'a5e9f2c31a69');
               //);
 
               print('-----------------------UC-----------------------------');
               UnidadCentral.getAllUnidadCentrals(dbHelper.db);
-              print('------------------MOTHERBOARD-----------------------------');
+              print(
+                  '------------------MOTHERBOARD-----------------------------');
               Motherboard.getAllMotherboards(dbHelper.db);
               print('-----------------------CPU-----------------------------');
               Cpu.getAllCpus(dbHelper.db);
@@ -527,21 +528,28 @@ class _StepperFormState extends State<StepperForm> {
               Ram.getAllRams(dbHelper.db);
               print('-----------------------HDD-----------------------------');
               Hdd.getAllHdds(dbHelper.db);
-              print('-----------------------DVD-RW-----------------------------');
+              print(
+                  '-----------------------DVD-RW-----------------------------');
               DvdRw.getAllDvdRws(dbHelper.db);
-              print('-----------------------MONITOR-----------------------------');
+              print(
+                  '-----------------------MONITOR-----------------------------');
               Monitor.getAllMonitors(dbHelper.db);
-              print('-----------------------TECLADO-----------------------------');
+              print(
+                  '-----------------------TECLADO-----------------------------');
               Teclado.getAllTeclados(dbHelper.db);
-              print('-----------------------BOCINA-----------------------------');
+              print(
+                  '-----------------------BOCINA-----------------------------');
               Bocina.getAllBocinas(dbHelper.db);
-              print('-----------------------MOUSE-----------------------------');
+              print(
+                  '-----------------------MOUSE-----------------------------');
               Mouse.getAllMouses(dbHelper.db);
               print('-----------------------UPS-----------------------------');
               Ups.getAllUpss(dbHelper.db);
-              print('-----------------------IMPRESORA-----------------------------');
+              print(
+                  '-----------------------IMPRESORA-----------------------------');
               Impresora.getAllImpresoras(dbHelper.db);
-              print('-----------------------SCANNER-----------------------------');
+              print(
+                  '-----------------------SCANNER-----------------------------');
               Scanner.getAllScanners(dbHelper.db);
 
               //Tablet.getAllTablets(dbHelper.db);
@@ -669,7 +677,9 @@ class _StepperFormState extends State<StepperForm> {
       Cpu.saveCpu(_cpu, dbHelper.db);
       Ram.saveRam(_ram, dbHelper.db);
       Hdd.saveHdd(_hdd, dbHelper.db);
-      //DvdRw.saveDvdRw(_dvdRw, dbHelper.db);
+      if (createDvdRw) {
+        DvdRw.saveDvdRw(_dvdRw, dbHelper.db);
+      }
       Estacion.saveEstacion(_estacion, dbHelper.db);
       print(_estacion);
       print("----------------------END----------------------");
@@ -878,7 +888,6 @@ class _StepperFormState extends State<StepperForm> {
           _impresora.idImpresora);
       print(_estacion);
 
-
       UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
       Monitor.saveMonitor(_monitor, dbHelper.db);
       Teclado.saveTeclado(_teclado, dbHelper.db);
@@ -1032,9 +1041,8 @@ class _StepperFormState extends State<StepperForm> {
         createMotherboard &&
         createCpu &&
         createRam &&
-        createHdd
-        //&& createDvdRw
-    ) {
+        createHdd &&
+        !createDvdRw) {
       buildMotherboardCpuRam();
       buildHdd();
       //buildDvdRw();
@@ -1046,7 +1054,25 @@ class _StepperFormState extends State<StepperForm> {
           _cpu.idCpu,
           _ram.idRam,
           _hdd.idHdd,
-         // _dvdRw.idDvdRw,
+          _fechaUnidadCentral);
+      print(_motherboard);
+      print(_cpu);
+      print(_ram);
+      print(_hdd);
+      print(_unidadCentral);
+    } else {
+      buildMotherboardCpuRam();
+      buildHdd();
+      buildDvdRw();
+
+      _unidadCentral = UnidadCentral(
+          _numInvUnidadCentral,
+          _selloUnidadCentral,
+          _motherboard.idMotherboard,
+          _cpu.idCpu,
+          _ram.idRam,
+          _hdd.idHdd,
+          _dvdRw.idDvdRw,
           _fechaUnidadCentral);
       print(_motherboard);
       print(_cpu);
@@ -1085,9 +1111,9 @@ class _StepperFormState extends State<StepperForm> {
   void buildMotherboardCpuRam() {
     print("Construllendo MODULO = MOTHERBOARD-RAM-CPU");
     //if (createMotherboard && createCpu && createRam) {
-      buildMotherboard();
-      buildCpu();
-      buildRam();
+    buildMotherboard();
+    buildCpu();
+    buildRam();
 //    } else if (createMotherboard && !createCpu && !createRam) {
 //      print("Construllendo SOLO MOTHERBOARD");
 //      buildMotherboard();
@@ -1127,31 +1153,34 @@ class _StepperFormState extends State<StepperForm> {
       print("-----------------------------------------------");
       print("          Construllendo MOTHERBOARD ");
       print("-----------------------------------------------");
-      _motherboard = Motherboard(
-          _numInvMotherboard,
-          _marcaMotherboard,
-          _modeloMotherboard,
-          _tipoMotherboard,
-          _detallesMotherboard,
-          _estadoMotherboard,
-          _fechaMotherboard);
 
-      print('''$_numInvMotherboard, 
-          $_marcaMotherboard, 
-          $_modeloMotherboard, 
-          $_tipoMotherboard, 
-          $_detallesMotherboard, 
-          $_estadoMotherboard, 
-          $_fechaMotherboard
-          ''');
+      _motherboard = Motherboard(
+          controllerNumInventarioMotherboard.text,
+          controllerMarcaMotherboard.text,
+          controllerModeloMotherboard.text,
+          controllerTipoMotherboard.text,
+          controllerDetallesMotherboard.text,
+          _estadoMotherboard,
+          controllerFechaMotherboard.text);
+// _motherboard = Motherboard(
+//          _numInvMotherboard,
+//          _marcaMotherboard,
+//          _modeloMotherboard,
+//          _tipoMotherboard,
+//          _detallesMotherboard,
+//          _estadoMotherboard,
+//          _fechaMotherboard);
+
+//      print('''$_numInvMotherboard,
+//          $_marcaMotherboard,
+//          $_modeloMotherboard,
+//          $_tipoMotherboard,
+//          $_detallesMotherboard,
+//          $_estadoMotherboard,
+//          $_fechaMotherboard
+//          ''');
 
       print(_motherboard);
-      print(controllerNumInventarioMotherboard.text);
-      print(controllerMarcaMotherboard.text);
-      print(controllerModeloMotherboard.text);
-      print(controllerTipoMotherboard.text);
-      print(controllerDetallesMotherboard.text);
-      print(controllerFechaMotherboard.text);
     }
   }
 
@@ -1731,8 +1760,8 @@ class _StepperFormState extends State<StepperForm> {
                     child: TextFormField(
                       controller: controllerDetallesMotherboard,
                       autocorrect: false,
-                      decoration:
-                          _defaulImputDecoration(DETALLES, Icons.developer_board),
+                      decoration: _defaulImputDecoration(
+                          DETALLES, Icons.developer_board),
                       validator: (val) =>
                           val.isEmpty ? ERROR_RELLENE_CAMPO : null,
                       onSaved: (value) => _detallesMotherboard = value,
@@ -1749,9 +1778,6 @@ class _StepperFormState extends State<StepperForm> {
                             icon: Icon(Icons.date_range),
                             onPressed: () {
                               _selectDate(context);
-                              setState(() {
-                                //_saveDate = new DateFormat.yMd(_dateTime)
-                              });
                             }),
                         contentPadding: EdgeInsets.all(16.0),
                         border: OutlineInputBorder(
@@ -1774,7 +1800,7 @@ class _StepperFormState extends State<StepperForm> {
             )));
   }
 
- Step _formCpu() {
+  Step _formCpu() {
     return Step(
         title: Text(
           CONST_CPU,

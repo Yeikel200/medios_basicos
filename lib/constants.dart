@@ -22,15 +22,17 @@
  const NOMBRE_ESTACION = 'Nombre de la estación';
  const NUM_INVENTARIO = 'Número de Inventario';
  const NUM_SELLO = 'Número del Sello';
- const AREA_OFICINA = 'Área o Oficina';
+ const AREA_OFICINA = 'Oficina';
  const NOMBRE_ENCARGADO = 'Nombre del encargado';
  const ERROR_RELLENE_CAMPO = "Rellene el campo";
 
+ const ESTACION = 'ESTACIÓN DE TRABAJO';
  const MARCA = 'Marca';
  const MODELO = 'Modelo';
  const TIPO = 'Tipo';
  const DETALLES = 'Detalles';
  const ENCARGADO = 'Encargado';
+ const ESTADO = 'Estado';
  const CONST_FECHA = 'Fecha';
 
  /// Nombre de  tablas

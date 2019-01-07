@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:medios_basicos/pages/estacion_list.dart';
 
 import 'package:medios_basicos/pages/laptop_list.dart';
 import 'package:medios_basicos/pages/form_estation.dart';
 import 'package:medios_basicos/pages/memoria_list.dart';
 import 'package:medios_basicos/pages/selection_comp.dart';
 
-import 'package:medios_basicos/model/laptop_model.dart';
 import 'package:medios_basicos/pages/tablet_list.dart';
 
 class Home extends StatefulWidget {
@@ -70,7 +70,12 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EstacionList()));
+                        },
                         child: _buildContainerButton(
                             icon: Icons.format_list_numbered,
                             iconColor: Colors.white,
