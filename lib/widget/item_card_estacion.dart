@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medios_basicos/data/database_helper.dart';
 
 import 'package:medios_basicos/util.dart';
 import 'package:medios_basicos/constants.dart';
@@ -32,18 +33,20 @@ import 'package:medios_basicos/widget/item_card_teclado.dart';
 import 'package:medios_basicos/widget/item_card_unidad_central.dart';
 import 'package:medios_basicos/widget/text_data_base_item.dart';
 
-UnidadCentral _unidadCentral = UnidadCentral.clienteLigero(
-    '53108135301',
-    '80313525235',
-    '${_motherboard.idMotherboard}',
-    '${_cpu.idCpu}',
-    '${_ram.idRam}',
-    '${_hdd.idHdd}',
-    //'${_dvdRw.idDvdRw}',
-    '15/5/1018');
+//UnidadCentral _unidadCentral;
+// = UnidadCentral.clienteLigero(
+//    '53108135301',
+//    '80313525235',
+//    '${_motherboard.idMotherboard}',
+//    '${_cpu.idCpu}',
+//    '${_ram.idRam}',
+//    '${_hdd.idHdd}',
+//    //'${_dvdRw.idDvdRw}',
+//    '15/5/1018');
 
-Motherboard _motherboard = Motherboard(
-    '1681556168', 'Asus', 'As787', 'P-1155', 'D-88', 'Bien', '12/01/2018');
+//Motherboard _motherboard;
+// = Motherboard(
+//    '1681556168', 'Asus', 'As787', 'P-1155', 'D-88', 'Bien', '12/01/2018');
 
 Cpu _cpu =
     Cpu('1681714168', 'Intel', 'III', 'Core-I3', 'D-88', 'Bien', '12/01/2018');
@@ -54,40 +57,42 @@ Ram _ram =
 Hdd _hdd =
     Hdd('168163168', 'Segate', 'SATA-6', 'Rpp', 'SEE', 'Bien', '12/01/2018');
 
-DvdRw _dvdRw ;
-    //DvdRw('1681686168', 'LG', 'SATA', '32 RP', 'LLL', 'Bien', '12/01/2018');
+DvdRw _dvdRw;
+//DvdRw('1681686168', 'LG', 'SATA', '32 RP', 'LLL', 'Bien', '12/01/2018');
 
-Monitor _monitor =
-  Monitor(
-    '38133513', 'Hanel', 'H505', 'LCD', '15 pulgadas', 'Bien', '16/01/2018'
-  );
-Teclado _teclado =
-  Teclado(
-    '38167513', 'Logitech', 'H505', 'USB', 'Negro', 'Bien', '12/12/2018'
-  );
-Bocina _bocina =
-  Bocina(
-    '38234413', 'Sony', 'SONG', 'AC-DC', 'Blancas', 'Bien', '25/11/2018'
-  );
+Monitor _monitor = Monitor(
+    '38133513', 'Hanel', 'H505', 'LCD', '15 pulgadas', 'Bien', '16/01/2018');
+Teclado _teclado = Teclado(
+    '38167513', 'Logitech', 'H505', 'USB', 'Negro', 'Bien', '12/12/2018');
+Bocina _bocina = Bocina(
+    '38234413', 'Sony', 'SONG', 'AC-DC', 'Blancas', 'Bien', '25/11/2018');
 Mouse _mouse =
-  Mouse(
-    '3822313', 'AOpen', 'AOp', 'PS-2', 'Blanco', 'Bien', '20/01/2018'
-  );
-Impresora _impresora =
-  Impresora(
-    '3823233', 'HP', '90PH', 'Tonel', 'Blancas', 'Bien', '20/05/2018'
-  );
-Scanner _scanner =
-  Scanner(
-    '38234413', 'Hp', 'HP2500', '2001', 'Blancas', 'Bien', '25/09/2018'
-  );
+    Mouse('3822313', 'AOpen', 'AOp', 'PS-2', 'Blanco', 'Bien', '20/01/2018');
+Impresora _impresora = Impresora(
+    '3823233', 'HP', '90PH', 'Tonel', 'Blancas', 'Bien', '20/05/2018');
+Scanner _scanner = Scanner(
+    '38234413', 'Hp', 'HP2500', '2001', 'Blancas', 'Bien', '25/09/2018');
 
 const double heightCard = 235.0;
 const double heightCardEsta = 100.0;
 const double heightCardUc = 155.0;
 
+Future<Estacion> getEstacionFromDB() async {
+  var _dbHelper = DBHelper();
+
+  return await Estacion.getEstacion(_dbHelper.db, 'bb8c19086e49');
+}
+
+//Future<UnidadCentral> getUnidadCentralFromDB(Future<String> idUnidadCentral) async {
+//  var _dbHelper = DBHelper();
+//  String id = await idUnidadCentral;
+//  print('ID_UNIDAD CENTRAL: $id');
+//  return await UnidadCentral.getUnidadCentral(_dbHelper.db, id);
+//}
+
+
 class ItemCardListEstacion extends StatefulWidget {
-  final Estacion estacion;
+  final Future<Estacion> estacion;
 
   const ItemCardListEstacion({Key key, this.estacion}) : super(key: key);
 
@@ -97,10 +102,22 @@ class ItemCardListEstacion extends StatefulWidget {
 }
 
 class _ItemCardListEstacionState extends State<ItemCardListEstacion> {
-  Estacion estacion;
+  Future<Estacion> estacion;
+  UnidadCentral unidadCentral;
+
   double allHeightCard = 0.0;
 
   _ItemCardListEstacionState(this.estacion);
+
+  @override
+  void initState() {
+    estacion = getEstacionFromDB();
+    initShearch();
+  }
+
+  initShearch() async {
+    unidadCentral = await getUnidadCentralFromDB(estacion.then((est) => est.idUnidadCentral));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,17 +133,21 @@ class _ItemCardListEstacionState extends State<ItemCardListEstacion> {
                     Positioned(
                         top: _sizeHeight(ESTACION),
                         left: 0.0,
-                        child: _bodyCard
-                    ),
-
+                        child: _bodyCard),
                     Positioned(
                         top: _sizeHeight(CONST_UNIDAD_CENTRAL),
                         left: 0.0,
-                        child: ItemCardUnidadCentral(_unidadCentral)),
+                        child: ItemCardUnidadCentral(
+                          idUnidadCentral:
+                              estacion.then((est) => est.idUnidadCentral),
+                        )),
                     Positioned(
                         left: 0.0,
                         top: _sizeHeight(CONST_MOTHERBOARD),
-                        child: ItemCardMotherboard(_motherboard)),
+                        child: ItemCardMotherboard(
+                          idMotherboard:
+                              unidadCentral.idMotherboard),
+                        ),
                     Positioned(
                         top: _sizeHeight(CONST_CPU),
                         left: 0.0,
@@ -139,10 +160,12 @@ class _ItemCardListEstacionState extends State<ItemCardListEstacion> {
                         top: _sizeHeight(CONST_HDD),
                         left: 0.0,
                         child: ItemCardHdd(_hdd)),
-                    _dvdRw != null ? Positioned(
-                        left: 0.0,
-                        top: _sizeHeight(CONST_DVD_RW),
-                        child: ItemCardDvdRw(_dvdRw)) : Container(),
+                    _dvdRw != null
+                        ? Positioned(
+                            left: 0.0,
+                            top: _sizeHeight(CONST_DVD_RW),
+                            child: ItemCardDvdRw(_dvdRw))
+                        : Container(),
                     Positioned(
                         top: _sizeHeight(CONST_MONITOR),
                         left: 0.0,
@@ -167,19 +190,17 @@ class _ItemCardListEstacionState extends State<ItemCardListEstacion> {
                         top: _sizeHeight(CONST_SCANNER),
                         left: 0.0,
                         child: ItemCardScanner(_scanner)),
-
                   ],
                 ),
               );
             }));
   }
 
-  double _sizeHeight (String card){
-
+  double _sizeHeight(String card) {
     switch (card) {
       case ESTACION:
-        if(allHeightCard == 0.0){
-        return allHeightCard ;
+        if (allHeightCard == 0.0) {
+          return allHeightCard;
         }
         break;
 
@@ -222,7 +243,6 @@ class _ItemCardListEstacionState extends State<ItemCardListEstacion> {
 //      default:
 //        return 0.0;
     }
-
   }
 
   Widget get _bodyCard {
@@ -230,16 +250,15 @@ class _ItemCardListEstacionState extends State<ItemCardListEstacion> {
       height: 140.0,
       width: 370.0,
       //color: Colors.deepPurple,
-      child: Stack(
-        children: <Widget>[
-
-          Positioned(
-            top: 20.0,
-            child: Container(
+      child: Stack(children: <Widget>[
+        Positioned(
+          top: 20.0,
+          child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
             ),
-            width: 370.0, //Crear MediaQuery para tomar el ancho de la pantalla
+            width: 370.0,
+            //Crear MediaQuery para tomar el ancho de la pantalla
             height: 120.0,
             child: Card(
               color: Colors.blue[100],
@@ -256,26 +275,60 @@ class _ItemCardListEstacionState extends State<ItemCardListEstacion> {
                 ),
                 child: Column(
                   // crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
-                        child: TextDataBaseItem(AREA_OFICINA, "Melaito")),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: TextDataBaseItem(ENCARGADO, 'Yeikel Uriarte Arteaga')),
-                    Expanded(child: Container())
+                    FutureBuilder<Estacion>(
+                        future: getEstacionFromDB(),
+                        builder: (contex, snapshot) {
+                          if (snapshot.data != null) {
+                            if (snapshot.hasData != null) {
+                              return Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 4.0),
+                                    child: TextDataBaseItem(
+                                        AREA_OFICINA, snapshot.data.area),
+                                  ),
+                                  Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: TextDataBaseItem(
+                                          ENCARGADO, snapshot.data.encargado)),
+                                  //Expanded(child: Container()),
+                                ],
+                              );
+                            }
+                          }
+                          return Container(
+                            alignment: AlignmentDirectional.center,
+                            child: CircularProgressIndicator(),
+                          );
+                        }),
                   ],
                 ),
               ),
             ),
-        ),
           ),
-          Positioned(
-              left: 50.0,
-              child: HeaderCardName(ESTACION, gradientBlueColor)),
-        ]
-      ),
+        ),
+        Positioned(
+          left: 50.0,
+          child: FutureBuilder<Estacion>(
+              future: getEstacionFromDB(),
+              builder: (contex, snapshot) {
+                if (snapshot.data != null) {
+                  if (snapshot.hasData != null) {
+                    return HeaderCardName(
+                        snapshot.data.name, gradientBlueColor);
+                  }
+                }
+                return Container(
+                  alignment: AlignmentDirectional.center,
+                  child: CircularProgressIndicator(),
+                );
+              }),
+        ),
+      ]),
     );
   }
 }

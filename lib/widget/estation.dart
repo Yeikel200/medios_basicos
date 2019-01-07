@@ -32,9 +32,7 @@ class _EstacionState extends State<Estacion> {
           decorationStyle: TextDecorationStyle.wavy),
     );
   }
-  static  String value(){
 
-  }
 
   @override
   Widget build(BuildContext context) {

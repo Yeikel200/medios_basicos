@@ -1020,6 +1020,12 @@ class _StepperFormState extends State<StepperForm> {
           _scanner.idScanner);
       print(_estacion);
 
+      Motherboard.saveMotherboard(_motherboard, dbHelper.db);
+      Cpu.saveCpu(_cpu, dbHelper.db);
+      Ram.saveRam(_ram, dbHelper.db);
+      Hdd.saveHdd(_hdd, dbHelper.db);
+      DvdRw.saveDvdRw(_dvdRw, dbHelper.db);
+
       UnidadCentral.saveUnidadCentral(_unidadCentral, dbHelper.db);
       Monitor.saveMonitor(_monitor, dbHelper.db);
       Teclado.saveTeclado(_teclado, dbHelper.db);

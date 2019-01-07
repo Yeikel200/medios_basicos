@@ -19,12 +19,12 @@ class Estacion {
   String _idScanner;
   String _idImpresora;
 
-  Estacion(@required this._name, @required this._area, @required this._encargado, this._idUnidadCentral) {
+  Estacion(@required this._name, @required this._area,
+      @required this._encargado, this._idUnidadCentral) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
-  Estacion.ucMonitor(this._name, this._area, this._encargado,
-       this._idMonitor) {
+  Estacion.ucMonitor(this._name, this._area, this._encargado, this._idMonitor) {
     this._idEstacion = _randomId.v1().toString().substring(24, 36);
   }
 
@@ -222,6 +222,23 @@ class Estacion {
 
     print(estacionList);
     return estacionList;
+  }
+
+  static Future<Estacion> getEstacion(
+      Future<Database> db, String idEstacion) async {
+    var dbClient = await db;
+    List<Map> queryEstacion = await dbClient.query('$TAB_ESTACION',
+        where: '$CAMP_ID_ESTACION = ? ', whereArgs: [idEstacion]);
+
+    print(queryEstacion.length);
+
+    if (queryEstacion.isNotEmpty) {
+      print(Estacion);
+      return Estacion.fromMap(queryEstacion.first);
+    }else{
+      return null;
+    }
+
   }
 
   String get encargado => _encargado;
